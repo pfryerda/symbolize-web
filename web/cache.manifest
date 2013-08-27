@@ -1,0 +1,13 @@
+CACHE MANIFEST
+
+/css/default.css
+/css/custom.css
+
+/js/cards.js
+/js/zepto.js
+/js/touchy.js
+/js/app.js
+/js/analytics.js
+
+NETWORK:
+*

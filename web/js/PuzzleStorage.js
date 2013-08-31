@@ -1,37 +1,31 @@
-//level: [line] [puzzle] -> level
-//A level contains the lines for the graph and an array of puzzle soluntions. Which contain the correct lines,  
-//the neccecary rotation and then the details containing strings for the description and hints
-function Level(graph, puzzles) {
+//Level: [Line] [Puzzle] -> Level
+//A level contains the lines for the graph(As they appear at the start), and an array of puzzle soluntions. 
+//Which contain the correct lines, the neccecary rotation, and then some hints
+function Level(g, ps) {
     "use strict";
-    return {"graph" : graph, "puzzles" : puzzles};
+    return {"graph" : g, "puzzles" : ps};
 }
 
 
-//puzzle: solution details -> puzzle
-function Puzzle(soln, dets) {
+//Puzzle: Solution [String] -> Puzzle
+function Puzzle(soln, hs) {
     "use strict";
-    return {"solution" : soln, "details" : dets};
+    return {"solution" : soln, "hints" : hs};
 }
 
-//solution: number [line] -> solution
-function Solution(roation, lines) {
+//Solution: number [Line] -> Solution
+function Solution(r, ls) {
     "use strict";
-    return {"solutionRoation" : roation, "solutionLines" : lines};
+    return {"roation" : r, "lines" : ls};
 }
 
-//details: String String String String -> details
-function Details(description, hint1, hint2, hint3) {
+//Line: Posn Posn -> Line
+function Line(point1, point2) {
     "use strict";
-    return {"description" : description, "hint1" : hint1, "hint2" : hint2, "hint3" : hint3};
+    return {"p1" : point1, "p2" : point2};
 }
 
-//line: posn posn -> line
-function Line(p1, p2) {
-    "use strict";
-    return {"p1" : p1, "p2" : p2};
-}
-
-//posn: number number -> posn
+//Posn: number number -> Posn
 function Posn(c, l) {
     "use strict";
     return {"x" : c, "y" : l};

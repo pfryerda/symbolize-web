@@ -17,10 +17,10 @@ function Puzzle(soln, hs) {
     return {"solution" : soln, "hints" : hs};
 }
 
-//Solution: Number[0,360) Graph -> Solution
-function Solution(r, ls) {
+//Solution: Number[0,360) Bool Graph -> Solution
+function Solution(r, f, ls) {
     "use strict";
-    return {"roation" : r, "sGraph" : ls};
+    return {"roation" : r, "isFliped" : f, "isFlipedV" : v, "sGraph" : ls};
 }
 
 //Line: Posn Posn -> Line

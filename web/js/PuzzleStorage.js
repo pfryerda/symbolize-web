@@ -3,7 +3,7 @@
 
 
 //Level: Graph [Puzzle] -> Level
-//A level contains the lines for the graph(As they appear at the start), and an array of puzzle soluntions. 
+//A level contains the lines for the graph(As they appear at the start), and an array of puzzle solutions. 
 //Which contain the correct lines, the neccecary rotation, and then some hints
 function Level(g, ps) {
     "use strict";

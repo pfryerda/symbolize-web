@@ -25,10 +25,22 @@ function getPuzzle(l, n) {
 }
 
 
-//getHints: Puzzle -> [String]
-function getHints(p) {
+//getHint1: Puzzle -> String
+function getHint1(p) {
     "use strict";
-    return p.hints;
+    return p.hint1;
+}
+
+//getHint2: Puzzle -> String
+function getHint1(p) {
+    "use strict";
+    return p.hint2;
+}
+
+//getSolutionFlip: Puzzle -> Bool
+function getSolutionFlip(p) {
+    "use strict";
+    return p.solution.isFlipped;
 }
 
 //getSolutionRotation: Puzzle -> Number[0,360)
@@ -82,45 +94,57 @@ function solutionCheck(s1, s2) {
 //Graphing Functions
 //-------------------
 
-//rotateGraph: Number[0,360) -> Void
-function rotateGraph(angle) {
-    "use strict";
-    var a = angle % 360
-    if (a == 0){ ctx.translate(0, 0); }
-    else if (a == 90) { ctx.translate(c.width, 0); }
-    else if (a == 180) { ctx.translate(c.width, c.height); }
-    else if (a == 270) { ctx.translate(0, c.height)}
-    ctx.rotate(a * Math.PI / 180);
+var c = document.getElementById("gameCanvas");   //Canvas
+var ctx = c.getContext("2d");                    //Context
+var w = 20;                                      //Max number for the width of the graph
+var h = 30;                                      //Max number for the height of the graph
+//Note these two numbers still need to be decided!
+
+
+//clearCanvas: Void
+function clearCanvas() {
+   "use strict";
+   c.width=c.width;
 }
 
 //flipGraph: Void
 function flipGraph() {
     "use strcit";
-    ctx.translate(0, c.height);
+    ctx.translate(0, h);
     ctx.scale(1, -1);
 } 
+
+//rotateGraph: Number[0,360) -> Void
+function rotateGraph(angle) {
+    "use strict";
+    var a = angle % 360
+    if (a == 0){ ctx.translate(0, 0); }
+    else if (a == 90) { ctx.translate(w, 0); }
+    else if (a == 180) { ctx.translate(w, h); }
+    else if (a == 270) { ctx.translate(0, h)}
+    ctx.rotate(a * Math.PI / 180);
+}
 
 //drawLine: Line -> Void
 function drawLine(l) {
     "use strict";
-    ctx.moveTo(l.p1.x + 0.5, l.p2.y + 0.5);
-    ctx.lineTo(l.p2.x + 0.5, l.p2.y + 0.5);
+    ctx.moveTo(l.p1.x + (0.5 / w), l.p2.y + (0.5 / h));
+    ctx.lineTo(l.p2.x + (0.5 / w), l.p2.y + (0.5 / h));
 }
 
 //drawGraph: Solution -> Void
 function drawGraph(s) {
     "use strict";
     
-    var c = document.getElementById("unamedCanvas"); //Canvas
-    var ctx = c.getContext("2d");                    //Context
-
     var g = s.sGraph;                                //Graph
     var r = s.roation;                               //Rotation
     var f = s.isFliped;                              //Boolean stating if canvas is to be flipped
   
+    clearCanvas()                                    //Clears the canvas
     ctx.save();                                      //Saves current coords
+    ctx.scale(c.width / w,  c.height / h)            //Scales the graph to have a max width of w and hieght of h
+    if(f) { flipGraph(); }                           //Flips vertically if f is true
     rotateGraph(r);                                  //Sets the proper rotation
-    if(f) { flipGraph(); }                           //Flips vertically if called
 
     for (var i=0;i<g.length;i++) { drawLine(g[i]); } //Sets the lines to be drawn
 

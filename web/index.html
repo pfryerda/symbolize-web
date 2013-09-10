@@ -17,24 +17,47 @@
       </div>
       <div class="app-content">
         <div class="app-section">
-          <div class="app-button" data-target="page2">Go to Page 2</div>
+          <div class="app-button" data-target="game">Play!</div>
         </div>
       </div>
     </div>
 
-    <div class="app-page" data-page="page2">
+    <div class="app-page" data-page="game">
       <div class="app-topbar">
-        <div class="app-button left" data-back="true">Back</div>
-        <div class="app-title">Page 2</div>
+        <div class="app-button left" data-target="levels">Levels</div> <!-- Need to make this a grid graphic -->
+        <div class="app-title">Level 1</div>
       </div>
       <div class="app-content">
-        Page 2 is lonely
+        <div class="app-section">
+          <canvas id="gameCanvas" width="270" height="300" style="border:1px solid #d3d3d3;">Your browser does not support HTML5 Canvas.  Sucks to be you.</canvas>
+
+          <div class="tools">
+          Text
+            <!-- need to put tool images here, there are 5 of them -->
+          </div>
+
+          <div class="app-button">Clear</div>
+          <div class="app-button">Reset</div>
+
+        </div>
       </div>
     </div>
 
-    <script src="zepto.js"></script>
-    <script src="app.js"></script>
-    <script src="main.js"></script>
+    <div class="app-page" data-page="levels">
+      <div class="app-topbar">
+        <div class="app-button left" data-back="true">Back</div>
+        <div class="app-title">Levels</div>
+      </div>
+      <div class="app-content">
+        <div class="app-section">
+        </div>
+      </div>
+    </div>
+
+    <script src="js/zepto.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/cards.js"></script>
+    <script src="js/main.js"></script>
     
   </body>
 </html>

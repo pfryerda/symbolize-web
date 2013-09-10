@@ -1,16 +1,20 @@
 /* TO DO */
 
 App.populator('home', function (page) {
-// put stuff here
+	console.log("loaded home");
 });
 
-App.populator('page2', function (page) {
-// put stuff here
+App.populator('game', function (page) {
+	console.log("loaded game");
+});
+
+App.populator('levels', function (page) {
+	console.log("loaded levels");
 });
 
 try {
 App.restore();
 }
 catch (err) {
-App.load('home');
+App.load('game');
 }

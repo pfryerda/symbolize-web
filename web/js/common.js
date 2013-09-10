@@ -142,7 +142,7 @@ function drawGraph(s) {
   
     clearCanvas();                                   //Clears the canvas
     ctx.save();                                      //Saves current coords
-    ctx.scale(c.width / w,  c.height / h)            //Scales the graph to have a max width of w and hieght of h
+    ctx.scale(c.width / w,  c.height / h);           //Scales the graph to have a max width of w and hieght of h
     if(f) { flipGraph(); }                           //Flips vertically if f is true
     rotateGraph(r);                                  //Sets the proper rotation
 

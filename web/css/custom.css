@@ -1,1 +1,20 @@
-/* TO DO */
+.tools
+{
+	width: 100%;
+	height:60px;
+}
+
+.app-button.tool
+{
+	width: 20%;
+	height:50px;
+	/*border: 1px solid black;*/
+	float: left;
+	
+}
+
+
+/*.app-button.pencil.active changes the image source when active
+{
+	background-image: url(../img/rotate.png); ../ goes up a dir
+}*/

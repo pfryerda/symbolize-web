@@ -6,6 +6,9 @@
 //Getter functions
 //----------------
 
+
+//Get functions for levels
+
 //getLevel: Number -> Level
 function getLevel(n) {
     "use strict";
@@ -18,12 +21,26 @@ function getGraph(l) {
     return l.graph;
 }
 
-//getPuzzle: Level number -> Puzzle
+//getPuzzle: Level Number -> Puzzle
 function getPuzzle(l, n) {
     "use strict";
     return l.puzzles[n];
 }
 
+
+//Get functions for puzzles
+
+//getDrawRestriction: Puzzle -> Number[0,∞)
+function getDrawRestriction(p) {
+    "use strict";
+    return p.restriction.draw;
+}
+
+//getEraseRestriction: Puzzle -> Number[0,∞)
+function getDrawRestriction(p) {
+    "use strict";
+    return p.restriction.erase;
+}
 
 //getHint1: Puzzle -> String
 function getHint1(p) {

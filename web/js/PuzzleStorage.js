@@ -13,10 +13,16 @@ function Level(g, ps) {
 }
 
 
-//Puzzle: Solution String String -> Puzzle
-function Puzzle(soln, h1, h2) {
+//Puzzle: Solution Restriction String String -> Puzzle
+function Puzzle(soln, res, h1, h2) {
     "use strict";
-    return {"solution" : soln, "hint1" : h1, "hint2" : h2};
+    return {"solution" : soln, "restriction" : res, "hint1" : h1, "hint2" : h2};
+}
+
+//Restriction: Number[0,∞) Number[0,∞) -> Restriction
+function Restriction(d, e) {
+    "use strict";
+    return ("draw" : d, "erase" : e);
 }
 
 //Solution: Number[0,360) Bool Graph -> Solution

@@ -22,10 +22,10 @@ function Puzzle(soln, res, h1, h2) {
 //Restriction: Number[0,∞) Number[0,∞) -> Restriction
 function Restriction(d, e) {
     "use strict";
-    return ("draw" : d, "erase" : e);
+    return {"draw" : d, "erase" : e};
 }
 
-//Solution: Number[0,360) Bool Graph -> Solution
+//Solution: Number[%90==0] Bool Graph -> Solution
 function Solution(r, f, ls) {
     "use strict";
     return {"roation" : r, "isFliped" : f, "sGraph" : ls};
@@ -41,4 +41,11 @@ function Line(point1, point2) {
 function Posn(c, l) {
     "use strict";
     return {"x" : c, "y" : l};
+}
+
+
+//UserSolution: UserSolution Solution UserSolution -> UserSolution
+function UserSolution(b, s, f) {
+    "use strict";
+    return {"back" : b, "solution" : s, "forward" : f};
 }

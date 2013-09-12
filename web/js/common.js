@@ -60,7 +60,7 @@ function getSolutionFlip(p) {
     return p.solution.isFlipped;
 }
 
-//getSolutionRotation: Puzzle -> Number[0,360)
+//getSolutionRotation: Puzzle -> Number[%90==0]
 function getSolutionRotation(p) {
     "use strict";
     return p.solution.roation;
@@ -70,6 +70,23 @@ function getSolutionRotation(p) {
 function getSolutionGraph(p) {
     "use strict";
     return p.solution.sGraph;
+}
+
+
+//Functions for UserSolution
+
+//undo: UserSolution -> UserSolution
+function undo(u) {
+    "use strict";
+    var newSoln = u.back;
+    newSoln.forward = u;
+    return newSoln;
+}
+
+//redo: UserSolution -> UserSolution
+function redo(u) {
+    "use strict";
+    return u.forward;
 }
 
 
@@ -101,10 +118,12 @@ function graphEqual(g1, g2) {
     return g1.sort(lineLT) === g2.sort(lineLT);
 }
 
-//solutionCheck: Solution Solution -> Bool
-function solutionCheck(s1, s2) {
+//solutionCheck: Solution UserSolution -> Bool
+function solutionCheck(s1, u) {
     "use strict";
-    return (s1.roation % 360) === (s2.roation % 360) && graphEqual(s1.sGraph, s2.sGraph);
+    var s2 = u.solution;
+    return ((s1.roation % 360) === (s2.roation % 360) && (s1.isFliped) === (s2.isFliped)
+        && graphEqual(s1.sGraph, s2.sGraph));
 }
 
 
@@ -120,25 +139,25 @@ var h = 30;                                      //Max number for the height of 
 
 //clearCanvas: Void
 function clearCanvas() {
-   "use strict";
-   c.width=c.width;
+    "use strict";
+    c.width = c.width;
 }
 
 //flipGraph: Void
 function flipGraph() {
-    "use strcit";
+    "use strict";
     ctx.translate(0, h);
     ctx.scale(1, -1);
-} 
+}
 
-//rotateGraph: Number[0,360) -> Void
+//rotateGraph: Number[%90==0] -> Void
 function rotateGraph(angle) {
     "use strict";
-    var a = angle % 360
-    if (a == 0){ ctx.translate(0, 0); }
-    else if (a == 90) { ctx.translate(w, 0); }
-    else if (a == 180) { ctx.translate(w, h); }
-    else if (a == 270) { ctx.translate(0, h)}
+    var a = angle % 360;
+    if (a === 0) { ctx.translate(0, 0); }
+    else if (a === 90) { ctx.translate(w, 0); }
+    else if (a === 180) { ctx.translate(w, h); }
+    else if (a === 270) { ctx.translate(0, h); }
     ctx.rotate(a * Math.PI / 180);
 }
 
@@ -152,21 +171,22 @@ function drawLine(l) {
 //drawGraph: Solution -> Void
 function drawGraph(s) {
     "use strict";
-    
-    var g = s.sGraph;                                //Graph
-    var r = s.roation;                               //Rotation
-    var f = s.isFliped;                              //Boolean stating if canvas is to be flipped
-  
-    clearCanvas();                                   //Clears the canvas
-    ctx.save();                                      //Saves current coords
-    ctx.scale(c.width / w,  c.height / h);           //Scales the graph to have a max width of w and hieght of h
-    if(f) { flipGraph(); }                           //Flips vertically if f is true
-    rotateGraph(r);                                  //Sets the proper rotation
 
-    for (var i=0;i<g.length;i++) { drawLine(g[i]); } //Sets the lines to be drawn
+    var g, r, f, i;
+    g = s.sGraph;                                      //Graph
+    r = s.roation;                                     //Rotation
+    f = s.isFliped;                                    //Boolean stating if canvas is to be flipped
 
-    ctx.stroke();                                    //Draws the set lines
-    ctx.restore();                                   //Resets the coords for the next draw
+    clearCanvas();                                     //Clears the canvas
+    ctx.save();                                        //Saves current coords
+    ctx.scale(c.width / w,  c.height / h);             //Scales the graph to have a max width of w and hieght of h
+    if (f) { flipGraph(); }                            //Flips vertically if f is true
+    rotateGraph(r);                                    //Sets the proper rotation
+
+    for (i = 0; i < g.length; i++) { drawLine(g[i]); } //Sets the lines to be drawn
+
+    ctx.stroke();                                      //Draws the set lines
+    ctx.restore();                                     //Resets the coords for the next draw
 }
 
 /*

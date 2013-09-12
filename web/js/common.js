@@ -37,7 +37,7 @@ function getDrawRestriction(p) {
 }
 
 //getEraseRestriction: Puzzle -> Number[0,∞)
-function getDrawRestriction(p) {
+function getEraseRestriction(p) {
     "use strict";
     return p.restriction.erase;
 }

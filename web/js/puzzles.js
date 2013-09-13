@@ -10,7 +10,7 @@ var gameCanvas, ctx, scaledWidth, Levels, currLevelNum, currLevel, currSoln;
 
 gameCanvas = document.getElementById("gameCanvas");                       //Canvas
 ctx = c.getContext("2d");                                                 //Context
-scaledWidth = 100;      //Note this number still need to be decided!      //Max number for the width and height of the graph
+scaledWidth = 50;       //Note this number still need to be decided!      //Max number for the width and height of the graph
 
 currLevelNum = 1;                                                         //Defaults level 1
 currLevel = Levels[currLevelNum - 1];                                     //Defaults level 1
@@ -24,17 +24,17 @@ Levels = new Array();
 
 
  //Graph: '>' -> Solution: 'K'
-Levels[0] = new Level([new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90))],
-	new Solution(180, false, [new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90)), new Line(new Posn(50, 10), new Posn(50, 90))]),
+Levels[0] = new Level([new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45))],
+	new Solution(180, false, [new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45)), new Line(new Posn(25, 5), new Posn(25, 45))]),
 		new Restriction(1, 0), "", "The 11th letter in the alphabet");
 
 //Graph: '>' -> Solution: 'A'
-Levels[1] = new Level([new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90))],
-	new Solution(270, false, [new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90)), new Line(new Posn(30, 30), new Posn(30, 70))]),
+Levels[1] = new Level([new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45))],
+	new Solution(270, false, [new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45)), new Line(new Posn(15, 15), new Posn(15, 35))]),
 		new Restriction(1, 0), "", "Your favourite grade!");
 
 //Graph: '>' -> Solution: 'Y'
-Levels[2] = new Level([new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90))],
-	new Solution(180, false, [new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90)), new Line(new Posn(50, 50), new Posn(100, 50))]),
+Levels[2] = new Level([new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45))],
+	new Solution(180, false, [new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45)), new Line(new Posn(25, 25), new Posn(50, 25))]),
 		new Restriction(1, 0), "", "");
 

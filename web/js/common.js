@@ -60,107 +60,6 @@ function getSolutionGraph(l) {
     return l.solution.sGraph;
 }
 
-
-//Functions for buttons and events
-//--------------------------------
-
-
-//undo: Void
-function undo() {
-    "use strict";
-    var newSoln = currSoln.back;
-    newSoln.forward = currSoln;
-    currSoln = newSoln;
-    drawSolution(currSoln);
-}
-
-//redo: Void
-function redo() {
-    "use strict";
-    currSoln = currSoln.forward;
-    drawSolution(currSoln);
-}
-
-//activateDrawMode: Void
-function activateDrawMode() {
-    "use strict";
-    inDrawMode = true;
-    inEraseMode = !isDrawMode;
-}
-
-//activateEraseMode: Void
-function activateEraseMode() {
-    "use strict";
-    inEraseMode = true;
-    inDrawMode = !isEraseMode;
-    
-}
-
-//rotateGraph: Void
-function rotateGraph() {
-   "use strict";
-   var newSoln, r; 
-   newSoln = currSoln;
-   r = newSoln.solution.roation;
-
-   newSoln.solution.roation = (r + 90) % 360;
-   newSoln.back = currSoln;
-   currSoln = newSoln;
-   drawSolution(currSoln);
-}
-
-//flipGraph: Void
-function flipGraph() {
-   "use strict";
-   var newSoln, f;
-   newSoln = currSoln;
-   f = newSoln.solution.isFliped;
-
-   newSoln.solution.isFliped = !f;
-   newSoln.back = currSoln;
-   currSoln = newSoln;
-   drawSolution(currSoln);
-}
-
-//addLine: Posn Posn -> Void
-function addLine(pon1, pon2) {
-   "use strict";
-   var newSoln, l; 
-   newSoln = currSoln;
-   l = new Line(pon1, pon2);
-
-   newSoln.solution.sGraph.push(l);
-   newSoln.back = currSoln;
-   currSoln = newSoln;
-   drawLine(l);
-}
-
-//removeLine: Posn -> Void
-function removeLine(p) {
-    "use strict";
-    var newSoln, g, index; 
-    index = getErasedIndex(p, g);
-    if (index > -1) {
-      newSoln = currSoln;
-      g = newSoln.solution.sGraph;
-     
-      newSoln.solution.sGraph = newSoln.solution.sGraph.splice(index, 1)
-      newSoln.back = currSoln;
-      currSoln = newSoln;
-      drawSolution(currSoln);
-    }
-}
-
-//getErasedIndex: Posn Graph -> Number[0,∞)
-function getErasedIndex(p, g) {
-    "use strict";
-    for(var i; i < g.length; i++) {
-        if ((p === g[i].p1) || (p === g[i].p1)) { return i; }
-    }
-    return -1;
-}
-
-
 //Functions used to check for the corect solution
 //-----------------------------------------------
 
@@ -219,10 +118,24 @@ function flipCanvas() {
 function rotateCanvas(angle) {
     "use strict";
     var a = angle % 360;
-    if (a === 0) { ctx.translate(0, 0); }
-    else if (a === 90) { ctx.translate(scaling, 0); }
-    else if (a === 180) { ctx.translate(scaling, scaling); }
-    else if (a === 270) { ctx.translate(0, scaling); }
+    switch (a) {
+    case 0:
+        ctx.translate(0, 0);
+        break;
+    case 90:
+        ctx.translate(scaling, 0);
+        break;
+    case 180:
+        ctx.translate(scaling, scaling);
+        break;
+    case 270:
+        ctx.translate(0, scaling);
+        break;
+    default:
+        throw new RangeError("rotateCanvas given a number other than 0, 90, 180, or 270")  //Should never happen
+        breal;
+
+    }
     ctx.rotate(a * Math.PI / 180);
 }
 
@@ -236,8 +149,9 @@ function drawLine(l) {
 
 //drawGraph: Graph -> Void
 function drawGraph(g) {
-   "use strict";
-   for(var i = 0; i < g.length; i++) {drawLine(g[i]); }
+    "use strict";
+    var i;
+    for (i = 0; i < g.length; i += 1) {drawLine(g[i]); }
 }
 
 //drawSolution: UserSolution -> Void
@@ -251,14 +165,114 @@ function drawSolution(u) {
 
     clearCanvas();                           //Clears the canvas
     ctx.save();                              //Saves current coords
-    ctx.scale(gameCanvas.width / scaling,  
+    ctx.scale(gameCanvas.width / scaling,
         gameCanvas.height / scaling);        //Scales the graph to have a max width and hiehgt of scaling
 
     if (f) { flipCanvas(); }                 //Flips vertically if f is true
     rotateCanvas(r);                         //Sets the proper rotation
-    drawGraph(g)                             //Draws the graph
+    drawGraph(g);                            //Draws the graph
 
     ctx.restore();                           //Resets the coords for the next draw
+}
+
+
+//Functions for buttons and events
+//--------------------------------
+
+
+//undo: Void
+function undo() {
+    "use strict";
+    var newSoln = currSoln.back;
+    newSoln.forward = currSoln;
+    currSoln = newSoln;
+    drawSolution(currSoln);
+}
+
+//redo: Void
+function redo() {
+    "use strict";
+    currSoln = currSoln.forward;
+    drawSolution(currSoln);
+}
+
+//activateDrawMode: Void
+function activateDrawMode() {
+    "use strict";
+    inDrawMode = true;
+    inEraseMode = !inDrawMode;
+}
+
+//activateEraseMode: Void
+function activateEraseMode() {
+    "use strict";
+    inEraseMode = true;
+    inDrawMode = !inEraseMode;
+}
+
+//rotateGraph: Void
+function rotateGraph() {
+    "use strict";
+    var newSoln, r;
+    newSoln = currSoln;
+    r = newSoln.solution.roation;
+
+    newSoln.solution.roation = (r + 90) % 360;
+    newSoln.back = currSoln;
+    currSoln = newSoln;
+    drawSolution(currSoln);
+}
+
+//flipGraph: Void
+function flipGraph() {
+    "use strict";
+    var newSoln, f;
+    newSoln = currSoln;
+    f = newSoln.solution.isFliped;
+
+    newSoln.solution.isFliped = !f;
+    newSoln.back = currSoln;
+    currSoln = newSoln;
+    drawSolution(currSoln);
+}
+
+//addLine: Posn Posn -> Void
+function addLine(pon1, pon2) {
+    "use strict";
+    var newSoln, l;
+    newSoln = currSoln;
+    l = new Line(pon1, pon2);
+
+    newSoln.solution.sGraph.push(l);
+    newSoln.back = currSoln;
+    currSoln = newSoln;
+    drawLine(l);
+}
+
+//getErasedIndex: Posn Graph -> Number[0,∞)   Used only for removeLine
+function getErasedIndex(p, g) {
+    "use strict";
+    var i;
+    for (i = 0; i < g.length; i += 1) {
+        if ((p === g[i].p1) || (p === g[i].p2)) { return i; }
+    }
+    return -1;
+}
+
+//removeLine: Posn -> Void
+function removeLine(p) {
+    "use strict";
+    var newSoln, g, index;
+    index = getErasedIndex(p, g);
+    if (index > -1) {
+        newSoln = currSoln;
+        g = newSoln.solution.sGraph;
+
+        newSoln.solution.sGraph = newSoln.solution.sGraph.splice(index, 1);
+        newSoln.back = currSoln;
+        currSoln = newSoln;
+        drawSolution(currSoln);
+    }
 }
 
 
@@ -268,10 +282,18 @@ function drawSolution(u) {
 
 //loadLevel: Number -> Void
 function loadLevel(n) {
-   "use strict";
-   currLevel = getLevel(n - 1);
-   currSoln = UserSolution("", Solution(0, false, getGraph(currLevel)), "");
+    "use strict";
+    currLevel = getLevel(n - 1);
+    currSoln = new UserSolution("", new Solution(0, false, getGraph(currLevel)), "");
 }
+
+
+
+
+
+
+
+
 
 /*
 Example Canvas:

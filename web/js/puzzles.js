@@ -6,12 +6,12 @@
 //Variable Declaration
 //-------------------
 
-var c, ctx, w, h, Levels, currLevelNum, currLevel, currSoln;
-c = document.getElementById("gameCanvas");                                //Canvas
+var gameCanvas, ctx, scaledWidth, Levels, currLevelNum, currLevel, currSoln;
+
+gameCanvas = document.getElementById("gameCanvas");                       //Canvas
 ctx = c.getContext("2d");                                                 //Context
-w = 100;                                                                  //Max number for the width of the graph
-h = 100;                                                                  //Max number for the height of the graph
-//Note these two numbers still need to be decided!
+scaledWidth = 100;      //Note this number still need to be decided!      //Max number for the width and height of the graph
+
 currLevelNum = 1;                                                         //Defaults level 1
 currLevel = Levels[currLevelNum - 1];                                     //Defaults level 1
 currSoln = UserSolution("", Solution(0, false, getGraph(currLevel)), ""); //Defaults level 1
@@ -37,3 +37,4 @@ Levels[1] = new Level([new Line(new Posn(10, 10), new Posn(50, 50)), new Line(ne
 Levels[2] = new Level([new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90))],
 	new Solution(180, false, [new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90)), new Line(new Posn(50, 50), new Posn(100, 50))]),
 		new Restriction(1, 0), "", "");
+

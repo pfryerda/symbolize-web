@@ -3,22 +3,8 @@
 //Written by: Luke Brown
 
 
-//Variable Definition
-//-------------------
-
-var c, ctx, w, h, currLevel, currPuzzle, currSoln;
-c = document.getElementById("gameCanvas");   //Canvas
-ctx = c.getContext("2d");                    //Context
-w = 20;                                      //Max number for the width of the graph
-h = 30;                                      //Max number for the height of the graph
-//Note these two numbers still need to be decided!
-
-
 //Getter functions
 //----------------
-
-
-//Get functions for levels
 
 //getLevel: Number -> Level
 function getLevel(n) {
@@ -32,59 +18,57 @@ function getGraph(l) {
     return l.graph;
 }
 
-//getPuzzle: Level Number -> Puzzle
-function getPuzzle(l, n) {
+//getDrawRestriction: Level -> Number[0,∞)
+function getDrawRestriction(l) {
     "use strict";
-    return l.puzzles[n];
+    return l.restriction.draw;
 }
 
-
-//Get functions for puzzles
-
-//getDrawRestriction: Puzzle -> Number[0,∞)
-function getDrawRestriction(p) {
+//getEraseRestriction: Level -> Number[0,∞)
+function getEraseRestriction(l) {
     "use strict";
-    return p.restriction.draw;
+    return l.restriction.erase;
 }
 
-//getEraseRestriction: Puzzle -> Number[0,∞)
-function getEraseRestriction(p) {
+//getHint1: Level -> String
+function getHint1(l) {
     "use strict";
-    return p.restriction.erase;
+    return l.hint1;
 }
 
-//getHint1: Puzzle -> String
-function getHint1(p) {
+//getHint2: Level -> String
+function getHint1(l) {
     "use strict";
-    return p.hint1;
+    return l.hint2;
 }
 
-//getHint2: Puzzle -> String
-function getHint1(p) {
+//getSolutionFlip: Level -> Bool
+function getSolutionFlip(l) {
     "use strict";
-    return p.hint2;
+    return l.solution.isFliped;
 }
 
-//getSolutionFlip: Puzzle -> Bool
-function getSolutionFlip(p) {
+//getSolutionRotation: Level -> Number[%90==0]
+function getSolutionRotation(l) {
     "use strict";
-    return p.solution.isFlipped;
+    return l.solution.roation;
 }
 
-//getSolutionRotation: Puzzle -> Number[%90==0]
-function getSolutionRotation(p) {
+//getSolutionGraph: Level -> Graph
+function getSolutionGraph(l) {
     "use strict";
-    return p.solution.roation;
-}
-
-//getSolutionGraph: Puzzle -> Graph
-function getSolutionGraph(p) {
-    "use strict";
-    return p.solution.sGraph;
+    return l.solution.sGraph;
 }
 
 
 //Functions for UserSolution
+//--------------------------
+
+//getUserSoultion: UserSolution -> Solution
+function getUserSoultion(u) {
+   "use strict";
+   return u.solution;
+}
 
 //undo: UserSolution -> UserSolution
 function undo(u) {
@@ -173,11 +157,17 @@ function drawLine(l) {
     ctx.lineTo(l.p2.x + (0.5 / w), l.p2.y + (0.5 / h));
 }
 
+//drawGraph: Graph -> Void
+function drawGraph(g) {
+   "use strict";
+   for(var i = 0; i < g.length; i++) {drawLine(g[i]); }
+}
+
 //drawGraph: Solution -> Void
 function drawGraph(s) {
     "use strict";
 
-    var g, r, f, i;
+    var g, r, f;
     g = s.sGraph;                                      //Graph
     r = s.roation;                                     //Rotation
     f = s.isFliped;                                    //Boolean stating if canvas is to be flipped
@@ -187,8 +177,7 @@ function drawGraph(s) {
     ctx.scale(c.width / w,  c.height / h);             //Scales the graph to have a max width of w and hieght of h
     if (f) { flipGraph(); }                            //Flips vertically if f is true
     rotateGraph(r);                                    //Sets the proper rotation
-
-    for (i = 0; i < g.length; i++) { drawLine(g[i]); } //Sets the lines to be drawn
+    drawGraph(g)                                       //Sets the lines to be drawn
 
     ctx.stroke();                                      //Draws the set lines
     ctx.restore();                                     //Resets the coords for the next draw
@@ -203,14 +192,7 @@ function drawGraph(s) {
 function loadLevel(n) {
    "use strict";
    currLevel = getLevel(n - 1);
-   loadPuzzle(1);
-}
-
-//loadPuzzle: Number -> Void
-function loadPuzzle(n) {
-    "use strict";
-    currPuzzle = getPuzzle(currLevel, n - 1)
-    currSoln = UserSolution("", Solution(0, false, getGraph(l)), "");
+   currSoln = UserSolution("", Solution(0, false, getGraph(currLevel)), "");
 }
 
 /*

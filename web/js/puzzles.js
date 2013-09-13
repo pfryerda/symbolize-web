@@ -3,16 +3,37 @@
 //Written by: Luke Brown
 
 
-// An array containing all the Levels
-var Levels = new Array();
+//Variable Declaration
+//-------------------
 
-Levels[0] = new Level([new Line(new Posn(3, 7), new Posn(5, 5)), new Line(new Posn(5, 5), new Posn(3, 3))],    // StartShape = '>'
-    [
-        new Puzzle(new Solution(180, [new Line(new Posn(3, 7), new Posn(5, 5)), new Line(new Posn(5, 5), new Posn(3, 3)), new Line(new Posn(5, 7), new Posn(5, 3))]),
-            ["The 11th letter in the alphabet"]),                                                              // Answer = 'K'
-        new Puzzle(new Solution(270, [new Line(new Posn(3, 7), new Posn(5, 5)), new Line(new Posn(5, 5), new Posn(3, 3)), new Line(new Posn(4, 6), new Posn(4, 4))]),
-            []),                                                                                               // Answer = 'A'
-        new Puzzle(new Solution(90, [new Line(new Posn(3, 7), new Posn(5, 5)), new Line(new Posn(5, 5), new Posn(3, 3)), new Line(new Posn(5, 5), new Posn(10, 5))]),
-            [""])                                                                                              // Answer = 'Y'
-    ]
-    );
+var c, ctx, w, h, Levels, currLevelNum, currLevel, currSoln;
+c = document.getElementById("gameCanvas");                                //Canvas
+ctx = c.getContext("2d");                                                 //Context
+w = 100;                                                                  //Max number for the width of the graph
+h = 100;                                                                  //Max number for the height of the graph
+//Note these two numbers still need to be decided!
+currLevelNum = 1;                                                         //Defaults level 1
+currLevel = Levels[currLevelNum - 1];                                     //Defaults level 1
+currSoln = UserSolution("", Solution(0, false, getGraph(currLevel)), ""); //Defaults level 1
+
+
+// An array containing all the Levels
+//-----------------------------------
+
+Levels = new Array();
+
+
+ //Graph: '>' -> Solution: 'K'
+Levels[0] = new Level([new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90))],
+	new Solution(180, false, [new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90)), new Line(new Posn(50, 10), new Posn(50, 90))]),
+		new Restriction(1, 0), "", "The 11th letter in the alphabet");
+
+//Graph: '>' -> Solution: 'A'
+Levels[1] = new Level([new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90))],
+	new Solution(270, false, [new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90)), new Line(new Posn(30, 30), new Posn(30, 70))]),
+		new Restriction(1, 0), "", "Your favourite grade!");
+
+//Graph: '>' -> Solution: 'Y'
+Levels[2] = new Level([new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90))],
+	new Solution(180, false, [new Line(new Posn(10, 10), new Posn(50, 50)), new Line(new Posn(50, 50), new Posn(10, 90)), new Line(new Posn(50, 50), new Posn(100, 50))]),
+		new Restriction(1, 0), "", "");

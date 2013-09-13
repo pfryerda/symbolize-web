@@ -69,8 +69,10 @@
 
       if (os === "android")
       {
+        var titleText = document.getElementById("gameTitle").innerHTML;
+        // console.log(titleText);
         document.getElementById("gameTitle").innerHTML = '';
-        document.getElementById("gameBack").innerHTML = 'Level X';
+        document.getElementById("gameBack").innerHTML = titleText;
       }
 
     </script>

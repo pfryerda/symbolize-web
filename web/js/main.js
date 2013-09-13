@@ -1,4 +1,6 @@
-/* TO DO */
+
+//Need to make a function that allows me to highlight the current tool and deselect the other tools.
+
 
 App.populator('home', function (page) {
 	console.log("loaded home");
@@ -6,6 +8,10 @@ App.populator('home', function (page) {
 
 App.populator('game', function (page) {
 	console.log("loaded game");
+
+	$(page).find('.pencil').on('click', function () {
+		console.log("pencil");
+    });
 
 	$(page).find('.clear').on('click', function () {
 		console.log("clear");

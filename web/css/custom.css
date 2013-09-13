@@ -4,12 +4,14 @@
 	height: 50px;
 }
 
+
 .app-button.tool
 {
 	width: 20%;
 	height: 50px;
 	/*border: 1px solid black;*/
 	float: left;
+	background-color: blue;
 	
 }
 

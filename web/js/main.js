@@ -1,6 +1,3 @@
-
-
-
 //Need to make a function that allows me to highlight the current tool and deselect the other tools.
 
 
@@ -51,8 +48,8 @@ App.populator('levels', function (page) {
 });
 
 try {
-App.restore();
+	App.restore();
 }
 catch (err) {
-App.load('game');
+	App.load('home');
 }

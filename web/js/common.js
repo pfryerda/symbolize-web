@@ -3,6 +3,17 @@
 //Written by: Luke Brown
 
 
+//Variable Definition
+//-------------------
+
+var c, ctx, w, h, currLevel, currPuzzle, currSoln;
+c = document.getElementById("gameCanvas");   //Canvas
+ctx = c.getContext("2d");                    //Context
+w = 20;                                      //Max number for the width of the graph
+h = 30;                                      //Max number for the height of the graph
+//Note these two numbers still need to be decided!
+
+
 //Getter functions
 //----------------
 
@@ -130,12 +141,6 @@ function solutionCheck(s1, u) {
 //Graphing Functions
 //-------------------
 
-var c = document.getElementById("gameCanvas");   //Canvas
-var ctx = c.getContext("2d");                    //Context
-var w = 20;                                      //Max number for the width of the graph
-var h = 30;                                      //Max number for the height of the graph
-//Note these two numbers still need to be decided!
-
 
 //clearCanvas: Void
 function clearCanvas() {
@@ -187,6 +192,25 @@ function drawGraph(s) {
 
     ctx.stroke();                                      //Draws the set lines
     ctx.restore();                                     //Resets the coords for the next draw
+}
+
+
+//Loading Level Function
+//----------------------
+
+
+//loadLevel: Number -> Void
+function loadLevel(n) {
+   "use strict";
+   currLevel = getLevel(n - 1);
+   loadPuzzle(1);
+}
+
+//loadPuzzle: Number -> Void
+function loadPuzzle(n) {
+    "use strict";
+    currPuzzle = getPuzzle(currLevel, n - 1)
+    currSoln = UserSolution("", Solution(0, false, getGraph(l)), "");
 }
 
 /*

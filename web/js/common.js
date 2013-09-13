@@ -61,8 +61,8 @@ function getSolutionGraph(l) {
 }
 
 
-//Functions for UserSolution
-//--------------------------
+//Functions for buttons and events
+//--------------------------------
 
 
 //undo: Void
@@ -81,21 +81,29 @@ function redo() {
     drawSolution(currSoln);
 }
 
-//updateGraph: Graph -> Void
-function updateGraph(g) {
-   "use strict";
-   var newSoln = currSoln;
-   newSoln.solution.sGraph = g
-   newSoln.back = currSoln;
-   currSoln = newSoln;
-   drawSolution(currSoln);
+//activateDrawMode: Void
+function activateDrawMode() {
+    "use strict";
+    inDrawMode = true;
+    inEraseMode = !isDrawMode;
+}
+
+//activateEraseMode: Void
+function activateEraseMode() {
+    "use strict";
+    inEraseMode = true;
+    inDrawMode = !isEraseMode;
+    
 }
 
 //rotateGraph: Void
 function rotateGraph() {
    "use strict";
-   var newSoln = currSoln;
-   newSoln.solution.roation = (newSoln.solution.roation + 90) % 360;
+   var newSoln, r; 
+   newSoln = currSoln;
+   r = newSoln.solution.roation;
+
+   newSoln.solution.roation = (r + 90) % 360;
    newSoln.back = currSoln;
    currSoln = newSoln;
    drawSolution(currSoln);
@@ -104,11 +112,52 @@ function rotateGraph() {
 //flipGraph: Void
 function flipGraph() {
    "use strict";
-   var newSoln = currSoln;
-   newSoln.solution.isFliped = !newSoln.solution.isFliped;
+   var newSoln, f;
+   newSoln = currSoln;
+   f = newSoln.solution.isFliped;
+
+   newSoln.solution.isFliped = !f;
    newSoln.back = currSoln;
    currSoln = newSoln;
    drawSolution(currSoln);
+}
+
+//addLine: Posn Posn -> Void
+function addLine(pon1, pon2) {
+   "use strict";
+   var newSoln, l; 
+   newSoln = currSoln;
+   l = new Line(pon1, pon2);
+
+   newSoln.solution.sGraph.push(l);
+   newSoln.back = currSoln;
+   currSoln = newSoln;
+   drawLine(l);
+}
+
+//removeLine: Posn -> Void
+function removeLine(p) {
+    "use strict";
+    var newSoln, g, index; 
+    index = getErasedIndex(p, g);
+    if (index > -1) {
+      newSoln = currSoln;
+      g = newSoln.solution.sGraph;
+     
+      newSoln.solution.sGraph = newSoln.solution.sGraph.splice(index, 1)
+      newSoln.back = currSoln;
+      currSoln = newSoln;
+      drawSolution(currSoln);
+    }
+}
+
+//getErasedIndex: Posn Graph -> Number[0,∞)
+function getErasedIndex(p, g) {
+    "use strict";
+    for(var i; i < g.length; i++) {
+        if ((p === g[i].p1) || (p === g[i].p1)) { return i; }
+    }
+    return -1;
 }
 
 
@@ -182,6 +231,7 @@ function drawLine(l) {
     "use strict";
     ctx.moveTo(l.p1.x + (0.5 / scaling), l.p2.y + (0.5 / scaling));
     ctx.lineTo(l.p2.x + (0.5 / scaling), l.p2.y + (0.5 / scaling));
+    ctx.stroke();
 }
 
 //drawGraph: Graph -> Void
@@ -206,9 +256,8 @@ function drawSolution(u) {
 
     if (f) { flipCanvas(); }                 //Flips vertically if f is true
     rotateCanvas(r);                         //Sets the proper rotation
-    drawGraph(g)                             //Sets the lines to be drawn
+    drawGraph(g)                             //Draws the graph
 
-    ctx.stroke();                            //Draws the set lines
     ctx.restore();                           //Resets the coords for the next draw
 }
 

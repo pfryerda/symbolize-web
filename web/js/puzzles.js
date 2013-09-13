@@ -6,7 +6,7 @@
 //Variable Declaration
 //-------------------
 
-var gameCanvas, ctx, scaledWidth, Levels, currLevelNum, currLevel, currSoln;
+var gameCanvas, ctx, scaledWidth, Levels, currLevelNum, currLevel, currSoln, inDrawMode, inEraseMode;
 
 gameCanvas = document.getElementById("gameCanvas");         //Canvas
 ctx = c.getContext("2d");                                   //Context
@@ -15,6 +15,9 @@ scaling = 50; //Note this number still need to be decided!  //Max number for the
 currLevelNum = 1;                                                         //Defaults level 1
 currLevel = Levels[currLevelNum - 1];                                     //Defaults level 1
 currSoln = UserSolution("", Solution(0, false, getGraph(currLevel)), ""); //Defaults level 1
+
+inDrawMode = true;                                                        //Defaults Draw  Mode enabled
+inEraseMode = !isDrawMode;                                                //Defaults Erase Mode disabled
 
 
 // An array containing all the Levels

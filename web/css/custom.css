@@ -1,16 +1,34 @@
 .tools
 {
 	width: 100%;
-	height:60px;
+	height: 50px;
 }
 
 .app-button.tool
 {
 	width: 20%;
-	height:50px;
+	height: 50px;
 	/*border: 1px solid black;*/
 	float: left;
 	
+}
+
+.settings
+{
+	height: 50px;
+	margin: 0px;
+}
+
+.clear
+{
+	width: 50%;
+	float: left;
+}
+
+.reset
+{
+	width: 50%;
+	float: left;
 }
 
 .tool.pencil

@@ -8,9 +8,9 @@
 
 var gameCanvas, ctx, scaledWidth, Levels, currLevelNum, currLevel, currSoln;
 
-gameCanvas = document.getElementById("gameCanvas");                       //Canvas
-ctx = c.getContext("2d");                                                 //Context
-scaledWidth = 50;       //Note this number still need to be decided!      //Max number for the width and height of the graph
+gameCanvas = document.getElementById("gameCanvas");         //Canvas
+ctx = c.getContext("2d");                                   //Context
+scaling = 50; //Note this number still need to be decided!  //Max number for the width and height of the graph
 
 currLevelNum = 1;                                                         //Defaults level 1
 currLevel = Levels[currLevelNum - 1];                                     //Defaults level 1
@@ -35,6 +35,6 @@ Levels[1] = new Level([new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new 
 
 //Graph: '>' -> Solution: 'Y'
 Levels[2] = new Level([new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45))],
-	new Solution(180, false, [new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45)), new Line(new Posn(25, 25), new Posn(50, 25))]),
+	new Solution(90, false, [new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45)), new Line(new Posn(25, 25), new Posn(50, 25))]),
 		new Restriction(1, 0), "", "");
 

@@ -64,24 +64,51 @@ function getSolutionGraph(l) {
 //Functions for UserSolution
 //--------------------------
 
-//getUserSoultion: UserSolution -> Solution
-function getUserSoultion(u) {
+
+//undo: Void
+function undo() {
+    "use strict";
+    var newSoln = currSoln.back;
+    newSoln.forward = currSoln;
+    currSoln = newSoln;
+    drawSolution(currSoln);
+}
+
+//redo: Void
+function redo() {
+    "use strict";
+    currSoln = currSoln.forward;
+    drawSolution(currSoln);
+}
+
+//updateGraph: Graph -> Void
+function updateGraph(g) {
    "use strict";
-   return u.solution;
+   var newSoln = currSoln;
+   newSoln.solution.sGraph = g
+   newSoln.back = currSoln;
+   currSoln = newSoln;
+   drawSolution(currSoln);
 }
 
-//undo: UserSolution -> UserSolution
-function undo(u) {
-    "use strict";
-    var newSoln = u.back;
-    newSoln.forward = u;
-    return newSoln;
+//rotateGraph: Void
+function rotateGraph() {
+   "use strict";
+   var newSoln = currSoln;
+   newSoln.solution.roation = (newSoln.solution.roation + 90) % 360;
+   newSoln.back = currSoln;
+   currSoln = newSoln;
+   drawSolution(currSoln);
 }
 
-//redo: UserSolution -> UserSolution
-function redo(u) {
-    "use strict";
-    return u.forward;
+//flipGraph: Void
+function flipGraph() {
+   "use strict";
+   var newSoln = currSoln;
+   newSoln.solution.isFliped = !newSoln.solution.isFliped;
+   newSoln.back = currSoln;
+   currSoln = newSoln;
+   drawSolution(currSoln);
 }
 
 
@@ -132,29 +159,29 @@ function clearCanvas() {
     gameCanvas.width = gameCanvas.width;
 }
 
-//flipGraph: Void
-function flipGraph() {
+//flipCanvas: Void
+function flipCanvas() {
     "use strict";
-    ctx.translate(0, scaledWidth);
+    ctx.translate(0, scaling);
     ctx.scale(1, -1);
 }
 
-//rotateGraph: Number[%90==0] -> Void
-function rotateGraph(angle) {
+//rotateCanvas: Number[%90==0] -> Void
+function rotateCanvas(angle) {
     "use strict";
     var a = angle % 360;
     if (a === 0) { ctx.translate(0, 0); }
-    else if (a === 90) { ctx.translate(scaledWidth, 0); }
-    else if (a === 180) { ctx.translate(scaledWidth, scaledWidth); }
-    else if (a === 270) { ctx.translate(0, scaledWidth); }
+    else if (a === 90) { ctx.translate(scaling, 0); }
+    else if (a === 180) { ctx.translate(scaling, scaling); }
+    else if (a === 270) { ctx.translate(0, scaling); }
     ctx.rotate(a * Math.PI / 180);
 }
 
 //drawLine: Line -> Void
 function drawLine(l) {
     "use strict";
-    ctx.moveTo(l.p1.x + (0.5 / scaledWidth), l.p2.y + (0.5 / scaledWidth));
-    ctx.lineTo(l.p2.x + (0.5 / scaledWidth), l.p2.y + (0.5 / scaledWidth));
+    ctx.moveTo(l.p1.x + (0.5 / scaling), l.p2.y + (0.5 / scaling));
+    ctx.lineTo(l.p2.x + (0.5 / scaling), l.p2.y + (0.5 / scaling));
 }
 
 //drawGraph: Graph -> Void
@@ -168,21 +195,21 @@ function drawSolution(u) {
     "use strict";
 
     var g, r, f;
-    g = u.solution.sGraph;                                   //Graph
-    r = u.solution.roation;                                  //Rotation
-    f = u.solution.isFliped;                                 //Boolean stating if canvas is to be flipped
+    g = u.solution.sGraph;                   //Graph
+    r = u.solution.roation;                  //Rotation
+    f = u.solution.isFliped;                 //Boolean stating if canvas is to be flipped
 
-    clearCanvas();                                           //Clears the canvas
-    ctx.save();                                              //Saves current coords
-    ctx.scale(gameCanvas.width / scaledWidth,  
-        gameCanvas.height / scaledWidth);                    //Scales the graph to have a max width and hiehgt of scaledWidth
+    clearCanvas();                           //Clears the canvas
+    ctx.save();                              //Saves current coords
+    ctx.scale(gameCanvas.width / scaling,  
+        gameCanvas.height / scaling);        //Scales the graph to have a max width and hiehgt of scaling
 
-    if (f) { flipGraph(); }                                  //Flips vertically if f is true
-    rotateGraph(r);                                          //Sets the proper rotation
-    drawGraph(g)                                             //Sets the lines to be drawn
+    if (f) { flipCanvas(); }                 //Flips vertically if f is true
+    rotateCanvas(r);                         //Sets the proper rotation
+    drawGraph(g)                             //Sets the lines to be drawn
 
-    ctx.stroke();                                            //Draws the set lines
-    ctx.restore();                                           //Resets the coords for the next draw
+    ctx.stroke();                            //Draws the set lines
+    ctx.restore();                           //Resets the coords for the next draw
 }
 
 

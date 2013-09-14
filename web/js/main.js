@@ -7,6 +7,7 @@ App.populator('home', function (page) {
 
 App.populator('game', function (page) {
 	console.log("loaded game");
+	drawSolution(currSoln);
 
 	$(page).find('.pencil').on('click', function () {
 		console.log("pencil");

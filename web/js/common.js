@@ -3,6 +3,45 @@
 //Written by: Luke Brown
 
 
+//Helper Funcion
+//----------------
+
+//getErasedIndex: Posn Graph -> Number[0,∞)   Used only for removeLine
+function getErasedIndex(p, g) {
+    "use strict";
+    var i;
+    for (i = 0; i < g.length; i += 1) {
+        if ((p === g[i].p1) || (p === g[i].p2)) { return i; }
+    }
+    return -1;
+}
+
+//midPoint: Line -> Posn
+function midPoint(l) {
+    "use strict";
+    return new Posn((l.p1.x + l.p2.x) / 2, (l.p1.y + l.p2.y) / 2);
+}
+
+//distance: Line -> Number
+function distanceFromOrigin(l) {
+    "use strict";
+    var mP = midPoint(l);
+    return Math.sqrt(Math.pow(mP.x, 2) + Math.pow(mP.y, 2));
+}
+
+//lineLT: Line Line -> Bool
+function lineLT(l1, l2) {
+    "use strict";
+    return distanceFromOrigin(l1) <= distanceFromOrigin(l2);
+}
+
+//graphEqual: Graph Graph -> Bool
+function graphEqual(g1, g2) {
+    "use strict";
+    return g1.sort(lineLT) === g2.sort(lineLT);
+}
+
+
 //Getter functions
 //----------------
 
@@ -58,42 +97,6 @@ function getSolutionRotation(l) {
 function getSolutionGraph(l) {
     "use strict";
     return l.solution.sGraph;
-}
-
-//Functions used to check for the corect solution
-//-----------------------------------------------
-
-//midPoint: Line -> Posn
-function midPoint(l) {
-    "use strict";
-    return new Posn((l.p1.x + l.p2.x) / 2, (l.p1.y + l.p2.y) / 2);
-}
-
-//distance: Line -> Number
-function distanceFromOrigin(l) {
-    "use strict";
-    var mP = midPoint(l);
-    return Math.sqrt(Math.pow(mP.x, 2) + Math.pow(mP.y, 2));
-}
-
-//lineLT: Line Line -> Bool
-function lineLT(l1, l2) {
-    "use strict";
-    return distanceFromOrigin(l1) <= distanceFromOrigin(l2);
-}
-
-//graphEqual: Graph Graph -> Bool
-function graphEqual(g1, g2) {
-    "use strict";
-    return g1.sort(lineLT) === g2.sort(lineLT);
-}
-
-//solutionCheck: Solution UserSolution -> Bool
-function solutionCheck(s1, u) {
-    "use strict";
-    var s2 = u.solution;
-    return ((s1.roation % 360) === (s2.roation % 360) && (s1.isFliped) === (s2.isFliped)
-        && graphEqual(s1.sGraph, s2.sGraph));
 }
 
 
@@ -184,16 +187,21 @@ function drawSolution(u) {
 function undo() {
     "use strict";
     var newSoln = currSoln.back;
-    newSoln.forward = currSoln;
-    currSoln = newSoln;
-    drawSolution(currSoln);
+    if !(newSoln === "") {
+        newSoln.forward = currSoln;
+        currSoln = newSoln;
+        drawSolution(currSoln);
+    }
 }
 
 //redo: Void
 function redo() {
     "use strict";
-    currSoln = currSoln.forward;
-    drawSolution(currSoln);
+    var newSoln = currSoln.forward;
+     if !(newSoln === "") {
+        currSoln = currSoln.forward;
+        drawSolution(currSoln);
+    }
 }
 
 //activateDrawMode: Void
@@ -249,16 +257,6 @@ function addLine(pon1, pon2) {
     drawLine(l);
 }
 
-//getErasedIndex: Posn Graph -> Number[0,∞)   Used only for removeLine
-function getErasedIndex(p, g) {
-    "use strict";
-    var i;
-    for (i = 0; i < g.length; i += 1) {
-        if ((p === g[i].p1) || (p === g[i].p2)) { return i; }
-    }
-    return -1;
-}
-
 //removeLine: Posn -> Void
 function removeLine(p) {
     "use strict";
@@ -275,10 +273,13 @@ function removeLine(p) {
     }
 }
 
-
-//Loading Level Function
-//----------------------
-
+//check: Solution UserSolution -> Bool
+function check(s1, u) {
+    "use strict";
+    var s2 = u.solution;
+    return ((s1.roation % 360) === (s2.roation % 360) && (s1.isFliped) === (s2.isFliped)
+        && graphEqual(s1.sGraph, s2.sGraph));
+}
 
 //loadLevel: Number -> Void
 function loadLevel(n) {

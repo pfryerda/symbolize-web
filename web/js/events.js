@@ -58,9 +58,9 @@ function activateEraseMode() {
 function rotateGraph() {
     "use strict";
     var newSoln = currSoln,
-        r = newSoln.solution.roation;
+        rotation = newSoln.solution.roation;
 
-    newSoln.solution.roation = (r + 90) % 360;
+    newSoln.solution.roation = (rotation + 90) % 360;
     newSoln.back = currSoln;
     currSoln = newSoln;
     drawSolution(currSoln);
@@ -70,19 +70,19 @@ function rotateGraph() {
 function flipGraph() {
     "use strict";
     var newSoln = currSoln,
-        f = newSoln.solution.isFliped;
+        flip = newSoln.solution.isFliped;
 
-    newSoln.solution.isFliped = !f;
+    newSoln.solution.isFliped = !flip;
     newSoln.back = currSoln;
     currSoln = newSoln;
     drawSolution(currSoln);
 }
 
 //addLine: Posn Posn -> Void
-function addLine(pon1, pon2) {
+function addLine(point1, point2) {
     "use strict";
     var newSoln = currSoln,
-        l = new Line(pon1, pon2);
+        l = new Line(point1, point2);
 
     newSoln.solution.sGraph.push(l);
     newSoln.back = currSoln;
@@ -91,12 +91,12 @@ function addLine(pon1, pon2) {
 }
 
 //removeLine: Posn -> Void
-function removeLine(p) {
+function removeLine(point) {
     "use strict";
     var newSoln = currSoln,
-        g = newSoln.solution.sGraph,
-        index = getErasedIndex(p, g);
-        
+        graph = newSoln.solution.sGraph,
+        index = getErasedIndex(point, graph);
+
     if (index > -1) {
         newSoln.solution.sGraph = newSoln.solution.sGraph.splice(index, 1);
         newSoln.back = currSoln;

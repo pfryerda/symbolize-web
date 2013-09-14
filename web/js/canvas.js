@@ -1,4 +1,4 @@
-//This module is used to define the variables and functions used for the canvas\
+//This module is used to define the variables and functions used for the canvas
 //This module requires common.js
 //Written by: Luke Brown
 
@@ -55,38 +55,40 @@ function rotateCanvas(angle) {
 }
 
 //drawLine: Line -> Void
-function drawLine(l) {
+function drawLine(line) {
     "use strict";
-    ctx.moveTo(l.p1.x + (0.5 / scaling), l.p2.y + (0.5 / scaling));
-    ctx.lineTo(l.p2.x + (0.5 / scaling), l.p2.y + (0.5 / scaling));
+    //ctx.beginPath();  <-  Not sure if this goes here?
+    ctx.moveTo(line.p1.x + (0.5 / scaling), line.p2.y + (0.5 / scaling));
+    ctx.lineTo(line.p2.x + (0.5 / scaling), line.p2.y + (0.5 / scaling));
     ctx.stroke();
 }
 
 //drawGraph: Graph -> Void
-function drawGraph(g) {
+function drawGraph(graph) {
     "use strict";
-    var i;
-    for (i = 0; i < g.length; i += 1) { drawLine(g[i]); }
+    for (var i = 0; i < g.length; i += 1) { 
+        drawLine(graph[i]); 
+    }
 }
 
 //drawSolution: UserSolution -> Void
-function drawSolution(u) {
+function drawSolution(userSoln) {
     "use strict";
 
-    var g = u.solution.sGraph,                   //Graph
-        r = u.solution.roation,                  //Rotation
-        f = u.solution.isFliped;                 //Boolean stating if canvas is to be flipped
+    var graph = userSoln.solution.sGraph,     //Graph
+        rotation = userSoln.solution.roation, //Rotation
+        flip = userSoln.solution.isFliped;    //Boolean stating if canvas is to be flipped
 
-    clearCanvas();                           //Clears the canvas
-    ctx.save();                              //Saves current coords
+    clearCanvas();                            //Clears the canvas
+    ctx.save();                               //Saves current coords
     ctx.scale(gameCanvas.width / scaling,
-        gameCanvas.height / scaling);        //Scales the graph to have a max width and hiehgt of scaling
+        gameCanvas.height / scaling);         //Scales the graph to have a max width and hiehgt of scaling
 
-    if (f) { flipCanvas(); }                 //Flips vertically if f is true
-    rotateCanvas(r);                         //Sets the proper rotation
-    drawGraph(g);                            //Draws the graph
+    if (flip) { flipCanvas(); }               //Flips vertically if f is true
+    rotateCanvas(rotation);                   //Sets the proper rotation
+    drawGraph(graph);                         //Draws the graph
 
-    ctx.restore();                           //Resets the coords for the next draw
+    ctx.restore();                            //Resets the coords for the next draw
 }
 
 

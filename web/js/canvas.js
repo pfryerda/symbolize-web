@@ -79,7 +79,7 @@ function drawSolution(userSoln) {
     "use strict";
 
     var graph = userSoln.solution.sGraph,       //Graph
-        rotation = userSoln.solution.roation,   //Rotation
+        rotation = userSoln.solution.rotation,  //Rotation
         flip = userSoln.solution.isFliped;      //Boolean stating if canvas is to be flipped
 
     clearCanvas();                              //Clears the canvas

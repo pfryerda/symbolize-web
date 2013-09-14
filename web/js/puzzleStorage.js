@@ -16,7 +16,7 @@ function Level(g, soln, res, h1, h2) {
 //Solution: Number[%90==0] Bool Graph -> Solution
 function Solution(r, f, sg) {
     "use strict";
-    return {"roation" : r, "isFliped" : f, "sGraph" : sg};
+    return {"rotation" : r, "isFliped" : f, "sGraph" : sg};  //isFliped === ""  =>  doesn't matter
 }
 
 //Restriction: Number[0,∞) Number[0,∞) -> Restriction
@@ -41,5 +41,5 @@ function Posn(c, l) {
 //UserSolution: UserSolution Solution UserSolution -> UserSolution
 function UserSolution(b, s, f) {
     "use strict";
-    return {"back" : b, "solution" : s, "forward" : f};
+    return {"back" : b, "solution" : s, "forward" : f};   //""  =>  Not set
 }

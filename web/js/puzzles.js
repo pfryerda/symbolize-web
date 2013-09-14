@@ -10,16 +10,16 @@ var Levels = new Array();
 
  //Graph: '>' -> Solution: 'K'
 Levels[0] = new Level([new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45))],
-    new Solution(180, false, [new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45)), new Line(new Posn(25, 5), new Posn(25, 45))]),
+    new Solution(180, "", [new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45)), new Line(new Posn(25, 5), new Posn(25, 45))]),
         new Restriction(1, 0), "", "The 11th letter in the alphabet");
 
 //Graph: '>' -> Solution: 'A'
 Levels[1] = new Level([new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45))],
-    new Solution(270, false, [new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45)), new Line(new Posn(15, 15), new Posn(15, 35))]),
+    new Solution(270, "", [new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45)), new Line(new Posn(15, 15), new Posn(15, 35))]),
         new Restriction(1, 0), "", "Your favourite grade!");
 
 //Graph: '>' -> Solution: 'Y'
 Levels[2] = new Level([new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45))],
-    new Solution(90, false, [new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45)), new Line(new Posn(25, 25), new Posn(50, 25))]),
+    new Solution(90, "", [new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45)), new Line(new Posn(25, 25), new Posn(50, 25))]),
         new Restriction(1, 0), "", "");
 

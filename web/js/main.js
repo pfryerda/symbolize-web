@@ -21,9 +21,15 @@ App.populator('game', function (page) {
     	rotateGraph();
     });
 
-     $(page).find('.flip').on('click', function () {
+    $(page).find('.flip').on('click', function () {
     	flipGraph();
     });
+
+    $(page).find('.hint').on('click', function () {
+    	showHint();
+    });
+
+
 
 	$(page).find('.clear').on('click', function () {
 		console.log("clear");

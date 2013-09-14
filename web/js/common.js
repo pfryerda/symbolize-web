@@ -44,8 +44,8 @@ function graphEqual(graph1, graph2) {
 function solutionEqual(solution1, usersolution) {
     "use strict";
     var solution2 = usersolution.solution;
-    return ((solution1.roation % 360) === (solution2.roation % 360) && (solution1.isFliped) === (solution2.isFliped)
-        && graphEqual(solution1.sGraph, solution2.sGraph));
+    return ((solution1.roation % 360) === (solution2.roation % 360) && graphEqual(solution1.sGraph, solution2.sGraph))
+        && (solution1.isFliped === "" || (solution1.isFliped) === (solution2.isFliped));
 }
 
 
@@ -56,12 +56,6 @@ function solutionEqual(solution1, usersolution) {
 function getLevel(n) {
     "use strict";
     return Levels[n];
-}
-
-//getGraph: Level -> Graph
-function getGraph(level) {
-    "use strict";
-    return level.graph;
 }
 
 //getDrawRestriction: Level -> Number[0,∞)
@@ -86,22 +80,4 @@ function getHint1(level) {
 function getHint1(level) {
     "use strict";
     return level.hint2;
-}
-
-//getSolutionFlip: Level -> Bool
-function getSolutionFlip(level) {
-    "use strict";
-    return level.solution.isFliped;
-}
-
-//getSolutionRotation: Level -> Number[%90==0]
-function getSolutionRotation(level) {
-    "use strict";
-    return level.solution.roation;
-}
-
-//getSolutionGraph: Level -> Graph
-function getSolutionGraph(level) {
-    "use strict";
-    return level.solution.sGraph;
 }

@@ -187,7 +187,7 @@ function drawSolution(u) {
 function undo() {
     "use strict";
     var newSoln = currSoln.back;
-    if !(newSoln === "") {
+    if (newSoln !== "") {
         newSoln.forward = currSoln;
         currSoln = newSoln;
         drawSolution(currSoln);
@@ -198,7 +198,7 @@ function undo() {
 function redo() {
     "use strict";
     var newSoln = currSoln.forward;
-     if !(newSoln === "") {
+     if (newSoln !== "") {
         currSoln = currSoln.forward;
         drawSolution(currSoln);
     }

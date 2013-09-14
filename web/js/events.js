@@ -26,6 +26,7 @@ function undo() {
         currSoln = newSoln;
         drawSolution(currSoln);
     }
+    console.log("unoded");
 }
 
 //redo: Void
@@ -36,6 +37,7 @@ function redo() {
         currSoln = currSoln.forward;
         drawSolution(currSoln);
     }
+    console.log("redoed");
 }
 
 //activateDrawMode: Void
@@ -43,6 +45,7 @@ function activateDrawMode() {
     "use strict";
     inDrawMode = true;
     inEraseMode = !inDrawMode;
+    console.log("activatedDrawMode");
 }
 
 //activateEraseMode: Void
@@ -50,6 +53,7 @@ function activateEraseMode() {
     "use strict";
     inEraseMode = true;
     inDrawMode = !inEraseMode;
+    console.log("activatedEraseMode");
 }
 
 //rotateGraph: Void
@@ -62,6 +66,7 @@ function rotateGraph() {
     newSoln.back = currSoln;
     currSoln = newSoln;
     drawSolution(currSoln);
+    console.log("rotated graph 90 degree");
 }
 
 //flipGraph: Void
@@ -74,6 +79,7 @@ function flipGraph() {
     newSoln.back = currSoln;
     currSoln = newSoln;
     drawSolution(currSoln);
+    console.log("reflected graph");
 }
 
 //addLine: Posn Posn -> Void
@@ -85,7 +91,8 @@ function addLine(point1, point2) {
     newSoln.solution.sGraph.push(l);
     newSoln.back = currSoln;
     currSoln = newSoln;
-    drawLine(l);
+    drawSolution(currSoln);
+    console.log("added line to solution");
 }
 
 //removeLine: Posn -> Void
@@ -101,6 +108,7 @@ function removeLine(point) {
         currSoln = newSoln;
         drawSolution(currSoln);
     }
+    console.log("removed line from solution");
 }
 
 //loadLevel: Number -> Void
@@ -108,4 +116,5 @@ function loadLevel(n) {
     "use strict";
     currLevel = getLevel(n - 1);
     currSoln = new UserSolution("", new Solution(0, false, getGraph(currLevel)), "");
+    console.log("loaded level ", n);
 }

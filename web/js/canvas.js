@@ -18,6 +18,7 @@ var gameCanvas = document.getElementById("gameCanvas"),         //Canvas
 function clearCanvas() {
     "use strict";
     gameCanvas.width = gameCanvas.width;
+    console.log("cleared canvas");
 }
 
 //flipCanvas: Void
@@ -25,6 +26,7 @@ function flipCanvas() {
     "use strict";
     ctx.translate(0, scaling);
     ctx.scale(1, -1);
+    console.log("fliped canvas")
 }
 
 //rotateCanvas: Number[%90==0] -> Void
@@ -46,19 +48,21 @@ function rotateCanvas(angle) {
         break;
     default:
         throw new RangeError("rotateCanvas given a number other than 0, 90, 180, or 270")  //Should never happen
-        breal;
+        break;
 
     }
     ctx.rotate(a * Math.PI / 180);
+    console.log("rotated canvas");
 }
 
 //drawLine: Line -> Void
 function drawLine(line) {
     "use strict";
-    //ctx.beginPath();  <-  Not sure if this goes here?
+    ctx.beginPath();  // Not sure if this is neccecary
     ctx.moveTo(line.p1.x + (0.5 / scaling), line.p2.y + (0.5 / scaling));
     ctx.lineTo(line.p2.x + (0.5 / scaling), line.p2.y + (0.5 / scaling));
     ctx.stroke();
+    console.log("drew line");
 }
 
 //drawGraph: Graph -> Void
@@ -67,26 +71,28 @@ function drawGraph(graph) {
     for (var i = 0; i < graph.length; i += 1) { 
         drawLine(graph[i]); 
     }
+    console.log("drew graph");
 }
 
 //drawSolution: UserSolution -> Void
 function drawSolution(userSoln) {
     "use strict";
 
-    var graph = userSoln.solution.sGraph,     //Graph
-        rotation = userSoln.solution.roation, //Rotation
-        flip = userSoln.solution.isFliped;    //Boolean stating if canvas is to be flipped
+    var graph = userSoln.solution.sGraph,       //Graph
+        rotation = userSoln.solution.roation,   //Rotation
+        flip = userSoln.solution.isFliped;      //Boolean stating if canvas is to be flipped
 
-    clearCanvas();                            //Clears the canvas
-    ctx.save();                               //Saves current coords
+    clearCanvas();                              //Clears the canvas
+    ctx.save();                                 //Saves current coords
     ctx.scale(gameCanvas.width / scaling,
-        gameCanvas.height / scaling);         //Scales the graph to have a max width and hiehgt of scaling
+        gameCanvas.height / scaling);           //Scales the graph to have a max width and hiehgt of scaling
 
-    if (flip) { flipCanvas(); }               //Flips vertically if f is true
-    rotateCanvas(rotation);                   //Sets the proper rotation
-    drawGraph(graph);                         //Draws the graph
+    if (flip) { flipCanvas(); }                 //Flips vertically if f is true
+    if (rotation !== 0) rotateCanvas(rotation); //Sets the proper rotation
+    drawGraph(graph);                           //Draws the graph
 
-    ctx.restore();                            //Resets the coords for the next draw
+    ctx.restore();                              //Resets the coords for the next draw
+    console.log("finished drawing solution");
 }
 
 

@@ -6,7 +6,6 @@
 //Variable Declaration
 //-------------------
 
-
 var gameCanvas = document.getElementById("gameCanvas"),         //Canvas
     ctx = gameCanvas.getContext("2d"),                          //Context
     scaling = 50; //Note this number still need to be decided!  //Max number for the width and height of the graph
@@ -14,7 +13,6 @@ var gameCanvas = document.getElementById("gameCanvas"),         //Canvas
 
 //Graphing Function
 //----------------- 
-
 
 //clearCanvas: Void
 function clearCanvas() {
@@ -66,7 +64,7 @@ function drawLine(line) {
 //drawGraph: Graph -> Void
 function drawGraph(graph) {
     "use strict";
-    for (var i = 0; i < g.length; i += 1) { 
+    for (var i = 0; i < graph.length; i += 1) { 
         drawLine(graph[i]); 
     }
 }

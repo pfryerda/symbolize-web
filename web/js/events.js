@@ -6,7 +6,6 @@
 //Variable Declaration
 //-------------------
 
-
 var currLevelNum = 1,                                                             //Defaults level 1
     currLevel = Levels[currLevelNum - 1],                                         //Defaults level 1
     currSoln = new UserSolution("", new Solution(0, false, currLevel.graph), ""), //Defaults level 1
@@ -17,7 +16,6 @@ var currLevelNum = 1,                                                           
 
 //Event Functions
 //----------------
-
 
 //undo: Void
 function undo() {

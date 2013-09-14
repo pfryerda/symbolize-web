@@ -10,7 +10,19 @@ App.populator('game', function (page) {
 	drawSolution(currSoln);
 
 	$(page).find('.pencil').on('click', function () {
-		console.log("pencil");
+		activateDrawMode();
+    });
+
+    $(page).find('.eraser').on('click', function () {
+    	activateEraseMode();
+    });
+
+    $(page).find('.rotate').on('click', function () {
+    	rotateGraph();
+    });
+
+     $(page).find('.flip').on('click', function () {
+    	flipGraph();
     });
 
 	$(page).find('.clear').on('click', function () {

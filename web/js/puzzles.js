@@ -11,7 +11,7 @@ var Levels = new Array();
  //Graph: '>' -> Solution: 'K'
 Levels[0] = new Level([new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45))],
     new Solution(180, "", [new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45)), new Line(new Posn(25, 5), new Posn(25, 45))]),
-        new Restriction(1, 0), "", "The 11th letter in the alphabet");
+        new Restriction(1, 0), "Peter come up with a hint", "The 11th letter in the alphabet");
 
 //Graph: '>' -> Solution: 'A'
 Levels[1] = new Level([new Line(new Posn(5, 5), new Posn(25, 25)), new Line(new Posn(25, 25), new Posn(5, 45))],

@@ -7,32 +7,18 @@ App.populator('home', function (page) {
 
 App.populator('game', function (page) {
 	console.log("loaded game");
-	drawSolution(currSoln);
+	loadLevel(currLevelNum);
 
-	$(page).find('.pencil').on('click', function () {
-		activateDrawMode();
-    });
-
-    $(page).find('.eraser').on('click', function () {
-    	activateEraseMode();
-    });
-
-    $(page).find('.rotate').on('click', function () {
-    	rotateGraph();
-    });
-
-    $(page).find('.flip').on('click', function () {
-    	flipGraph();
-    });
-
-    $(page).find('.hint').on('click', function () {
-    	showHint();
-    });
+	$(page).find('.pencil').on('click', function () { activateDrawMode();  });
+    $(page).find('.eraser').on('click', function () { activateEraseMode(); });
+    $(page).find('.rotate').on('click', function () { rotateGraph();       });
+    $(page).find('.flip'  ).on('click', function () { flipGraph();         });
+    $(page).find('.hint'  ).on('click', function () { showHint();          });
 
 
 
 	$(page).find('.clear').on('click', function () {
-		console.log("clear");
+		console.log("check");
 		App.dialog({
 				title        : "Quit Level?",
 				text         : "This will not save your progress so far.  Are you sure you want to do this?",

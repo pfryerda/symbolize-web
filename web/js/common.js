@@ -77,7 +77,7 @@ function getHint1(level) {
 }
 
 //getHint2: Level -> String
-function getHint1(level) {
+function getHint2(level) {
     "use strict";
     return level.hint2;
 }

@@ -38,8 +38,8 @@ function Posn(c, l) {
 }
 
 
-//UserSolution: UserSolution Solution UserSolution -> UserSolution
-function UserSolution(b, s, f) {
+//UserSolution: UserSolution Solution Number[0,∞) Number[0,∞) UserSolution -> UserSolution
+function UserSolution(b, s, d, e, f) {
     "use strict";
-    return {"back" : b, "solution" : s, "forward" : f};   //""  =>  Not set
+    return {"back" : b, "solution" : s, "linesDrawn" : d, "linesErased" : e, "forward" : f};   //""  =>  Not set
 }

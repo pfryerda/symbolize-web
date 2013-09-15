@@ -21,37 +21,51 @@ var currLevelNum = 1,                                                           
 function loadLevel(n) {
     "use strict";
     currLevel = getLevel(n - 1);
-    currSoln = new UserSolution("", new Solution(0, false, getGraph(currLevel)), "");
-    console.log("loaded level ", n);
+    currSoln = new UserSolution("", new Solution(0, false, currLevel.graph), "");
+    console.log("loaded level", n);
+    drawSolution(currSoln);
+    showHint();
 }
 
 //addLine: Posn Posn -> Void
 function addLine(point1, point2) {
     "use strict";
-    var newSoln = currSoln,
-        l = new Line(point1, point2);
+    if (currSoln.linesDrawn < getDrawRestriction(currLevel)){
+        console.log("adding line to solution");
+        var newSoln = currSoln,
+            l = new Line(point1, point2);
 
-    newSoln.solution.sGraph.push(l);
-    newSoln.back = currSoln;
-    currSoln = newSoln;
-    drawSolution(currSoln );
-    console.log("added line to solution");
+        newSoln.solution.sGraph.push(l);
+        newSoln.linesDrawn += 1;
+        newSoln.back = currSoln;
+        currSoln = newSoln;
+        drawSolution(currSoln);
+        console.log("added line to solution");
+    } else {
+        //Add error message
+    }
 }
 
 //removeLine: Posn -> Void
 function removeLine(point) {
     "use strict";
-    var newSoln = currSoln,
-        graph = newSoln.solution.sGraph,
-        index = getErasedIndex(point, graph);
+    if (currSoln.linesErased < getEraseRestriction(currLevel)){
+        var newSoln = currSoln,
+            graph = newSoln.solution.sGraph,
+            index = getErasedIndex(point, graph);
 
-    if (index > -1) {
-        newSoln.solution.sGraph = newSoln.solution.sGraph.splice(index, 1);
-        newSoln.back = currSoln;
-        currSoln = newSoln;
-        drawSolution(currSoln);
+        if (index > -1) {
+            console.log("removing line from solution");
+            newSoln.solution.sGraph = newSoln.solution.sGraph.splice(index, 1);
+            newSoln.linesErased += 1;
+            newSoln.back = currSoln;
+            currSoln = newSoln;
+            drawSolution(currSoln);
+            console.log("removed line from solution");
+        }
+    } else {
+        //Add error message
     }
-    console.log("removed line from solution");
 }
 
 //undo: Void
@@ -62,8 +76,8 @@ function undo() {
         newSoln.forward = currSoln;
         currSoln = newSoln;
         drawSolution(currSoln);
-    }
-    console.log("unoded");
+        console.log("undoed");
+    }  
 }
 
 //redo: Void
@@ -73,8 +87,8 @@ function redo() {
      if (newSoln !== "") {
         currSoln = currSoln.forward;
         drawSolution(currSoln);
+        console.log("redoed");
     }
-    console.log("redoed");
 }
 
 //activateDrawMode: Void
@@ -96,19 +110,21 @@ function activateEraseMode() {
 //rotateGraph: Void
 function rotateGraph() {
     "use strict";
+    console.log("rotating graph 90 degree");
     var newSoln = currSoln,
         rotation = newSoln.solution.rotation;
 
     newSoln.solution.rotation = (rotation + 90) % 360;
     newSoln.back = currSoln;
     currSoln = newSoln;
-    drawSolution(currSoln);
+    drawSolution(currSoln); 
     console.log("rotated graph 90 degree");
 }
 
 //flipGraph: Void
 function flipGraph() {
     "use strict";
+    console.log("reflecting graph");
     var newSoln = currSoln,
         flip = newSoln.solution.isFliped,
         rotation = newSoln.solution.rotation;
@@ -123,9 +139,12 @@ function flipGraph() {
 
 //showHint: Void
 function showHint() {
-    "use strict";
-    // show hint with getHint1 and getHint2
-    console.log("hint showed")
+    "use strict"; 
+    console.log("showing hints")
+    App.dialog({
+        title        : "Level ".concat(currLevelNum.toString(), " Hints"),
+        text         : "1) ".concat(getHint1(currLevel), "\n2) ", getHint2(currLevel)),
+        cancelButton : "Back"});
 }
 
 //resetGraph: Void
@@ -133,12 +152,13 @@ function resetGraph() {
     "use strict";
     var newSoln = new UserSolution(currSoln, new Solution(0, false, currLevel.graph), "");
     currSoln = newSoln;
-    console.log("rested graph")
+    console.log("reseted graph")
 }
 
 //checkSolution: Void
 function checkSolution() {
     "use strict";
+    console.log("checking solution");
     if (solutionEqual(currLevel.solution, currSoln)){
         //do something special
         currLevel += 1;
@@ -146,5 +166,4 @@ function checkSolution() {
     } else {
         //do something special
     }
-    console.log("checked solution");
 }

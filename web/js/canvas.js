@@ -17,25 +17,26 @@ var gameCanvas = document.getElementById("gameCanvas"),         //Canvas
 //clearCanvas: Void
 function clearCanvas() {
     "use strict";
+    console.log("clearing canvas");
     gameCanvas.width = gameCanvas.width;
-    console.log("cleared canvas");
 }
 
 //flipCanvas: Void
 function flipCanvas() {
     "use strict";
+    console.log("setting canvas flip")
     ctx.translate(0, scaling);
     ctx.scale(1, -1);
-    console.log("fliped canvas")
 }
 
 //rotateCanvas: Number[%90==0] -> Void
 function rotateCanvas(angle) {
     "use strict";
+    console.log("setting canvas rotation");
     var a = angle % 360;
     switch (a) {
     case 0:
-        ctx.translate(0, 0);
+        ctx.translate(0, 0); //Should never happen
         break;
     case 90:
         ctx.translate(scaling, 0);
@@ -49,34 +50,34 @@ function rotateCanvas(angle) {
     default:
         throw new RangeError("rotateCanvas given a number other than 0, 90, 180, or 270")  //Should never happen
         break;
-
     }
     ctx.rotate(a * Math.PI / 180);
-    console.log("rotated canvas");
+    
 }
 
 //drawLine: Line -> Void
 function drawLine(line) {
     "use strict";
-    ctx.beginPath();  // Not sure if this is neccecary
+    console.log("drawing line");
     ctx.moveTo(line.p1.x + (0.5 / scaling), line.p2.y + (0.5 / scaling));
     ctx.lineTo(line.p2.x + (0.5 / scaling), line.p2.y + (0.5 / scaling));
-    ctx.stroke();
-    console.log("drew line");
+    ctx.lineCap = 'round';
+    ctx.stroke();  
 }
 
 //drawGraph: Graph -> Void
 function drawGraph(graph) {
     "use strict";
+    console.log("drawing graph");
     for (var i = 0; i < graph.length; i += 1) { 
         drawLine(graph[i]); 
     }
-    console.log("drew graph");
 }
 
 //drawSolution: UserSolution -> Void
 function drawSolution(userSoln) {
     "use strict";
+    console.log("starting canvas drawing");
 
     var graph = userSoln.solution.sGraph,       //Graph
         rotation = userSoln.solution.rotation,  //Rotation
@@ -92,7 +93,7 @@ function drawSolution(userSoln) {
     drawGraph(graph);                           //Draws the graph
 
     ctx.restore();                              //Resets the coords for the next draw
-    console.log("finished drawing solution");
+    console.log("finished canvas drawing");
 }
 
 

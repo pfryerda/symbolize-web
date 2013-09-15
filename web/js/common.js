@@ -1,9 +1,53 @@
 //A module used to store commonly used functions
-//This module requires puzzles.js
 //Written by: Luke Brown
 
 
-//Helper Funcion
+//Storage Functions
+//-----------------
+
+//Graph = [Line]
+
+//Level: Graph Solution Restriction String String -> Level
+//A level contains the lines for the graph(As they appear at the start), a restriction to number of allowed
+//lines drawn and erased, two hints, and a solution Which contain the correct lines, the neccecary rotation, 
+//and then some weather it needs to be fliped.
+function Level(g, soln, res, h1, h2) {
+    "use strict";
+    return {"graph" : g, "solution" : soln, "restriction" : res, "hint1" : h1, "hint2" : h2};
+}
+
+//Solution: Number[%90==0] Bool Graph -> Solution
+function Solution(r, f, sg) {
+    "use strict";
+    return {"rotation" : r, "isFliped" : f, "sGraph" : sg};  //isFliped === ""  =>  doesn't matter
+}
+
+//Restriction: Number[0,∞) Number[0,∞) -> Restriction
+function Restriction(d, e) {
+    "use strict";
+    return {"draw" : d, "erase" : e};
+}
+
+//Line: Posn Posn -> Line
+function Line(point1, point2) {
+    "use strict";
+    return {"p1" : point1, "p2" : point2};
+}
+
+//Posn: Number Number -> Posn
+function Posn(c, l) {
+    "use strict";
+    return {"x" : c, "y" : l};
+}
+
+//UserSolution: UserSolution Solution Number[0,∞) Number[0,∞) UserSolution -> UserSolution
+function UserSolution(b, s, d, e, f) {
+    "use strict";
+    return {"back" : b, "solution" : s, "linesDrawn" : d, "linesErased" : e, "forward" : f};   //""  =>  Not set
+}
+
+
+//Helper Funcions
 //----------------
 
 //getErasedIndex: Posn Graph -> Number[0,∞)   Used only for removeLine in events.js
@@ -46,38 +90,4 @@ function solutionEqual(solution1, usersolution) {
     var solution2 = usersolution.solution;
     return ((solution1.roation % 360) === (solution2.roation % 360) && graphEqual(solution1.sGraph, solution2.sGraph))
         && (solution1.isFliped === "" || (solution1.isFliped) === (solution2.isFliped));
-}
-
-
-//Getter functions
-//----------------
-
-//getLevel: Number -> Level
-function getLevel(n) {
-    "use strict";
-    return Levels[n];
-}
-
-//getDrawRestriction: Level -> Number[0,∞)
-function getDrawRestriction(level) {
-    "use strict";
-    return level.restriction.draw;
-}
-
-//getEraseRestriction: Level -> Number[0,∞)
-function getEraseRestriction(level) {
-    "use strict";
-    return level.restriction.erase;
-}
-
-//getHint1: Level -> String
-function getHint1(level) {
-    "use strict";
-    return level.hint1;
-}
-
-//getHint2: Level -> String
-function getHint2(level) {
-    "use strict";
-    return level.hint2;
 }

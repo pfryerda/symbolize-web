@@ -1,3 +1,7 @@
+//Main module 
+//This module requires events.js
+//written by: Peter Fryer Davis & Luke Brown
+
 //Need to make a function that allows me to highlight the current tool and deselect the other tools.
 
 

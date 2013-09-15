@@ -1,5 +1,5 @@
 //A module used to store all the levels in one array called Levels
-//This module requires puzzleStorage.js
+//This module requires common.js
 //Written by: Luke Brown
 
 // An array containing all the Levels

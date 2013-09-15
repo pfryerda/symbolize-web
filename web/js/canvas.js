@@ -1,5 +1,5 @@
 //This module is used to define the variables and functions used for the canvas
-//This module requires common.js
+//This module requires puzzles.js
 //Written by: Luke Brown
 
 

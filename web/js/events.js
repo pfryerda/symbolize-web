@@ -14,13 +14,41 @@ var currLevelNum = 1,                                                           
     inEraseMode = !inDrawMode;                                                    //Defaults Erase Mode disabled
 
 
+//Getter functions
+//----------------
+
+//getDrawRestriction: Number[0,∞)
+function getDrawRestriction() {
+    "use strict";
+    return currLevel.restriction.draw;
+}
+
+//getEraseRestriction: Number[0,∞)
+function getEraseRestriction() {
+    "use strict";
+    return currLevel.restriction.erase;
+}
+
+//getHint1: String
+function getHint1() {
+    "use strict";
+    return currLevel.hint1;
+}
+
+//getHint2: String
+function getHint2() {
+    "use strict";
+    return currLevel.hint2;
+}
+
+
 //Event Functions
 //----------------
 
 //loadLevel: Void
 function loadLevel() {
     "use strict";
-    currLevel = getLevel(currLevelNum - 1);
+    currLevel = Levels[currLevelNum - 1];
     currSoln = new UserSolution("", new Solution(0, false, currLevel.graph), "");
     console.log("loaded level", currLevelNum);
     drawSolution(currSoln);
@@ -30,7 +58,7 @@ function loadLevel() {
 //addLine: Posn Posn -> Void
 function addLine(point1, point2) {
     "use strict";
-    if (currSoln.linesDrawn < getDrawRestriction(currLevel)){
+    if (currSoln.linesDrawn < getDrawRestriction()){
         console.log("adding line to solution");
         var newSoln = currSoln,
             l = new Line(point1, point2);
@@ -49,7 +77,7 @@ function addLine(point1, point2) {
 //removeLine: Posn -> Void
 function removeLine(point) {
     "use strict";
-    if (currSoln.linesErased < getEraseRestriction(currLevel)){
+    if (currSoln.linesErased < getEraseRestriction()){
         var newSoln = currSoln,
             graph = newSoln.solution.sGraph,
             index = getErasedIndex(point, graph);
@@ -141,8 +169,8 @@ function flipGraph() {
 function showHint() {
     "use strict"; 
     console.log("showing hints")
-    var hints = "1) " + getHint1(currLevel) + "\n2) " + getHint2(currLevel),
-        restrictions = "\nlines allowed drawn: " + (getDrawRestriction(currLevel)).toString() + "\nlines allowed erased: " + (getEraseRestriction(currLevel)).toString();
+    var hints = "1) " + getHint1() + "\n2) " + getHint2(),
+        restrictions = "\nlines allowed drawn: " + (getDrawRestriction()).toString() + "\nlines allowed erased: " + (getEraseRestriction()).toString();
     App.dialog({
         title        : "Level " + currLevelNum.toString() + " Hints",
         text         : hints + restrictions,

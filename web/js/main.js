@@ -21,16 +21,16 @@ App.populator('game', function (page) {
 
 
 
-	$(page).find('.clear').on('click', function () {
+	$(page).find('.check').on('click', function () {
 		console.log("check");
 		App.dialog({
-				title        : "Quit Level?",
-				text         : "This will not save your progress so far.  Are you sure you want to do this?",
-				quitButton   : "Quit",
+				title        : "Check Solution?",
+				text         : "Would you like to see if you have solved the puzzle correctly?",
+				checkButton   : "Check!",
 				cancelButton : "Cancel"
 			}, function (result) {
 
-			if (result ===  "quit") {
+			if (result ===  "check") {
 				App.load("levels")
 			}
 		});
@@ -39,13 +39,13 @@ App.populator('game', function (page) {
     $(page).find('.reset').on('click', function () {
 		console.log("reset");
 		App.dialog({
-				title        : "Quit Level?",
-				text         : "This will not save your progress so far.  Are you sure you want to do this?",
-				quitButton   : "Quit",
+				title        : "Reset?",
+				text         : "This will trash your progress on this puzzle.  Are you sure you wish to do this?",
+				resetButton   : "Reset",
 				cancelButton : "Cancel"
 			}, function (result) { //result is a string
 
-			if (result ===  "quit") {
+			if (result ===  "reset") {
 				App.load("levels")
 			}
 		});

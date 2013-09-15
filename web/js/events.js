@@ -141,9 +141,11 @@ function flipGraph() {
 function showHint() {
     "use strict"; 
     console.log("showing hints")
+    var hints = "1) " + getHint1(currLevel) + "\n2) " + getHint2(currLevel),
+        restrictions = "\nlines allowed drawn: " + (getDrawRestriction(currLevel)).toString() + "\nlines allowed erased: " + (getEraseRestriction(currLevel)).toString();
     App.dialog({
         title        : "Level " + currLevelNum.toString() + " Hints",
-        text         : "1) " + getHint1(currLevel) + '\n' + "2) " + getHint2(currLevel),
+        text         : hints + restrictions,
         cancelButton : "OK"});
 }
 

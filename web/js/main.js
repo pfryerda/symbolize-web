@@ -7,7 +7,7 @@ App.populator('home', function (page) {
 
 App.populator('game', function (page) {
 	console.log("loaded game");
-	loadLevel(currLevelNum);
+	loadLevel();
 
 	$(page).find('.pencil').on('click', function () { activateDrawMode();  });
     $(page).find('.eraser').on('click', function () { activateEraseMode(); });

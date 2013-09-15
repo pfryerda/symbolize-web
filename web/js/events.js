@@ -17,12 +17,12 @@ var currLevelNum = 1,                                                           
 //Event Functions
 //----------------
 
-//loadLevel: Number -> Void
-function loadLevel(n) {
+//loadLevel: Void
+function loadLevel() {
     "use strict";
-    currLevel = getLevel(n - 1);
+    currLevel = getLevel(currLevelNum - 1);
     currSoln = new UserSolution("", new Solution(0, false, currLevel.graph), "");
-    console.log("loaded level", n);
+    console.log("loaded level", currLevelNum);
     drawSolution(currSoln);
     showHint();
 }

@@ -142,9 +142,9 @@ function showHint() {
     "use strict"; 
     console.log("showing hints")
     App.dialog({
-        title        : "Level ".concat(currLevelNum.toString(), " Hints"),
-        text         : "1) ".concat(getHint1(currLevel), "\n2) ", getHint2(currLevel)),
-        cancelButton : "Back"});
+        title        : "Level " + currLevelNum.toString() + " Hints",
+        text         : "1) " + getHint1(currLevel) + '\n' + "2) " + getHint2(currLevel),
+        cancelButton : "OK"});
 }
 
 //resetGraph: Void

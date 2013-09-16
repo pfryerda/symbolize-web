@@ -8,7 +8,7 @@
 
 var currLevelNum = 1,                                                               //Defaults level 1
     currLevel = Levels[currLevelNum - 1],                                           //Defaults level 1
-    currSoln = new UserSolution("", new Solution(0, false, currLevel.graph), 0, 0), //Defaults level 1
+    currSoln = new UserSolution([], new Solution(0, false, currLevel.graph), 0, 0), //Defaults level 1
 
     inDrawMode = true,                                                              //Defaults Draw  Mode enabled
     inEraseMode = !inDrawMode;                                                      //Defaults Erase Mode disabled
@@ -49,7 +49,7 @@ function getHint2() {
 function loadLevel() {
     "use strict";
     currLevel = Levels[currLevelNum - 1];
-    currSoln = new UserSolution("", new Solution(0, false, currLevel.graph), 0, 0);
+    currSoln = new UserSolution([], new Solution(0, false, currLevel.graph), 0, 0);
     console.log("loaded level", currLevelNum);
     showHint();
 }
@@ -62,9 +62,9 @@ function addLine(point1, point2) {
         var newSoln = currSoln,
             l = new Line(point1, point2);
 
-        newSoln.solution.sGraph.push(l);
+        newSoln.solution.sGraph.unshift(l);
         newSoln.linesDrawn += 1;
-        newSoln.back = currSoln;
+        newSoln.moves.unshift(l);
         currSoln = newSoln;
         console.log("added line to solution");
     } else {
@@ -84,7 +84,7 @@ function removeLine(point) {
             console.log("removing line from solution");
             newSoln.solution.sGraph = newSoln.solution.sGraph.splice(index, 1);
             newSoln.linesErased += 1;
-            newSoln.back = currSoln;
+            //newSoln.moves.unshift(); Work in progress
             currSoln = newSoln;
             console.log("removed line from solution");
         }
@@ -95,13 +95,27 @@ function removeLine(point) {
 
 //undo: Void
 function undo() {
-    "use strict";
-    var newSoln = currSoln.back;
-    if (newSoln !== "") {
-        currSoln = newSoln;
+    "use strict"
+    var oldMoves = currSoln.moves;
+    if (oldMoves !== []) {
+        switch (oldMoves[0]) {
+        case 90: //Unrotate non flipped
+            currSoln.solution.rotation = (currSoln.solution.rotation + 270) % 360;
+            break;
+        case 180: //Unflip
+            currSoln.solution.rotation = (currSoln.solution.rotation + 180) % 360;
+            currSoln.solution.isFliped = !(currSoln.solution.isFliped);
+            break;
+        case 270: //unrotate flipped
+            currSoln.solution.rotation = (currSoln.solution.rotation + 90) % 360;
+            break;
+
+        //case (Line)
+            //to do
+        }
+        currSoln.moves.splice(0, 1);
         console.log("undoed");
     }  
-    currSoln = currSoln.back;
 }
 
 //activateDrawMode: Void
@@ -124,16 +138,19 @@ function activateEraseMode() {
 function rotateGraph() {
     "use strict";
     console.log("rotating graph 90 degree");
-    console.log("currSolution = ", currSoln);
     var newSoln = currSoln,
         rotation = newSoln.solution.rotation,
         flip = newSoln.solution.isFliped;
 
-    if (flip) { newSoln.solution.rotation = (rotation + 270) % 360; }
-    else { newSoln.solution.rotation = (rotation + 90) % 360; }
-    newSoln.back = currSoln;
+    if (flip) { 
+        newSoln.solution.rotation = (rotation + 270) % 360; 
+        newSoln.moves.unshift(270);
+    }
+    else { 
+        newSoln.solution.rotation = (rotation + 90) % 360; 
+        newSoln.moves.unshift(90);
+    }
     currSoln = newSoln;
-    console.log("new currSolution = ", currSoln);
     console.log("rotated graph 90 degree");
 }
 
@@ -147,7 +164,7 @@ function flipGraph() {
 
     newSoln.solution.isFliped = !flip;
     newSoln.solution.rotation = (rotation + 180) % 360;
-    newSoln.back = currSoln;
+    newSoln.moves.unshift(180);
     currSoln = newSoln;
     console.log("reflected graph");
 }
@@ -167,7 +184,7 @@ function showHint() {
 //resetGraph: Void
 function resetGraph() {
     "use strict";
-    var newSoln = new UserSolution(currSoln, new Solution(0, false, currLevel.graph), 0, 0);
+    var newSoln = new UserSolution([], new Solution(0, false, currLevel.graph), 0, 0);
     currSoln = newSoln;
     console.log("reseted graph")
 }
@@ -181,6 +198,7 @@ function checkSolution() {
             title        : "Success!",
             text         : "Congratulations, you beat level " + currLevel + " press OK to continue.",
             cancelButton : "OK"});
+        //Add end of game check
         currLevel += 1;
         loadLevel();
     } else {

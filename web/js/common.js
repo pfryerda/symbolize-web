@@ -6,6 +6,7 @@
 //-----------------
 
 //Graph = [Line]
+//Move = Line | Number
 
 //Level: Graph Solution Restriction String String -> Level
 //A level contains the lines for the graph(As they appear at the start), a restriction to number of allowed
@@ -40,10 +41,10 @@ function Posn(c, l) {
     return {"x" : c, "y" : l};
 }
 
-//UserSolution: UserSolution Solution Number[0,∞) Number[0,∞) -> UserSolution
-function UserSolution(b, s, d, e) {
+//UserSolution: [Move] Solution Number[0,∞) Number[0,∞) -> UserSolution
+function UserSolution(ms, s, d, e) {
     "use strict";
-    return {"back" : b, "solution" : s, "linesDrawn" : d, "linesErased" : e};   //""  =>  Not set
+    return {"moves" : ms, "solution" : s, "linesDrawn" : d, "linesErased" : e};   //""  =>  Not set
 }
 
 

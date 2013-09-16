@@ -6,12 +6,12 @@
 //Variable Declaration
 //-------------------
 
-var currLevelNum = 1,                                                             //Defaults level 1
-    currLevel = Levels[currLevelNum - 1],                                         //Defaults level 1
-    currSoln = new UserSolution("", new Solution(0, false, currLevel.graph)),     //Defaults level 1
+var currLevelNum = 1,                                                               //Defaults level 1
+    currLevel = Levels[currLevelNum - 1],                                           //Defaults level 1
+    currSoln = new UserSolution("", new Solution(0, false, currLevel.graph), 0, 0), //Defaults level 1
 
-    inDrawMode = true,                                                            //Defaults Draw  Mode enabled
-    inEraseMode = !inDrawMode;                                                    //Defaults Erase Mode disabled
+    inDrawMode = true,                                                              //Defaults Draw  Mode enabled
+    inEraseMode = !inDrawMode;                                                      //Defaults Erase Mode disabled
 
 
 //Getter functions
@@ -49,7 +49,7 @@ function getHint2() {
 function loadLevel() {
     "use strict";
     currLevel = Levels[currLevelNum - 1];
-    currSoln = new UserSolution("", new Solution(0, false, currLevel.graph), "");
+    currSoln = new UserSolution("", new Solution(0, false, currLevel.graph), 0, 0);
     console.log("loaded level", currLevelNum);
     showHint();
 }
@@ -167,7 +167,7 @@ function showHint() {
 //resetGraph: Void
 function resetGraph() {
     "use strict";
-    var newSoln = new UserSolution(currSoln, new Solution(0, false, currLevel.graph));
+    var newSoln = new UserSolution(currSoln, new Solution(0, false, currLevel.graph), 0, 0);
     currSoln = newSoln;
     console.log("reseted graph")
 }
@@ -177,10 +177,16 @@ function checkSolution() {
     "use strict";
     console.log("checking solution");
     if (solutionEqual(currLevel.solution, currSoln)){
-        //do something special
+        App.dialog({
+            title        : "Success!",
+            text         : "Congratulations, you beat level " + currLevel + " press OK to continue.",
+            cancelButton : "OK"});
         currLevel += 1;
-        loadLevel(currLevel);
+        loadLevel();
     } else {
-        //do something special
+        App.dialog({
+            title : "Incorrect",
+            text : "Your guess was wrong.",
+            cancelButton : "OK"});
     }
 }

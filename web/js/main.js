@@ -44,7 +44,7 @@ App.populator('game', function (page) {
 	    	rotateGraph();       
 	    	draw();
 	    });
-	    
+
 	    $(page).find('.flip').on('click', function () { 
 	    	flipGraph();         
 	    	draw();
@@ -56,37 +56,15 @@ App.populator('game', function (page) {
 	    });
 
 
-		$(page).find('.check').on('click', function () {
-			console.log("check");
-			App.dialog({
-					title        : "Check Solution?",
-					text         : "Would you like to see if you have solved the puzzle correctly?",
-					checkButton   : "Check!",
-					cancelButton : "Cancel"
-				}, function (result) {
-
-				if (result ===  "check") {
-					App.load("levels")
-				}
-			});
-	    });
+		$(page).find('.check').on('click', function () { checkSolution(); });
 
 	    $(page).find('.hint'  ).on('click', function () { showHint(); });
 
 	    $(page).find('.reset').on('click', function () {
-			console.log("reset");
-			App.dialog({
-					title        : "Reset?",
-					text         : "This will trash your progress on this puzzle.  Are you sure you wish to do this?",
-					resetButton   : "Reset",
-					cancelButton : "Cancel"
-				}, function (result) { //result is a string
-
-				if (result ===  "reset") {
-					App.load("levels")
-				}
-			});
+	    	resetGraph();
+	    	draw();
 	    });
+
 	});
 });
 

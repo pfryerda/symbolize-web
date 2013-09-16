@@ -59,13 +59,11 @@ function addLine(point1, point2) {
     "use strict";
     if (currSoln.linesDrawn < getDrawRestriction()){
         console.log("adding line to solution");
-        var newSoln = currSoln,
-            l = new Line(point1, point2);
+        var l = new Line(point1, point2);
 
-        newSoln.solution.sGraph.unshift(l);
-        newSoln.linesDrawn += 1;
-        newSoln.moves.unshift(l);
-        currSoln = newSoln;
+        currSoln.solution.sGraph.unshift(l);
+        currSoln.linesDrawn += 1;
+        currSoln.moves.unshift(l);
         console.log("added line to solution");
     } else {
         //Add error message
@@ -76,16 +74,13 @@ function addLine(point1, point2) {
 function removeLine(point) {
     "use strict";
     if (currSoln.linesErased < getEraseRestriction()){
-        var newSoln = currSoln,
-            graph = newSoln.solution.sGraph,
-            index = getErasedIndex(point, graph);
+        var index = getErasedIndex(point, currSoln.solution.sGraph);
 
         if (index > -1) {
             console.log("removing line from solution");
-            newSoln.solution.sGraph = newSoln.solution.sGraph.splice(index, 1);
-            newSoln.linesErased += 1;
-            //newSoln.moves.unshift(); Work in progress
-            currSoln = newSoln;
+            currSoln.solution.sGraph = currSoln.solution.sGraph.splice(index, 1);
+            currSoln.linesErased += 1;
+            //currSoln.moves.unshift(); Work in progress
             console.log("removed line from solution");
         }
     } else {
@@ -138,19 +133,15 @@ function activateEraseMode() {
 function rotateGraph() {
     "use strict";
     console.log("rotating graph 90 degree");
-    var newSoln = currSoln,
-        rotation = newSoln.solution.rotation,
-        flip = newSoln.solution.isFliped;
 
-    if (flip) { 
-        newSoln.solution.rotation = (rotation + 270) % 360; 
-        newSoln.moves.unshift(270);
+    if (currSoln.solution.isFliped) { 
+        currSoln.solution.rotation = (currSoln.solution.rotation + 270) % 360; 
+        currSoln.moves.unshift(270);
     }
     else { 
-        newSoln.solution.rotation = (rotation + 90) % 360; 
-        newSoln.moves.unshift(90);
+        currSoln.solution.rotation = (currSoln.solution.rotation + 90) % 360; 
+        currSoln.moves.unshift(90);
     }
-    currSoln = newSoln;
     console.log("rotated graph 90 degree");
 }
 
@@ -158,14 +149,10 @@ function rotateGraph() {
 function flipGraph() {
     "use strict";
     console.log("reflecting graph");
-    var newSoln = currSoln,
-        flip = newSoln.solution.isFliped,
-        rotation = newSoln.solution.rotation;
 
-    newSoln.solution.isFliped = !flip;
-    newSoln.solution.rotation = (rotation + 180) % 360;
-    newSoln.moves.unshift(180);
-    currSoln = newSoln;
+    currSoln.solution.isFliped = !(currSoln.solution.isFliped);
+    currSoln.solution.rotation = ((currSoln.solution.rotation) + 180) % 360;
+    currSoln.moves.unshift(180);
     console.log("reflected graph");
 }
 
@@ -184,8 +171,7 @@ function showHint() {
 //resetGraph: Void
 function resetGraph() {
     "use strict";
-    var newSoln = new UserSolution([], new Solution(0, false, currLevel.graph), 0, 0);
-    currSoln = newSoln;
+    currSoln = new UserSolution([], new Solution(0, false, currLevel.graph), 0, 0);
     console.log("reseted graph")
 }
 

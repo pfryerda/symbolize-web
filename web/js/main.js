@@ -16,54 +16,33 @@ App.populator('game', function (page) {
 		//This runs every time the page becomes visible to the user and is done animating
 
 
-		//Variable Definition
-		//-------------------
+		//Variable Definition and level loading
+		//-------------------------------------
 
 		var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
 
 		if(gameCanvas.getContext) { var context = gameCanvas.getContext("2d"); } //Context
 
-		//draw: Void
-		function draw() { drawSolution(currSoln, gameCanvas, context); }         //Draws currSoln
-
-
-		//loading and drawing level
-		//-------------------------
-
-		loadLevel();
-		draw();
-
+		loadLevel(gameCanvas, context);
 
 		//Buttons
 		//-------
 	
-		$(page).find('.pencil').on('click', function () { activateDrawMode(); });
-	    $(page).find('.eraser').on('click', function () { activateEraseMode(); });
+		$(page).find('.pencil').on('click', function () { activateDrawMode();                 });
 
-	    $(page).find('.rotate').on('click', function () { 
-	    	rotateGraph();       
-	    	draw();
-	    });
+	    $(page).find('.eraser').on('click', function () { activateEraseMode();                });
 
-	    $(page).find('.flip').on('click', function () { 
-	    	flipGraph();         
-	    	draw();
-	    });
+	    $(page).find('.rotate').on('click', function () { rotateGraph(gameCanvas, context);   });
 
-	    $(page).find('.undo').on('click', function () {   
-	    	undo();
-	    	draw();
-	    });
+	    $(page).find('.flip'  ).on('click', function () { flipGraph(gameCanvas, context);     });
 
+	    $(page).find('.undo'  ).on('click', function () { undo(gameCanvas, context);          });
 
-		$(page).find('.check').on('click', function () { checkSolution(); });
+		$(page).find('.check' ).on('click', function () { checkSolution(gameCanvas, context); });
 
-	    $(page).find('.hint'  ).on('click', function () { showHint(); });
+	    $(page).find('.hint'  ).on('click', function () { showHint();                         });
 
-	    $(page).find('.reset').on('click', function () {
-	    	resetGraph();
-	    	draw();
-	    });
+	    $(page).find('.reset' ).on('click', function () { resetGraph(gameCanvas, context);    });
 
 	});
 });

@@ -46,16 +46,17 @@ function getHint2() {
 //----------------
 
 //loadLevel: Void
-function loadLevel() {
+function loadLevel(c, ctx) {
     "use strict";
     currLevel = Levels[currLevelNum - 1];
     currSoln = new UserSolution([], new Solution(0, false, currLevel.graph), 0, 0);
     console.log("loaded level", currLevelNum);
     showHint();
+    drawSolution(currSoln, c, ctx)
 }
 
 //addLine: Posn Posn -> Void
-function addLine(point1, point2) {
+function addLine(point1, point2, c, ctx) {
     "use strict";
     if (currSoln.linesDrawn < getDrawRestriction()){
         console.log("adding line to solution");
@@ -64,6 +65,7 @@ function addLine(point1, point2) {
         currSoln.solution.sGraph.unshift(l);
         currSoln.linesDrawn += 1;
         currSoln.moves.unshift(l);
+        drawSolution(currSoln, c, ctx)
         console.log("added line to solution");
     } else {
         //Add error message
@@ -71,7 +73,7 @@ function addLine(point1, point2) {
 }
 
 //removeLine: Posn -> Void
-function removeLine(point) {
+function removeLine(point, c, ctx) {
     "use strict";
     if (currSoln.linesErased < getEraseRestriction()){
         var index = getErasedIndex(point, currSoln.solution.sGraph);
@@ -81,6 +83,7 @@ function removeLine(point) {
             currSoln.solution.sGraph = currSoln.solution.sGraph.splice(index, 1);
             currSoln.linesErased += 1;
             //currSoln.moves.unshift(); Work in progress
+            drawSolution(currSoln, c, ctx)
             console.log("removed line from solution");
         }
     } else {
@@ -89,7 +92,7 @@ function removeLine(point) {
 }
 
 //undo: Void
-function undo() {
+function undo(c, ctx) {
     "use strict"
     var oldMoves = currSoln.moves;
     if (oldMoves !== []) {
@@ -108,6 +111,7 @@ function undo() {
         //case (Line)
             //to do
         }
+        drawSolution(currSoln, c, ctx)
         currSoln.moves.splice(0, 1);
         console.log("undoed");
     }  
@@ -130,7 +134,7 @@ function activateEraseMode() {
 }
 
 //rotateGraph: Void
-function rotateGraph() {
+function rotateGraph(c, ctx) {
     "use strict";
     console.log("rotating graph 90 degree");
 
@@ -142,17 +146,19 @@ function rotateGraph() {
         currSoln.solution.rotation = (currSoln.solution.rotation + 90) % 360; 
         currSoln.moves.unshift(90);
     }
+    drawSolution(currSoln, c, ctx)
     console.log("rotated graph 90 degree");
 }
 
 //flipGraph: Void
-function flipGraph() {
+function flipGraph(c, ctx) {
     "use strict";
     console.log("reflecting graph");
 
     currSoln.solution.isFliped = !(currSoln.solution.isFliped);
     currSoln.solution.rotation = ((currSoln.solution.rotation) + 180) % 360;
     currSoln.moves.unshift(180);
+    drawSolution(currSoln, c, ctx)
     console.log("reflected graph");
 }
 
@@ -169,10 +175,23 @@ function showHint() {
 }
 
 //resetGraph: Void
-function resetGraph() {
+function resetGraph(c, ctx) {
     "use strict";
-    currSoln = new UserSolution([], new Solution(0, false, currLevel.graph), 0, 0);
-    console.log("reseted graph")
+    App.dialog({
+        title        : "Reset?",
+        text         : "This will trash your progress on this puzzle.  Are you sure you wish to do this?",
+        resetButton   : "Reset",
+        cancelButton : "Cancel"
+    }, function (result) { //result is a string
+
+    if (result ===  "reset") {
+        currSoln = new UserSolution([], new Solution(0, false, currLevel.graph), 0, 0);
+        drawSolution(currSoln, c, ctx)
+        console.log("reseted graph")
+    } else {
+        console.log("reseted graph canceled")
+    }
+    });
 }
 
 //checkSolution: Void

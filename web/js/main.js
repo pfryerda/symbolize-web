@@ -37,24 +37,23 @@ App.populator('game', function (page) {
 		//Buttons
 		//-------
 	
-		$(page).find('.pencil').on('click', function () { 
-			activateDrawMode();  
-			draw();
-		});
-	    $(page).find('.eraser').on('click', function () { 
-	    	activateEraseMode(); 
-	    	draw();
-	    });
+		$(page).find('.pencil').on('click', function () { activateDrawMode(); });
+	    $(page).find('.eraser').on('click', function () { activateEraseMode(); });
+
 	    $(page).find('.rotate').on('click', function () { 
 	    	rotateGraph();       
 	    	draw();
 	    });
+	    
 	    $(page).find('.flip').on('click', function () { 
 	    	flipGraph();         
 	    	draw();
 	    });
 
-	    $(page).find('.undo').on('click', function () {   });
+	    $(page).find('.undo').on('click', function () {   
+	    	undo();
+	    	draw();
+	    });
 
 
 		$(page).find('.check').on('click', function () {

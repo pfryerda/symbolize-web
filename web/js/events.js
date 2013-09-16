@@ -8,7 +8,7 @@
 
 var currLevelNum = 1,                                                             //Defaults level 1
     currLevel = Levels[currLevelNum - 1],                                         //Defaults level 1
-    currSoln = new UserSolution("", new Solution(0, false, currLevel.graph), ""), //Defaults level 1
+    currSoln = new UserSolution("", new Solution(0, false, currLevel.graph)),     //Defaults level 1
 
     inDrawMode = true,                                                            //Defaults Draw  Mode enabled
     inEraseMode = !inDrawMode;                                                    //Defaults Erase Mode disabled
@@ -98,20 +98,10 @@ function undo() {
     "use strict";
     var newSoln = currSoln.back;
     if (newSoln !== "") {
-        newSoln.forward = currSoln;
         currSoln = newSoln;
         console.log("undoed");
     }  
-}
-
-//redo: Void
-function redo() {
-    "use strict";
-    var newSoln = currSoln.forward;
-     if (newSoln !== "") {
-        currSoln = currSoln.forward;
-        console.log("redoed");
-    }
+    currSoln = currSoln.back;
 }
 
 //activateDrawMode: Void
@@ -134,12 +124,14 @@ function activateEraseMode() {
 function rotateGraph() {
     "use strict";
     console.log("rotating graph 90 degree");
+    console.log("currSolution = ", currSoln);
     var newSoln = currSoln,
         rotation = newSoln.solution.rotation;
 
     newSoln.solution.rotation = (rotation + 90) % 360;
     newSoln.back = currSoln;
     currSoln = newSoln;
+    console.log("new currSolution = ", currSoln);
     console.log("rotated graph 90 degree");
 }
 
@@ -173,7 +165,7 @@ function showHint() {
 //resetGraph: Void
 function resetGraph() {
     "use strict";
-    var newSoln = new UserSolution(currSoln, new Solution(0, false, currLevel.graph), "");
+    var newSoln = new UserSolution(currSoln, new Solution(0, false, currLevel.graph));
     currSoln = newSoln;
     console.log("reseted graph")
 }

@@ -40,10 +40,10 @@ function Posn(c, l) {
     return {"x" : c, "y" : l};
 }
 
-//UserSolution: UserSolution Solution Number[0,∞) Number[0,∞) UserSolution -> UserSolution
-function UserSolution(b, s, d, e, f) {
+//UserSolution: UserSolution Solution Number[0,∞) Number[0,∞) -> UserSolution
+function UserSolution(b, s, d, e) {
     "use strict";
-    return {"back" : b, "solution" : s, "linesDrawn" : d, "linesErased" : e, "forward" : f};   //""  =>  Not set
+    return {"back" : b, "solution" : s, "linesDrawn" : d, "linesErased" : e};   //""  =>  Not set
 }
 
 

@@ -49,12 +49,12 @@ App.populator('game', function (page) {
 	    	rotateGraph();       
 	    	draw();
 	    });
-	    $(page).find('.flip'  ).on('click', function () { 
+	    $(page).find('.flip').on('click', function () { 
 	    	flipGraph();         
 	    	draw();
 	    });
-	    $(page).find('.hint'  ).on('click', function () { showHint(); });
 
+	    $(page).find('.undo').on('click', function () {   });
 
 
 		$(page).find('.check').on('click', function () {
@@ -71,6 +71,8 @@ App.populator('game', function (page) {
 				}
 			});
 	    });
+
+	    $(page).find('.hint'  ).on('click', function () { showHint(); });
 
 	    $(page).find('.reset').on('click', function () {
 			console.log("reset");
@@ -93,7 +95,7 @@ App.populator('levels', function (page) {
 	console.log("loaded levels");
 });
 
-App.load('home');
+App.load('game');
 
 // try {
 // 	App.restore();

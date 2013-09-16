@@ -21,13 +21,19 @@
 
 .check
 {
-	width: 50%;
+	width: 33%;
 	float: left;
+}
+
+.hint
+{
+	width:33%;
+	float:left;
 }
 
 .reset
 {
-	width: 50%;
+	width: 33%;
 	float: left;
 }
 

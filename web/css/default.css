@@ -740,7 +740,7 @@ p.app-section {
 }
 
 .app-content .app-button.green {
-	background-color: #3C7;
+	background-color: #189f38;
 	color: #F3F4F5;
 }
 .app-content .app-button.green.active {
@@ -761,7 +761,7 @@ p.app-section {
 	background-color: #C50;
 }
 .app-content .app-button.red {
-	background-color: #DD4539;
+	background-color: #e31c1c;
 	color: #F3F4F5;
 }
 .app-content .app-button.red.active {

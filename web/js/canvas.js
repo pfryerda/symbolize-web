@@ -7,8 +7,11 @@
 //-------------------
 
 var gameCanvas = document.getElementById("gameCanvas"),         //Canvas
-    ctx = gameCanvas.getContext("2d"),                          //Context
     scaling = 50; //Note this number still need to be decided!  //Max number for the width and height of the graph
+
+if(gameCanvas.getContext) {
+    var ctx = gameCanvas.getContext("2d");                      //Context
+}
 
 
 //Graphing Function

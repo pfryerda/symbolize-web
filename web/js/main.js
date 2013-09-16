@@ -10,13 +10,14 @@ App.populator('home', function (page) {
 });
 
 App.populator('game', function (page) {
+	console.log("loaded game");
+	//document.addEventListener('DOMContentLoaded', domloaded, false);
+	//function domloaded(){
+	
 	$(page).on('appShow', function () {
 		//This runs every time the page becomes visible to the user and is done animating
 		loadLevel();
 	});
-
-
-	console.log("loaded game");
 
 	$(page).find('.pencil').on('click', function () { activateDrawMode();  });
     $(page).find('.eraser').on('click', function () { activateEraseMode(); });
@@ -55,8 +56,7 @@ App.populator('game', function (page) {
 			}
 		});
     });
-
-    console.log("comment");
+	//}
 });
 
 App.populator('levels', function (page) {

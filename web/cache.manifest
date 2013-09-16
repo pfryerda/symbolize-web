@@ -8,12 +8,11 @@ CACHE MANIFEST
 /js/touchy.js
 /js/app.js
 /js/analytics.js
-/js/canvas.js
-/js/common.js
-/js/events.js
 /js/main.js
+/js/events.js
+/js/canvas.js
 /js/puzzles.js
-/js/puzzleStorage.js
+/js/common.js
 /js/zepto.js
 
 /img/flip.png

@@ -19,24 +19,19 @@ App.populator('game', function (page) {
 		//Variable Definition
 		//-------------------
 
-		var gameCanvas = document.getElementById("gameCanvas"); //Canvas
+		var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
 
-		if(gameCanvas.getContext) {
-		    var context = gameCanvas.getContext("2d");          //Context
-		}
+		if(gameCanvas.getContext) { var context = gameCanvas.getContext("2d"); } //Context
 
-		//draw: UserSolution -> Void
-		function draw(userSoln) {
-			"use strict";
-			drawSolution(userSoln, gameCanvas, context);
-		}
+		//draw: Void
+		function draw() { drawSolution(currSoln, gameCanvas, context); }         //Draws currSoln
 
 
 		//loading and drawing level
 		//-------------------------
 
 		loadLevel();
-		draw(currSoln);
+		draw();
 
 
 		//Buttons
@@ -44,19 +39,19 @@ App.populator('game', function (page) {
 	
 		$(page).find('.pencil').on('click', function () { 
 			activateDrawMode();  
-			draw(currSoln);
+			draw();
 		});
 	    $(page).find('.eraser').on('click', function () { 
 	    	activateEraseMode(); 
-	    	draw(currSoln);
+	    	draw();
 	    });
 	    $(page).find('.rotate').on('click', function () { 
 	    	rotateGraph();       
-	    	draw(currSoln);
+	    	draw();
 	    });
 	    $(page).find('.flip'  ).on('click', function () { 
 	    	flipGraph();         
-	    	draw(currSoln);
+	    	draw();
 	    });
 	    $(page).find('.hint'  ).on('click', function () { showHint(); });
 

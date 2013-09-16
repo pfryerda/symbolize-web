@@ -25,6 +25,7 @@ App.populator('game', function (page) {
 
 		loadLevel(gameCanvas, context);
 
+
 		//Buttons
 		//-------
 	
@@ -43,6 +44,18 @@ App.populator('game', function (page) {
 	    $(page).find('.hint'  ).on('click', function () { showHint();                         });
 
 	    $(page).find('.reset' ).on('click', function () { resetGraph(gameCanvas, context);    });
+
+
+	    //Interactive Drawing
+	    //-------------------
+
+	    gameCanvas.addEventListener("mousedown", doMouseDown, false);
+
+	    function doMouseDown(event) {
+	    	gameCanvas_x = event.pageX * (scaling / 270);
+	    	gameCanvas_y = event.pageY * (scaling / 270);
+	    	console.log("X = " + gameCanvas_x + ", Y = " + gameCanvas_y);
+	    }
 
 	});
 });

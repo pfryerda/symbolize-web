@@ -126,9 +126,11 @@ function rotateGraph() {
     console.log("rotating graph 90 degree");
     console.log("currSolution = ", currSoln);
     var newSoln = currSoln,
-        rotation = newSoln.solution.rotation;
+        rotation = newSoln.solution.rotation,
+        flip = newSoln.solution.isFliped;
 
-    newSoln.solution.rotation = (rotation + 90) % 360;
+    if (flip) { newSoln.solution.rotation = (rotation + 270) % 360; }
+    else { newSoln.solution.rotation = (rotation + 90) % 360; }
     newSoln.back = currSoln;
     currSoln = newSoln;
     console.log("new currSolution = ", currSoln);

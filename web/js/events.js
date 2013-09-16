@@ -14,34 +14,6 @@ var currLevelNum = 1,                                                           
     inEraseMode = !inDrawMode;                                                      //Defaults Erase Mode disabled
 
 
-//Getter functions
-//----------------
-
-//getDrawRestriction: Number[0,∞)
-function getDrawRestriction() {
-    "use strict";
-    return currLevel.restriction.draw;
-}
-
-//getEraseRestriction: Number[0,∞)
-function getEraseRestriction() {
-    "use strict";
-    return currLevel.restriction.erase;
-}
-
-//getHint1: String
-function getHint1() {
-    "use strict";
-    return currLevel.hint1;
-}
-
-//getHint2: String
-function getHint2() {
-    "use strict";
-    return currLevel.hint2;
-}
-
-
 //Event Functions
 //----------------
 
@@ -58,7 +30,7 @@ function loadLevel(c, ctx) {
 //addLine: Posn Posn -> Void
 function addLine(point1, point2, c, ctx) {
     "use strict";
-    if (currSoln.linesDrawn < getDrawRestriction()){
+    if (currSoln.linesDrawn < (currLevel.restriction.draw)){
         console.log("adding line to solution");
         var l = new Line(point1, point2);
 
@@ -75,7 +47,7 @@ function addLine(point1, point2, c, ctx) {
 //removeLine: Posn -> Void
 function removeLine(point, c, ctx) {
     "use strict";
-    if (currSoln.linesErased < getEraseRestriction()){
+    if (currSoln.linesErased < (currLevel.restriction.erase)) {
         var index = getErasedIndex(point, currSoln.solution.sGraph);
 
         if (index > -1) {
@@ -89,32 +61,6 @@ function removeLine(point, c, ctx) {
     } else {
         //Add error message
     }
-}
-
-//undo: Void
-function undo(c, ctx) {
-    "use strict"
-    var oldMoves = currSoln.moves;
-    if (oldMoves !== []) {
-        switch (oldMoves[0]) {
-        case 90: //Unrotate non flipped
-            currSoln.solution.rotation = (currSoln.solution.rotation + 270) % 360;
-            break;
-        case 180: //Unflip
-            currSoln.solution.rotation = (currSoln.solution.rotation + 180) % 360;
-            currSoln.solution.isFliped = !(currSoln.solution.isFliped);
-            break;
-        case 270: //unrotate flipped
-            currSoln.solution.rotation = (currSoln.solution.rotation + 90) % 360;
-            break;
-
-        //case (Line)
-            //to do
-        }
-        drawSolution(currSoln, c, ctx)
-        currSoln.moves.splice(0, 1);
-        console.log("undoed");
-    }  
 }
 
 //activateDrawMode: Void
@@ -162,12 +108,59 @@ function flipGraph(c, ctx) {
     console.log("reflected graph");
 }
 
+//undo: Void
+function undo(c, ctx) {
+    "use strict"
+    var oldMoves = currSoln.moves;
+    if (oldMoves !== []) {
+        switch (oldMoves[0]) {
+        case 90: //Unrotate non flipped
+            currSoln.solution.rotation = (currSoln.solution.rotation + 270) % 360;
+            break;
+        case 180: //Unflip
+            currSoln.solution.rotation = (currSoln.solution.rotation + 180) % 360;
+            currSoln.solution.isFliped = !(currSoln.solution.isFliped);
+            break;
+        case 270: //unrotate flipped
+            currSoln.solution.rotation = (currSoln.solution.rotation + 90) % 360;
+            break;
+
+        //case (Line)
+            //to do
+        }
+        drawSolution(currSoln, c, ctx)
+        currSoln.moves.splice(0, 1);
+        console.log("undoed");
+    }  
+}
+
+//checkSolution: Void
+function checkSolution() {
+    "use strict";
+    console.log("checking solution");
+    if (solutionEqual(currLevel.solution, currSoln)){
+        App.dialog({
+            title        : "Success!",
+            text         : "Congratulations, you beat level " + currLevel + " press OK to continue.",
+            cancelButton : "OK"});
+        //Add end of game check
+        currLevel += 1;
+        loadLevel();
+    } else {
+        App.dialog({
+            title : "Incorrect",
+            text : "Your guess was wrong.",
+            cancelButton : "OK"});
+    }
+}
+
 //showHint: Void
 function showHint() {
     "use strict"; 
     console.log("showing hints")
-    var hints = "1) " + getHint1() + "\n2) " + getHint2(),
-        restrictions = "\nlines allowed drawn: " + (getDrawRestriction()).toString() + "\nlines allowed erased: " + (getEraseRestriction()).toString();
+    var hints = "1) " + (currLevel.hint1) + "\n2) " + (currLevel.hint2),
+        restrictions = ("\nlines allowed drawn: " + (currLevel.restriction.draw).toString() + 
+            "\nlines allowed erased: " + (currLevel.restriction.erase).toString());
     App.dialog({
         title        : "Level " + currLevelNum.toString() + " Hints",
         text         : hints + restrictions,
@@ -192,24 +185,4 @@ function resetGraph(c, ctx) {
         console.log("reseted graph canceled")
     }
     });
-}
-
-//checkSolution: Void
-function checkSolution() {
-    "use strict";
-    console.log("checking solution");
-    if (solutionEqual(currLevel.solution, currSoln)){
-        App.dialog({
-            title        : "Success!",
-            text         : "Congratulations, you beat level " + currLevel + " press OK to continue.",
-            cancelButton : "OK"});
-        //Add end of game check
-        currLevel += 1;
-        loadLevel();
-    } else {
-        App.dialog({
-            title : "Incorrect",
-            text : "Your guess was wrong.",
-            cancelButton : "OK"});
-    }
 }

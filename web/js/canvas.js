@@ -76,10 +76,10 @@ function drawSolution(userSoln, can, ctx) {
         rotation = userSoln.solution.rotation,       //Rotation
         flip = userSoln.solution.isFliped;           //Boolean stating if canvas is to be flipped
 
-    clearCanvas(can);                         //Clears the canvas
+    clearCanvas(can);                                //Clears the canvas
     ctx.save();                                      //Saves current coords
-    ctx.scale(can.width / scaling,
-        can.height / scaling);                //Scales the graph to have a max width and hiehgt of scaling
+    ctx.scale(can.width / scaling,                   //Scales the graph to have a max width and hiehgt of scaling
+        can.height / scaling);                
 
     if (flip) { flipCanvas(ctx); }                   //Flips vertically if f is true
     if (rotation !== 0) rotateCanvas(rotation, ctx); //Sets the proper rotation

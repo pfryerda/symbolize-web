@@ -51,7 +51,6 @@ function loadLevel() {
     currLevel = Levels[currLevelNum - 1];
     currSoln = new UserSolution("", new Solution(0, false, currLevel.graph), "");
     console.log("loaded level", currLevelNum);
-    drawSolution(currSoln);
     showHint();
 }
 
@@ -67,7 +66,6 @@ function addLine(point1, point2) {
         newSoln.linesDrawn += 1;
         newSoln.back = currSoln;
         currSoln = newSoln;
-        drawSolution(currSoln);
         console.log("added line to solution");
     } else {
         //Add error message
@@ -88,7 +86,6 @@ function removeLine(point) {
             newSoln.linesErased += 1;
             newSoln.back = currSoln;
             currSoln = newSoln;
-            drawSolution(currSoln);
             console.log("removed line from solution");
         }
     } else {
@@ -103,7 +100,6 @@ function undo() {
     if (newSoln !== "") {
         newSoln.forward = currSoln;
         currSoln = newSoln;
-        drawSolution(currSoln);
         console.log("undoed");
     }  
 }
@@ -114,7 +110,6 @@ function redo() {
     var newSoln = currSoln.forward;
      if (newSoln !== "") {
         currSoln = currSoln.forward;
-        drawSolution(currSoln);
         console.log("redoed");
     }
 }
@@ -145,7 +140,6 @@ function rotateGraph() {
     newSoln.solution.rotation = (rotation + 90) % 360;
     newSoln.back = currSoln;
     currSoln = newSoln;
-    drawSolution(currSoln); 
     console.log("rotated graph 90 degree");
 }
 
@@ -161,7 +155,6 @@ function flipGraph() {
     newSoln.solution.rotation = (rotation + 180) % 360;
     newSoln.back = currSoln;
     currSoln = newSoln;
-    drawSolution(currSoln);
     console.log("reflected graph");
 }
 

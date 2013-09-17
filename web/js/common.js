@@ -60,6 +60,12 @@ function to5(n) {
     return (5*(Math.round(n/5)));
 }
 
+//scalePoint: Number -> Number -> Number -> Number -> Posn
+function scalePoint(point_x, point_y, scaling, canvaslength){
+    "use strict";
+    return new Posn(to5((point_x - 25) * (scaling / canvaslength)), to5(( point_y - 68) * (scaling / canvaslength)));
+}
+
 //getErasedIndex: Posn Graph -> Number[0,∞)   Used only for removeLine in events.js
 function getErasedIndex(point, graph) {
     "use strict";

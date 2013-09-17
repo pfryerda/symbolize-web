@@ -22,33 +22,26 @@ App.populator('game', function (page) {
 		//This runs every time the page becomes visible to the user and is done animating
 
 
-		//Canvas Creation
-		//--------
+		//Variable Definition, level loading and Canvas Creation
+		//------------------------------------------------------
 
 		var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
-
-	    var width = $(page).width();
-	    console.log('width = ' + width);
-
-		var canvasLength = width - 70;
-
-		gameCanvas.width = canvasLength;
-		gameCanvas.height = canvasLength;
-
-		$(page).find('gameCanvas').width = canvasLength;
-
-
-		//Variable Definition and level loading
-		//-------------------------------------
-
 		if(gameCanvas.getContext) { var context = gameCanvas.getContext("2d"); } //Context
 
+	    var WIDTH = $(page).width();											 //Document width
+		var CANVASLENGTH = WIDTH - 70;											 //Canvas width
+
+		gameCanvas.width = CANVASLENGTH;
+		gameCanvas.height = CANVASLENGTH;
+		$(page).find('gameCanvas').width = CANVASLENGTH;
+
+		
 		loadLevel(gameCanvas, context);
 
 		//Dynamically Changes the title of the level
 		var titleText = "Level " + currLevelNum;
-		console.log(titleText);
 		document.getElementById("gameTitle").innerHTML = titleText;
+
 
 		//Buttons
 		//-------
@@ -75,30 +68,19 @@ App.populator('game', function (page) {
 
 	    gameCanvas.addEventListener("mousedown", mouseDownEvent, false);
 	    var startPoint = "";
-	    
-	    
+	        
 	    function mouseDownEvent(event) {
-	    	startPoint_x = to5((event.pageX - 25) * (SCALING / canvasLength));
-	    	startPoint_y = to5((event.pageY - 68) * (SCALING / canvasLength));
-			startPoint = new Posn(startPoint_x, startPoint_y);
-
+			startPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASLENGTH);
 	    	console.log("Start: ", startPoint);
-
 	    	gameCanvas.addEventListener("mouseup", mouseUpEvent, false);
-
-
-
 	    }
 
     	function mouseUpEvent(event) {
     		if(startPoint !== "") {
-		    	endPoint_x = to5((event.pageX - 25) * (SCALING / canvasLength));
-		    	endPoint_y = to5((event.pageY - 68) * (SCALING / canvasLength));
-				endPoint = new Posn(endPoint_x, endPoint_y);
-
+				endPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASLENGTH);
 		    	console.log("End  : X = ", endPoint);
-
 		    	newLine = new Line(startPoint, endPoint);
+
 		    	if (inDrawMode) { addLine(newLine, gameCanvas, context); }
 		    	//if (inEraseMode) {}
 		    	startPoint = "";

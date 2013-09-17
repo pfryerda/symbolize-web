@@ -30,7 +30,7 @@ function loadLevel(c, ctx) {
 //addLine: Line -> Void
 function addLine(l, c, ctx) {
     "use strict";
-    if (currSoln.linesDrawn < (currLevel.restriction.draw) && (l.p1.x !== l.p2.x && l.p1.y !== l.p2.y)) {
+    if (currSoln.linesDrawn < (currLevel.restriction.draw) && (l.p1.x !== l.p2.x || l.p1.y !== l.p2.y)) {
         console.log("adding line to solution");
 
         currSoln.solution.sGraph.unshift(l);

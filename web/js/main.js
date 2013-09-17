@@ -4,6 +4,12 @@
 
 //Need to make a function that allows me to highlight the current tool and deselect the other tools.
 
+cards.ready(function(){
+	if ( cards.browser){
+	  cards.browser.setOrientationLock('portrait');
+	}
+});
+
 
 App.populator('home', function (page) {
 	console.log("loaded home");
@@ -91,7 +97,7 @@ App.populator('game', function (page) {
 		    	endPoint_y = to5((event.pageY - 68) * (scaling / canvasLength));
 		    	endPoint = (transformPoint(endPoint_x, endPoint_y, currSoln.solution.rotation,
 		    	 				currSoln.solution.isFliped, scaling));
-		    	
+
 		    	console.log("End  : X = ", endPoint);
 
 		    	newLine = new Line(startPoint, endPoint);

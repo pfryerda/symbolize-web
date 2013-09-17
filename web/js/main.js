@@ -68,20 +68,39 @@ App.populator('game', function (page) {
 	    //-------------------
 
 	    gameCanvas.addEventListener("mousedown", mouseDownEvent, false);
-	    gameCanvas.addEventListener("mouseup", mouseUpEvent, false);
+	    var startPoint = "";
 	    
-
+	    
 	    function mouseDownEvent(event) {
-	    	gameCanvas_x = to5((event.pageX - 25) * (scaling / canvasLength));
-	    	gameCanvas_y = to5((event.pageY - 68) * (scaling / canvasLength));
-	    	console.log("Start: X = " + gameCanvas_x + ", Y = " + gameCanvas_y);
+	    	startPoint_x = to5((event.pageX - 25) * (scaling / canvasLength));
+	    	startPoint_y = to5((event.pageY - 68) * (scaling / canvasLength));
+	    	startPoint = (transformPoint(startPoint_x, startPoint_y, currSoln.solution.rotation, 
+	    					currSoln.solution.isFliped, scaling));
+
+	    	console.log("Start: ", startPoint);
+
+	    	gameCanvas.addEventListener("mouseup", mouseUpEvent, false);
+
+
+
 	    }
 
-	    function mouseUpEvent(event) {
-	    	gameCanvas_x = to5((event.pageX - 25) * (scaling / canvasLength));
-	    	gameCanvas_y = to5((event.pageY - 68) * (scaling / canvasLength));
-	    	console.log("End  : X = " + gameCanvas_x + ", Y = " + gameCanvas_y);
+    	function mouseUpEvent(event) {
+    		if(startPoint !== "") {
+		    	endPoint_x = to5((event.pageX - 25) * (scaling / canvasLength));
+		    	endPoint_y = to5((event.pageY - 68) * (scaling / canvasLength));
+		    	endPoint = (transformPoint(endPoint_x, endPoint_y, currSoln.solution.rotation,
+		    	 				currSoln.solution.isFliped, scaling));
+		    	
+		    	console.log("End  : X = ", endPoint);
+
+		    	newLine = new Line(startPoint, endPoint);
+		    	if (inDrawMode) { addLine(newLine, gameCanvas, context); }
+		    	//if (inEraseMode) {}
+		    	startPoint = "";
+		    }
 	    }
+
 
 	});
 });

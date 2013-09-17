@@ -56,6 +56,30 @@ function to5(n) {
     return (5*(Math.round(n/5)));
 }
 
+//transformPoint: Number Number Number Bool Number -> Posn
+function transformPoint(px, py, r, f, s) {
+    "use strict"
+    var newPoint;
+    if (f) { py = s - py;}
+    switch (r) {
+    case 0:
+        newPoint = new Posn(px, py);
+        break;
+    case 90:
+        newPoint = new Posn(py, (s - px));
+        break
+    case 180:
+        newPoint = new Posn((s - px), (s - py));
+        break;
+    case 270:
+        newPoint = new Posn((s - py), px);
+        break;
+    default:
+        //throw error
+    }
+    return newPoint;
+}
+
 //getErasedIndex: Posn Graph -> Number[0,∞)   Used only for removeLine in events.js
 function getErasedIndex(point, graph) {
     "use strict";
@@ -71,7 +95,7 @@ function midPoint(line) {
     return new Posn((line.p1.x + line.p2.x) / 2, (line.p1.y + line.p2.y) / 2);
 }
 
-//distance: Line -> Number
+//distanceFromOrigin: Line -> Number
 function distanceFromOrigin(line) {
     "use strict";
     var midpoint = midPoint(line);

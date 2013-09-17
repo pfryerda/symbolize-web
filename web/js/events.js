@@ -27,20 +27,19 @@ function loadLevel(c, ctx) {
     drawSolution(currSoln, c, ctx)
 }
 
-//addLine: Posn Posn -> Void
-function addLine(point1, point2, c, ctx) {
+//addLine: Line -> Void
+function addLine(l, c, ctx) {
     "use strict";
-    if (currSoln.linesDrawn < (currLevel.restriction.draw)){
+    if (currSoln.linesDrawn < (currLevel.restriction.draw) && (l.p1.x !== l.p2.x && l.p1.y !== l.p2.y)) {
         console.log("adding line to solution");
-        var l = new Line(point1, point2);
 
         currSoln.solution.sGraph.unshift(l);
         currSoln.linesDrawn += 1;
-        currSoln.moves.unshift(l);
+        currSoln.moves.unshift(["draw", l]);
         drawSolution(currSoln, c, ctx)
         console.log("added line to solution");
     } else {
-        //Add error message
+        //throw error
     }
 }
 
@@ -111,9 +110,10 @@ function flipGraph(c, ctx) {
 //undo: Void
 function undo(c, ctx) {
     "use strict"
-    var oldMoves = currSoln.moves;
+    var oldMoves = currSoln.moves,
+        lastMove = oldMoves[0];
     if (oldMoves.length !== 0) {
-        switch (oldMoves[0]) {
+        switch (lastMove) {
         case 90: //Unrotate non flipped
             currSoln.solution.rotation = (currSoln.solution.rotation + 270) % 360;
             break;
@@ -125,8 +125,17 @@ function undo(c, ctx) {
             currSoln.solution.rotation = (currSoln.solution.rotation + 90) % 360;
             break;
 
-        //case (Line)
-            //to do
+        default:
+            if(lastMove[0] === "draw") {
+                for(var i=0; (currSoln.solution.sGraph)[i] !== lastMove[1]; i+= 1) {}
+                currSoln.solution.sGraph.splice(i, 1);
+                currSoln.linesDrawn -= 1;
+
+            } else if(lastMove[0] === "erase") {
+
+            } else {
+                //throw error
+            }
         }
         drawSolution(currSoln, c, ctx)
         currSoln.moves.splice(0, 1);

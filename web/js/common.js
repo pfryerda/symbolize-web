@@ -51,6 +51,11 @@ function UserSolution(ms, s, d, e) {
 //Helper Funcions
 //----------------
 
+//to5: Number -> Number
+function to5(n) {
+    return (5*(Math.round(n/5)));
+}
+
 //getErasedIndex: Posn Graph -> Number[0,∞)   Used only for removeLine in events.js
 function getErasedIndex(point, graph) {
     "use strict";

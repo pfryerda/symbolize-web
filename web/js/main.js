@@ -57,8 +57,8 @@ App.populator('game', function (page) {
 	    console.log('width = ' + width);
 
 	    function doMouseDown(event) {
-	    	gameCanvas_x = (event.pageX - ((width - gameCanvas.width) / 2)) * (scaling / 270);
-	    	gameCanvas_y = (event.pageY - 68) * (scaling / 270);
+	    	gameCanvas_x = to5((event.pageX - ((width - gameCanvas.width) / 2)) * (scaling / 270));
+	    	gameCanvas_y = to5((event.pageY - 68) * (scaling / 270));
 	    	console.log("X = " + gameCanvas_x + ", Y = " + gameCanvas_y);
 	    }
 

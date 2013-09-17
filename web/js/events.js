@@ -112,7 +112,7 @@ function flipGraph(c, ctx) {
 function undo(c, ctx) {
     "use strict"
     var oldMoves = currSoln.moves;
-    if (oldMoves !== []) {
+    if (oldMoves.length !== 0) {
         switch (oldMoves[0]) {
         case 90: //Unrotate non flipped
             currSoln.solution.rotation = (currSoln.solution.rotation + 270) % 360;
@@ -131,6 +131,8 @@ function undo(c, ctx) {
         drawSolution(currSoln, c, ctx)
         currSoln.moves.splice(0, 1);
         console.log("undoed");
+    } else {
+        //PETER PUT CODE HERE!
     }
 }
 

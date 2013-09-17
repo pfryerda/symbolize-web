@@ -51,33 +51,19 @@ function UserSolution(ms, s, d, e) {
 //Helper Funcions
 //----------------
 
+//map: (X->Y) [X] -> [Y]
+function map(f, lst) {
+    "use strict";
+    var newlst = new Array();
+    for (var i = 0;i < lst.length; i++){
+        newlst[i] = f(lst[i]);
+    }
+    return newlst;
+}
+
 //to5: Number -> Number
 function to5(n) {
     return (5*(Math.round(n/5)));
-}
-
-//transformPoint: Number Number Number Bool Number -> Posn
-function transformPoint(px, py, r, f, s) {
-    "use strict"
-    var newPoint;
-    if (f) { py = s - py;}
-    switch (r) {
-    case 0:
-        newPoint = new Posn(px, py);
-        break;
-    case 90:
-        newPoint = new Posn(py, (s - px));
-        break
-    case 180:
-        newPoint = new Posn((s - px), (s - py));
-        break;
-    case 270:
-        newPoint = new Posn((s - py), px);
-        break;
-    default:
-        //throw error
-    }
-    return newPoint;
 }
 
 //getErasedIndex: Posn Graph -> Number[0,∞)   Used only for removeLine in events.js

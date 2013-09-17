@@ -7,45 +7,35 @@
 //Max number for the width and height of the graph
 var scaling = 50;
 
+
+//Editing Functions
+//-----------------
+//rotateLine: Line -> Line
+function rotateLine(l) {
+    "use strict";
+    return new Line(new Posn((scaling - l.p1.y), l.p1.x), new Posn((scaling - l.p2.y), l.p2.x));
+}
+
+//unrotateLine: Line -> Line
+function unrotateLine(l) {
+    "use strict";
+    return new Line(new Posn(l.p1.y, (scaling - l.p1.x)), new Posn(l.p2.y, (scaling - l.p2.x)));
+}
+
+//flipLine: Line -> Line
+function flipLine(l) {
+    "use strict";
+    return new Line(new Posn((scaling - l.p1.x), l.p1.y), new Posn((scaling - l.p2.x), l.p2.y));
+}
+
+//Graphing Functions
+//------------------
+
 //clearCanvas: Canvas -> Void
 function clearCanvas(can) {
     "use strict";
     console.log("clearing canvas");
     can.width = can.width;
-}
-
-//flipCanvas: Context -> Void
-function flipCanvas(ctx) {
-    "use strict";
-    console.log("setting canvas flip")
-    ctx.translate(0, scaling);
-    ctx.scale(1, -1);
-}
-
-//rotateCanvas: Number[%90==0] -> Context -> Void
-function rotateCanvas(angle, ctx) {
-    "use strict";
-    console.log("setting canvas rotation");
-    var a = angle % 360;
-    switch (a) {
-    case 0:
-        ctx.translate(0, 0); //Should never happen
-        break;
-    case 90:
-        ctx.translate(scaling, 0);
-        break;
-    case 180:
-        ctx.translate(scaling, scaling);
-        break;
-    case 270:
-        ctx.translate(0, scaling);
-        break;
-    default:
-        throw new RangeError("rotateCanvas given a number other than 0, 90, 180, or 270")  //Should never happen
-        break;
-    }
-    ctx.rotate(a * Math.PI / 180);
-    
 }
 
 //drawLine: Line -> Context -> Void
@@ -73,18 +63,12 @@ function drawSolution(userSoln, can, ctx) {
     "use strict";
     console.log("starting canvas drawing");
 
-    var graph = userSoln.solution.sGraph,            //Graph
-        rotation = userSoln.solution.rotation,       //Rotation
-        flip = userSoln.solution.isFliped;           //Boolean stating if canvas is to be flipped
-
     clearCanvas(can);                                //Clears the canvas
     ctx.save();                                      //Saves current coords
     ctx.scale(can.width / scaling,                   //Scales the graph to have a max width and hiehgt of scaling
         can.height / scaling);                
 
-    if (flip) { flipCanvas(ctx); }                   //Flips vertically if f is true
-    if (rotation !== 0) rotateCanvas(rotation, ctx); //Sets the proper rotation
-    drawGraph(graph, ctx);                           //Draws the graph
+    drawGraph(userSoln.solution.sGraph, ctx);        //Draws the graph
 
     ctx.restore();                                   //Resets the coords for the next draw
     console.log("finished canvas drawing");

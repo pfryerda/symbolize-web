@@ -78,33 +78,30 @@ function activateEraseMode() {
     console.log("activated EraseMode");
 }
 
-//rotateGraph: Void
+//rotateGraph Canvas -> Context -> Void
 function rotateGraph(c, ctx) {
     "use strict";
     console.log("rotating graph 90 degree");
 
-    if (currSoln.solution.isFliped) { 
-        currSoln.solution.rotation = (currSoln.solution.rotation + 270) % 360; 
-        currSoln.moves.unshift(270);
-    }
-    else { 
-        currSoln.solution.rotation = (currSoln.solution.rotation + 90) % 360; 
-        currSoln.moves.unshift(90);
-    }
+    currSoln.solution.sGraph = map(rotateLine, currSoln.solution.sGraph);
+    currSoln.moves.unshift("rotate");
+
     drawSolution(currSoln, c, ctx)
     console.log("rotated graph 90 degree");
+
 }
 
-//flipGraph: Void
+//flipGraph Canvas -> Context -> Void
 function flipGraph(c, ctx) {
     "use strict";
     console.log("reflecting graph");
 
-    currSoln.solution.isFliped = !(currSoln.solution.isFliped);
-    currSoln.solution.rotation = ((currSoln.solution.rotation) + 180) % 360;
-    currSoln.moves.unshift(180);
+    currSoln.solution.sGraph = map(flipLine, currSoln.solution.sGraph);
+    currSoln.moves.unshift("flip");
+
     drawSolution(currSoln, c, ctx)
-    console.log("reflected graph");
+   console.log("reflected graph");
+
 }
 
 //undo: Void
@@ -114,17 +111,12 @@ function undo(c, ctx) {
         lastMove = oldMoves[0];
     if (oldMoves.length !== 0) {
         switch (lastMove) {
-        case 90: //Unrotate non flipped
-            currSoln.solution.rotation = (currSoln.solution.rotation + 270) % 360;
+        case "rotate": //Unrotate non flipped
+            currSoln.solution.sGraph = map(unrotateLine, currSoln.solution.sGraph);
             break;
-        case 180: //Unflip
-            currSoln.solution.rotation = (currSoln.solution.rotation + 180) % 360;
-            currSoln.solution.isFliped = !(currSoln.solution.isFliped);
+        case "flip": //Unflip
+            currSoln.solution.sGraph = map(flipLine, currSoln.solution.sGraph);
             break;
-        case 270: //unrotate flipped
-            currSoln.solution.rotation = (currSoln.solution.rotation + 90) % 360;
-            break;
-
         default:
             if(lastMove[0] === "draw") {
                 for(var i=0; (currSoln.solution.sGraph)[i] !== lastMove[1]; i+= 1) {}

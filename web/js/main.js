@@ -67,13 +67,20 @@ App.populator('game', function (page) {
 	    //Interactive Drawing
 	    //-------------------
 
-	    gameCanvas.addEventListener("mousedown", doMouseDown, false);
+	    gameCanvas.addEventListener("mousedown", mouseDownEvent, false);
+	    gameCanvas.addEventListener("mouseup", mouseUpEvent, false);
 	    
 
-	    function doMouseDown(event) {
-	    	gameCanvas_x = Math.round((event.pageX - 25) * (scaling / canvasLength));
-	    	gameCanvas_y = Math.round((event.pageY - 68) * (scaling / canvasLength));
-	    	console.log("X = " + gameCanvas_x + ", Y = " + gameCanvas_y);
+	    function mouseDownEvent(event) {
+	    	gameCanvas_x = to5((event.pageX - 25) * (scaling / canvasLength));
+	    	gameCanvas_y = to5((event.pageY - 68) * (scaling / canvasLength));
+	    	console.log("Start: X = " + gameCanvas_x + ", Y = " + gameCanvas_y);
+	    }
+
+	    function mouseUpEvent(event) {
+	    	gameCanvas_x = to5((event.pageX - 25) * (scaling / canvasLength));
+	    	gameCanvas_y = to5((event.pageY - 68) * (scaling / canvasLength));
+	    	console.log("End  : X = " + gameCanvas_x + ", Y = " + gameCanvas_y);
 	    }
 
 	});

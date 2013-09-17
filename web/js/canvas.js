@@ -55,7 +55,8 @@ function drawLine(line, ctx) {
     ctx.moveTo(line.p1.x + (0.5 / scaling), line.p1.y + (0.5 / scaling));
     ctx.lineTo(line.p2.x + (0.5 / scaling), line.p2.y + (0.5 / scaling));
     ctx.lineCap = 'round';
-    ctx.stroke();  
+    ctx.lineWidth = 2;
+    ctx.stroke();
 }
 
 //drawGraph: Graph -> Context -> Void

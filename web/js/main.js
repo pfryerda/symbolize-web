@@ -16,10 +16,26 @@ App.populator('game', function (page) {
 		//This runs every time the page becomes visible to the user and is done animating
 
 
-		//Variable Definition and level loading
-		//-------------------------------------
+		//Canvas Creation
+		//--------
 
 		var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
+
+	    var width = $(page).width();
+	    console.log('width = ' + width);
+
+		var canvasLength = width - 70;
+
+		gameCanvas.width = canvasLength;
+		gameCanvas.height = canvasLength;
+
+
+
+		$(page).find('gameCanvas').width = canvasLength;
+
+
+		//Variable Definition and level loading
+		//-------------------------------------
 
 		if(gameCanvas.getContext) { var context = gameCanvas.getContext("2d"); } //Context
 
@@ -50,15 +66,11 @@ App.populator('game', function (page) {
 	    //-------------------
 
 	    gameCanvas.addEventListener("mousedown", doMouseDown, false);
-	    var height = $(page).height();
-	    console.log('height = ' + height);
-
-	    var width = $(page).width();
-	    console.log('width = ' + width);
+	    
 
 	    function doMouseDown(event) {
-	    	gameCanvas_x = to5((event.pageX - ((width - gameCanvas.width) / 2)) * (scaling / 270));
-	    	gameCanvas_y = to5((event.pageY - 68) * (scaling / 270));
+	    	gameCanvas_x = Math.round((event.pageX - 25) * (scaling / canvasLength));
+	    	gameCanvas_y = Math.round((event.pageY - 68) * (scaling / canvasLength));
 	    	console.log("X = " + gameCanvas_x + ", Y = " + gameCanvas_y);
 	    }
 

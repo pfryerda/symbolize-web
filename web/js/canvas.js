@@ -5,7 +5,7 @@
 
 //scaling: Number
 //Max number for the width and height of the graph
-var scaling = 50; //Note this number still need to be decided!  
+var scaling = 50;
 
 //clearCanvas: Canvas -> Void
 function clearCanvas(can) {

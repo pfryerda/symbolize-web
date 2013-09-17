@@ -131,8 +131,15 @@ function undo(c, ctx) {
         drawSolution(currSoln, c, ctx)
         currSoln.moves.splice(0, 1);
         console.log("undoed");
-    } else {
-        //PETER PUT CODE HERE!
+    }
+
+    else {
+        var options = {
+            text: "XKTSE",  // String
+            duration: 10000 // Integer
+        };
+
+        var toast = new Toast(options);
     }
 }
 

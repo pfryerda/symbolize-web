@@ -97,7 +97,9 @@ function lineLT(line1, line2) {
 //graphEqual: Graph Graph -> Bool
 function graphEqual(graph1, graph2) {
     "use strict";
-    return graph1.sort(lineLT) === graph2.sort(lineLT);
+    console.log(graph1.sort(lineLT));
+    console.log(graph2.sort(lineLT));
+    return ((graph1.sort(lineLT)) === (graph2.sort(lineLT)));
 }
 
 //solutionEqual: Level UserSolution -> Bool

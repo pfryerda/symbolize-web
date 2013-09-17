@@ -66,9 +66,38 @@ App.populator('game', function (page) {
 	    //Interactive Drawing
 	    //-------------------
 
+	    //gameCanvas.addEventListener("touchstart", doTouchStart, false);
 	    gameCanvas.addEventListener("mousedown", mouseDownEvent, false);
 	    var startPoint = "";
 	        
+	    /*function doTouchStart(event) {
+	    	"use strict";
+	    	event.preventDefault();
+
+			startPoint = scalePoint(event.targetTouches[0].pageX, event.targetTouches[0].pageY, SCALING, CANVASLENGTH);
+	    	console.log("Start: ", startPoint);
+	    	gameCanvas.addEventListener("touchend", doTouchEnd, false);
+	    }
+
+    	function doTouchEnd(event) {
+    		"use strict";
+    		event.preventDefault();
+    		console.log(event.targetTouches);
+
+    		if(startPoint !== "") {
+				endPoint = scalePoint(event.targetTouches[0].pageX, event.targetTouches[0].pageY, SCALING, CANVASLENGTH);
+		    	console.log("End  : X = ", endPoint);
+		    	newLine = new Line(startPoint, endPoint);
+
+		    	if (inDrawMode) { addLine(newLine, gameCanvas, context); }
+		    	//if (inEraseMode) {}
+		    	startPoint = "";
+		    }
+	    }*/
+
+	    //Mouse Interactive Drawing:
+	    //--------------------------
+	   
 	    function mouseDownEvent(event) {
 			startPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASLENGTH);
 	    	console.log("Start: ", startPoint);
@@ -86,7 +115,6 @@ App.populator('game', function (page) {
 		    	startPoint = "";
 		    }
 	    }
-
 
 	});
 });

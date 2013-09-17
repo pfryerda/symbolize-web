@@ -91,7 +91,7 @@ function rotateGraph(c, ctx) {
 
 }
 
-//flipGraph Canvas -> Context -> Void
+//flipGraph: Canvas -> Context -> Void
 function flipGraph(c, ctx) {
     "use strict";
     console.log("reflecting graph");
@@ -104,7 +104,7 @@ function flipGraph(c, ctx) {
 
 }
 
-//undo: Void
+//undo: Canvas -> Context -> Void
 function undo(c, ctx) {
     "use strict"
     var oldMoves = currSoln.moves,
@@ -148,6 +148,8 @@ function undo(c, ctx) {
 function checkSolution() {
     "use strict";
     console.log("checking solution");
+    console.log(currLevel.solution);
+    console.log(currSoln.solution);
     if (solutionEqual(currLevel, currSoln)){
         App.dialog({
             title        : "Success!",

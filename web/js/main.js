@@ -52,10 +52,16 @@ App.populator('game', function (page) {
 	    gameCanvas.addEventListener("mousedown", doMouseDown, false);
 
 	    function doMouseDown(event) {
-	    	gameCanvas_x = event.pageX * (scaling / 270);
-	    	gameCanvas_y = event.pageY * (scaling / 270);
+	    	gameCanvas_x = event.pageX //* (scaling / 270);
+	    	gameCanvas_y = event.pageY //* (scaling / 270);
 	    	console.log("X = " + gameCanvas_x + ", Y = " + gameCanvas_y);
 	    }
+
+	    var height = $(page).height();
+	    console.log('height = ' + height);
+
+	    var width = $(page).width();
+	    console.log('width = ' + width);
 
 	});
 });

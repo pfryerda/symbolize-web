@@ -11,7 +11,7 @@ App.populator('home', function (page) {
 
 App.populator('game', function (page) {
 	console.log("loaded game");
-	
+
 	$(page).on('appShow', function () {
 		//This runs every time the page becomes visible to the user and is done animating
 
@@ -29,8 +29,6 @@ App.populator('game', function (page) {
 		gameCanvas.width = canvasLength;
 		gameCanvas.height = canvasLength;
 
-
-
 		$(page).find('gameCanvas').width = canvasLength;
 
 
@@ -41,6 +39,10 @@ App.populator('game', function (page) {
 
 		loadLevel(gameCanvas, context);
 
+		//Dynamically Changes the title of the level
+		var titleText = "Level " + currLevelNum;
+		console.log(titleText);
+		document.getElementById("gameTitle").innerHTML = titleText;
 
 		//Buttons
 		//-------

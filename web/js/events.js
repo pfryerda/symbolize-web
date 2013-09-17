@@ -167,9 +167,9 @@ function checkSolution() {
 function showHint() {
     "use strict"; 
     console.log("showing hints")
-    var hints = "1) " + (currLevel.hint1) + "\n2) " + (currLevel.hint2),
+    var hints        = "1) " + (currLevel.hint1) + "\n2)\n " + (currLevel.hint2),
         restrictions = ("\nlines allowed drawn: " + (currLevel.restriction.draw).toString() + 
-            "\nlines allowed erased: " + (currLevel.restriction.erase).toString());
+                        "\nlines allowed erased: " + (currLevel.restriction.erase).toString());
     App.dialog({
         title        : "Level " + currLevelNum.toString() + " Hints",
         text         : hints + restrictions,

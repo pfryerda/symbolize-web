@@ -131,7 +131,7 @@ function undo(c, ctx) {
         drawSolution(currSoln, c, ctx)
         currSoln.moves.splice(0, 1);
         console.log("undoed");
-    }  
+    }
 }
 
 //checkSolution: Void

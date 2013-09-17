@@ -78,10 +78,8 @@ App.populator('game', function (page) {
 	    
 	    
 	    function mouseDownEvent(event) {
-	    	startPoint_x = to5((event.pageX - 25) * (scaling / canvasLength));
-	    	startPoint_y = to5((event.pageY - 68) * (scaling / canvasLength));
-	    	/*startPoint = (transformPoint(startPoint_x, startPoint_y, currSoln.solution.rotation, 
-	    					currSoln.solution.isFliped, scaling));*/
+	    	startPoint_x = to5((event.pageX - 25) * (SCALING / canvasLength));
+	    	startPoint_y = to5((event.pageY - 68) * (SCALING / canvasLength));
 			startPoint = new Posn(startPoint_x, startPoint_y);
 
 	    	console.log("Start: ", startPoint);
@@ -94,10 +92,8 @@ App.populator('game', function (page) {
 
     	function mouseUpEvent(event) {
     		if(startPoint !== "") {
-		    	endPoint_x = to5((event.pageX - 25) * (scaling / canvasLength));
-		    	endPoint_y = to5((event.pageY - 68) * (scaling / canvasLength));
-		    	/*endPoint = (transformPoint(endPoint_x, endPoint_y, currSoln.solution.rotation,
-		    	 				currSoln.solution.isFliped, scaling));*/
+		    	endPoint_x = to5((event.pageX - 25) * (SCALING / canvasLength));
+		    	endPoint_y = to5((event.pageY - 68) * (SCALING / canvasLength));
 				endPoint = new Posn(endPoint_x, endPoint_y);
 
 		    	console.log("End  : X = ", endPoint);

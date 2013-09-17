@@ -3,9 +3,9 @@
 //Written by: Luke Brown
 
 
-//scaling: Number
+//SCALING: Number
 //Max number for the width and height of the graph
-var scaling = 50;
+var SCALING = 50;
 
 
 //Editing Functions
@@ -13,19 +13,19 @@ var scaling = 50;
 //rotateLine: Line -> Line
 function rotateLine(l) {
     "use strict";
-    return new Line(new Posn((scaling - l.p1.y), l.p1.x), new Posn((scaling - l.p2.y), l.p2.x));
+    return new Line(new Posn((SCALING - l.p1.y), l.p1.x), new Posn((SCALING - l.p2.y), l.p2.x));
 }
 
 //unrotateLine: Line -> Line
 function unrotateLine(l) {
     "use strict";
-    return new Line(new Posn(l.p1.y, (scaling - l.p1.x)), new Posn(l.p2.y, (scaling - l.p2.x)));
+    return new Line(new Posn(l.p1.y, (SCALING - l.p1.x)), new Posn(l.p2.y, (SCALING - l.p2.x)));
 }
 
 //flipLine: Line -> Line
 function flipLine(l) {
     "use strict";
-    return new Line(new Posn((scaling - l.p1.x), l.p1.y), new Posn((scaling - l.p2.x), l.p2.y));
+    return new Line(new Posn((SCALING - l.p1.x), l.p1.y), new Posn((SCALING - l.p2.x), l.p2.y));
 }
 
 //Graphing Functions
@@ -42,8 +42,8 @@ function clearCanvas(can) {
 function drawLine(line, ctx) {
     "use strict";
     console.log("drawing line");
-    ctx.moveTo(line.p1.x + (0.5 / scaling), line.p1.y + (0.5 / scaling));
-    ctx.lineTo(line.p2.x + (0.5 / scaling), line.p2.y + (0.5 / scaling));
+    ctx.moveTo(line.p1.x + (0.5 / SCALING), line.p1.y + (0.5 / SCALING));
+    ctx.lineTo(line.p2.x + (0.5 / SCALING), line.p2.y + (0.5 / SCALING));
     ctx.lineCap = 'round';
     ctx.lineWidth = 2;
     ctx.stroke();
@@ -65,10 +65,10 @@ function drawSolution(userSoln, can, ctx) {
 
     clearCanvas(can);                                //Clears the canvas
     ctx.save();                                      //Saves current coords
-    ctx.scale(can.width / scaling,                   //Scales the graph to have a max width and hiehgt of scaling
-        can.height / scaling);                
+    ctx.scale(can.width / SCALING,                   //Scales the graph to have a max width and height of SCALING
+        can.height / SCALING);                
 
-    drawGraph(userSoln.solution.sGraph, ctx);        //Draws the graph
+    drawGraph(userSoln.solution, ctx);               //Draws the graph
 
     ctx.restore();                                   //Resets the coords for the next draw
     console.log("finished canvas drawing");

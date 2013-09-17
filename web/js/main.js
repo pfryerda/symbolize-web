@@ -64,7 +64,7 @@ App.populator('levels', function (page) {
 	console.log("loaded levels");
 });
 
-App.load('game');
+App.load('home');
 
 // try {
 // 	App.restore();

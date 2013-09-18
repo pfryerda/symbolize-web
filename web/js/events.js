@@ -148,6 +148,8 @@ function undo(c, ctx) {
 function checkSolution(c, ctx) {
     "use strict";
     console.log("checking solution");
+    console.log(currLevel.solution);
+    console.log(currSoln.solution);
     if (solutionEqual(currLevel, currSoln)){
         App.dialog({
             title        : "Success!",

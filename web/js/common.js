@@ -103,8 +103,8 @@ function pointEqual(point1, point2) {
 //lineEqual: Line Line -> Bool
 function lineEqual(line1, line2) {
     "use strict";
-    return (((pointEqual(line1.p1, line2.p1)) && (pointEqual(line2.p2, line2.p2))) ||
-            ((pointEqual(line1.p1, line2.p2)) && (pointEqual(line2.p2, line2.p1))));
+    return (((pointEqual(line1.p1, line2.p1)) && (pointEqual(line1.p2, line2.p2))) ||
+            ((pointEqual(line1.p1, line2.p2)) && (pointEqual(line1.p2, line2.p1))));
 }
 
 //graphEqual: Graph Graph -> Bool

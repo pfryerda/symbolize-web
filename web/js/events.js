@@ -13,11 +13,6 @@ var currLevelNum = 1,                                                           
     inDrawMode = true,                                                              //Defaults Draw  Mode enabled
     inEraseMode = !inDrawMode;                                                      //Defaults Erase Mode disabled
 
-new Array(currSoln).solution = currLevel.graph;
-console.log(currSoln.solution);
-currLevel.graph.splice(0, 1);
-console.log(currLevel.graph);
-
 
 //Event Functions
 //----------------

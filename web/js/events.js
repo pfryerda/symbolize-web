@@ -40,7 +40,12 @@ function addLine(l, c, ctx) {
         drawSolution(currSoln, c, ctx)
         console.log("added line to solution");
     } else {
-        //throw error
+        ar options = {
+            text: "Cannot draw any more lines",  // String
+            duration: 2000 // Integer
+        };
+
+        var toast = new Toast(options);
     }
 }
 

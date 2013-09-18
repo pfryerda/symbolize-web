@@ -66,6 +66,19 @@ function scalePoint(point_x, point_y, scaling, canvaslength){
     return new Posn(to5((point_x - 25) * (scaling / canvaslength)), to5(( point_y - 68) * (scaling / canvaslength)));
 }
 
+//CCW: Posn -> Posn -> Posn -> Bool
+function CCW(point1, point2, point3) {
+    "use strict";
+    return (((point3.y - point1.y) * (point2.x - point1.x)) > ((point2.y - point1.y) * (point3.x - point1.x)));
+}
+
+//isIntersect: Line -> Line -> Bool
+function isIntersect(line1, line2) {
+    "use strict";
+    return ((CWW(line1.p1, line2.p1, line2.p2) != CWW(line1.p2, line2.p1, line2.p2)) && 
+            (CWW(line1.p1, lines1.p2, line2.p1) != CWW(line1.p1, line2.p2, line2.p2)));
+}
+
 //getErasedIndex: Posn Graph -> Number[0,∞)   Used only for removeLine in events.js
 function getErasedIndex(point, graph) {
     "use strict";

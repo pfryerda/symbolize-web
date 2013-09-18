@@ -110,7 +110,7 @@ function lineToPointDistance(line, point) {
 //lineLT: Line Line -> Bool
 function lineLT(line1, line2) {
     "use strict";
-    return lineDistance(line1, new Posn(0, 0)) <= lineDistance(line2, new Posn(0, 0));
+    return lineToPointDistance(line1, new Posn(0, 0)) <= lineToPointDistance(line2, new Posn(0, 0));
 }
 
 //pointEqual: Line Line -> Bool

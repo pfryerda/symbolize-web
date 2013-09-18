@@ -42,21 +42,23 @@ App.populator('game', function (page) {
 		//Buttons
 		//-------
 	
-		$(page).find('.pencil').on('click', function () { activateDrawMode();                 });
+		$(page).find('.pencil'         ).on('click', function () { activateDrawMode();                 });
 
-	    $(page).find('.eraser').on('click', function () { activateEraseMode();                });
+	    $(page).find('.eraser'         ).on('click', function () { activateEraseMode();                });
 
-	    $(page).find('.rotate').on('click', function () { rotateGraph(gameCanvas, context);   });
+	    $(page).find('.rotate'         ).on('click', function () { rotateGraph(gameCanvas, context);   });
 
-	    $(page).find('.flip'  ).on('click', function () { flipGraph(gameCanvas, context);     });
+	    $(page).find('.flip'           ).on('click', function () { flipGraph(gameCanvas, context);     });
 
-	    $(page).find('.undo'  ).on('click', function () { undo(gameCanvas, context);          });
+	    $(page).find('.undo'           ).on('click', function () { undo(gameCanvas, context);          });
 
-		$(page).find('.check' ).on('click', function () { checkSolution(gameCanvas, context); });
+		$(page).find('.check'          ).on('click', function () { checkSolution(gameCanvas, context); });
 
-	    $(page).find('.hint'  ).on('click', function () { showHint();                         });
+	    $(page).find('.hint'           ).on('click', function () { showHint();                         });
 
-	    $(page).find('.reset' ).on('click', function () { resetGraph(gameCanvas, context);    });
+	    $(page).find('.reset'          ).on('click', function () { resetGraph(gameCanvas, context);    });
+
+	    $(page).find('.app-button.left').on('click', function () { currLevelNum = 1;                   });
 
 
 	    //Interactive Drawing
@@ -121,45 +123,56 @@ App.populator('game', function (page) {
 });
 
 App.populator('levels', function (page) {
-	console.log("loaded levels");
 
-	$(page).find('.lvl1').on('click', function () {
-		currLevelNum = 1;
-		App.load('game');
+	$(page).on('appShow', function () {
+		console.log("loaded levels appShow");
+		$(page).find('.lvl1').on('click', function () {
+			console.log("loaded1");
+			currLevelNum = 1;
+			App.load('game');
+		});
+		$(page).find('.lvl2').on('click', function () {
+			console.log("loaded2");
+			currLevelNum = 2;
+			App.load('game');
+		});
+		$(page).find('.app-button.lvl3').on('click', function () {
+			console.log("loaded3");
+			currLevelNum = 3;
+			console.log("currLevelNum = " + currLevelNum);
+			App.load('game');
+		});
+		$(page).find('.lvl4').on('click', function () {
+			console.log("loaded4");
+			currLevelNum = 4;
+			App.load('game');
+		});
+		$(page).find('.lvl5').on('click', function () {
+			console.log("loaded5");
+			currLevelNum = 5;
+			App.load('game');
+		});
+		$(page).find('.lvl6').on('click', function () {
+			console.log("loaded6");
+			currLevelNum = 6;
+			App.load('game');
+		});
+		$(page).find('.lvl7').on('click', function () {
+			console.log("loaded7");
+			currLevelNum = 7;
+			App.load('game');
+		});
+		$(page).find('.lvl8').on('click', function () {
+			console.log("loaded8");
+			currLevelNum = 8;
+			App.load('game');
+		});
+		$(page).find('.lvl9').on('click', function () {
+			console.log("loaded9");
+			currLevelNum = 9;
+			App.load('game');
+		});
 	});
-	$(page).find('.lvl2').on('click', function () {
-		currLevelNum = 2;
-		App.load('game');
-	});
-	$(page).find('.lvl3').on('click', function () {
-		currLevelNum = 3;
-		App.load('game');
-	});
-	$(page).find('.lvl4').on('click', function () {
-		currLevelNum = 4;
-		App.load('game');
-	});
-	$(page).find('.lvl5').on('click', function () {
-		currLevelNum = 5;
-		App.load('game');
-	});
-	$(page).find('.lvl6').on('click', function () {
-		currLevelNum = 6;
-		App.load('game');
-	});
-	$(page).find('.lvl7').on('click', function () {
-		currLevelNum = 7;
-		App.load('game');
-	});
-	$(page).find('.lvl8').on('click', function () {
-		currLevelNum = 8;
-		App.load('game');
-	});
-	$(page).find('.lvl9').on('click', function () {
-		currLevelNum = 9;
-		App.load('game');
-	});
-
 });
 
 App.load('home');

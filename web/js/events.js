@@ -8,16 +8,10 @@
 
 var currLevelNum = 1,                                                               //Defaults level 1
     currLevel = Levels[currLevelNum - 1],                                           //Defaults level 1
-    currSoln = new UserSolution([], 0, 0, []),                                      //Defaults level 1
+    currSoln = new UserSolution(currLevel.graph, 0, 0, []),                         //Defaults level 1
 
     inDrawMode = true,                                                              //Defaults Draw  Mode enabled
     inEraseMode = !inDrawMode;                                                      //Defaults Erase Mode disabled
-
-new Array(currSoln).solution = currLevel.graph;
-console.log(currSoln.solution);
-currLevel.graph.splice(0, 1);
-console.log(currLevel.graph);
-
 
 //Event Functions
 //----------------
@@ -195,7 +189,8 @@ function resetGraph(c, ctx) {
     }, function (result) { //result is a string
 
     if (result ===  "reset") {
-        currSoln = new UserSolution(currLevel.graph, 0, 0, []);
+        //currSoln = new UserSolution(currLevel.graph, 0, 0, []);
+        while(currSoln.moves.length > 0) { undo(c, ctx); }
         drawSolution(currSoln, c, ctx);
         console.log("reseted graph");
     } else {

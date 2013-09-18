@@ -13,6 +13,8 @@ var currLevelNum = 1,                                                           
     inDrawMode = true,                                                              //Defaults Draw  Mode enabled
     inEraseMode = !inDrawMode;                                                      //Defaults Erase Mode disabled
 
+
+
 //Event Functions
 //----------------
 

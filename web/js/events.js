@@ -149,8 +149,8 @@ function undo(c, ctx) {
 
     else {
         var options = {
-            text: "XKTSE",  // String
-            duration: 10000 // Integer
+            text: "There is nothing left to undo",  // String
+            duration: 2000 // Integer
         };
 
         var toast = new Toast(options);

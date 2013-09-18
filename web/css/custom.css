@@ -4,6 +4,19 @@
 	height: 50px;
 }
 
+.levelsContainer
+{
+	height: 330px;
+	/*border: 1px solid black;*/
+}
+
+.levelsLine
+{
+	height: 60px;
+	padding-top: 15px;
+	/*border: 1px solid black;*/
+}
+
 
 .app-button.tool
 {
@@ -37,12 +50,10 @@
 	float: left;
 }
 
-.tool.pencil
+.levelButton
 {
-}
-
-.eraser
-{
+	width:33%;
+	float: left;
 }
 
 /*.app-button.pencil.active changes the image source when active

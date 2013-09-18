@@ -121,6 +121,44 @@ App.populator('game', function (page) {
 
 App.populator('levels', function (page) {
 	console.log("loaded levels");
+
+	$(page).find('.lvl1').on('click', function () {
+		currLevelNum = 1;
+		App.load('game');
+	});
+	$(page).find('.lvl2').on('click', function () {
+		currLevelNum = 2;
+		App.load('game');
+	});
+	$(page).find('.lvl3').on('click', function () {
+		currLevelNum = 3;
+		App.load('game');
+	});
+	$(page).find('.lvl4').on('click', function () {
+		currLevelNum = 4;
+		App.load('game');
+	});
+	$(page).find('.lvl5').on('click', function () {
+		currLevelNum = 5;
+		App.load('game');
+	});
+	$(page).find('.lvl6').on('click', function () {
+		currLevelNum = 6;
+		App.load('game');
+	});
+	$(page).find('.lvl7').on('click', function () {
+		currLevelNum = 7;
+		App.load('game');
+	});
+	$(page).find('.lvl8').on('click', function () {
+		currLevelNum = 8;
+		App.load('game');
+	});
+	$(page).find('.lvl9').on('click', function () {
+		currLevelNum = 9;
+		App.load('game');
+	});
+
 });
 
 App.load('home');

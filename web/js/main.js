@@ -76,7 +76,7 @@ App.populator('game', function (page) {
 
 			startPoint = scalePoint(event.targetTouches[0].pageX, event.targetTouches[0].pageY, SCALING, CANVASLENGTH);
 	    	console.log("Start: ", startPoint);
-	    	gameCanvas.addEventListener("touchend", doTouchEnd, false);
+	    	gameCanvas.addEventListener("touchend," doTouchEnd, false);
 	    }
 
     	function doTouchEnd(event) {

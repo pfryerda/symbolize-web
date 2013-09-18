@@ -23,10 +23,10 @@ function Restriction(d, e) {
     return {"draw" : d, "erase" : e};
 }
 
-//Line: Posn Posn -> Line
-function Line(point1, point2) {
+//Line: Posn Posn String -> Line
+function Line(point1, point2, info) {
     "use strict";
-    return {"p1" : point1, "p2" : point2};
+    return {"p1" : point1, "p2" : point2, "owner" : info};
 }
 
 //Posn: Number Number -> Posn

@@ -28,7 +28,7 @@ function loadLevel(c, ctx) {
     drawSolution(currSoln, c, ctx)
 }
 
-//addLine: Line -> Void
+//addLine: Line -> Canvas -> Context -> Void
 function addLine(l, c, ctx) {
     "use strict";
     if (currSoln.linesDrawn < (currLevel.restriction.draw) && (l.p1.x !== l.p2.x || l.p1.y !== l.p2.y)) {
@@ -49,11 +49,11 @@ function addLine(l, c, ctx) {
     }
 }
 
-//removeLine: Posn -> Void
+//removeLine: Line -> Canvas -> Context -> Void
 function removeLine(line, c, ctx) {
     "use strict";
     if (currSoln.linesErased < (currLevel.restriction.erase)) {
-        var eraseLine = [-1, new Line(new Posn(0, 0), new Posn(100, 100))];
+        var eraseLine = [-1, new Line(new Posn(0, 0), new Posn(100, 100), "App")];
         for(var i = 0; i < currSoln.solution.length; i+= 1) {
             if (interset(currSoln.solution[i], line)) {
                 if (lineEqual(currSoln.solution[i], line) || 
@@ -68,14 +68,20 @@ function removeLine(line, c, ctx) {
         if (eraseLine[0] > -1) {
             console.log("removing line from solution");
             currSoln.solution.splice(eraseLine[0], 1);
-            currSoln.linesErased += 1;
+            if (eraseLine[1].owner === "App") { currSoln.linesErased += 1; }
+            else { currSoln.linesDrawn -=1; }
             currSoln.moves.unshift(["erase", new Line(new Posn(eraseLine[1].p1.x, eraseLine[1].p1.y), 
-                new Posn(eraseLine[1].p2.x, eraseLine[1].p2.y))]);
+                new Posn(eraseLine[1].p2.x, eraseLine[1].p2.y), eraseLine[1].owner)]);
             drawSolution(currSoln, c, ctx);
             console.log("removed line from solution");
         }
     } else {
-        //Add error message
+        var options = {
+            text: "Cannot erase any more lines",  // String
+            duration: 2000 // Integer
+        };
+
+        var toast = new Toast(options);
     }
 }
 
@@ -141,8 +147,9 @@ function undo(c, ctx) {
                 currSoln.linesDrawn -= 1;
 
             } else if(lastMove[0] === "erase") {
+                if (lastMove[1].owner === "App") { currSoln.linesErased -= 1; }
+                else { currSoln.linesDrawn += 1; }
                 currSoln.solution.unshift(lastMove[1]);
-                currSoln.linesErased -=1;
             } else {
                 //throw error
             }

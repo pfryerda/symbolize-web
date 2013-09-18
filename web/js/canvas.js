@@ -13,19 +13,19 @@ var SCALING = 10;
 //rotateLine: Line -> Line
 function rotateLine(l) {
     "use strict";
-    return new Line(new Posn((SCALING - l.p1.y), l.p1.x), new Posn((SCALING - l.p2.y), l.p2.x));
+    return new Line(new Posn((SCALING - l.p1.y), l.p1.x), new Posn((SCALING - l.p2.y), l.p2.x), l.owner);
 }
 
 //unrotateLine: Line -> Line
 function unrotateLine(l) {
     "use strict";
-    return new Line(new Posn(l.p1.y, (SCALING - l.p1.x)), new Posn(l.p2.y, (SCALING - l.p2.x)));
+    return new Line(new Posn(l.p1.y, (SCALING - l.p1.x)), new Posn(l.p2.y, (SCALING - l.p2.x)), l.owner);
 }
 
 //flipLine: Line -> Line
 function flipLine(l) {
     "use strict";
-    return new Line(new Posn((SCALING - l.p1.x), l.p1.y), new Posn((SCALING - l.p2.x), l.p2.y));
+    return new Line(new Posn((SCALING - l.p1.x), l.p1.y), new Posn((SCALING - l.p2.x), l.p2.y), l.owner);
 }
 
 //Graphing Functions

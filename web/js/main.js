@@ -81,7 +81,7 @@ App.populator('game', function (page) {
     		if(startPoint !== "") {
 				endPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASLENGTH);
 		    	console.log("End  : X = ", endPoint);
-		    	newLine = new Line(startPoint, endPoint);
+		    	newLine = new Line(startPoint, endPoint, "User");
 
 		    	if (inDrawMode)  {    addLine(newLine, gameCanvas, context); }
 		    	if (inEraseMode) { removeLine(newLine, gameCanvas, context); }

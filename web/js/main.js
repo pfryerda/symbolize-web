@@ -38,10 +38,6 @@ App.populator('game', function (page) {
 		while(currSoln.moves.length > 0) { undo(gameCanvas, context); }
 		loadLevel(gameCanvas, context);
 
-		//Dynamically Changes the title of the level
-		var titleText = "Level " + currLevelNum;
-		document.getElementById("gameTitle").innerHTML = titleText;
-
 
 		//Buttons
 		//-------
@@ -110,8 +106,8 @@ App.populator('game', function (page) {
 		    	console.log("End  : X = ", endPoint);
 		    	newLine = new Line(startPoint, endPoint);
 
-		    	if (inDrawMode) { addLine(newLine, gameCanvas, context); }
-		    	//if (inEraseMode) {}
+		    	if (inDrawMode)  {    addLine(newLine, gameCanvas, context); }
+		    	if (inEraseMode) { removeLine(newLine, gameCanvas, context); }
 		    	startPoint = "";
 		    }
 	    }

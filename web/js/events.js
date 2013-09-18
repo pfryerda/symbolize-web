@@ -22,6 +22,7 @@ function loadLevel(c, ctx) {
     "use strict";
     currLevel = Levels[currLevelNum - 1];
     currSoln = new UserSolution(currLevel.graph, 0, 0, []);
+    document.getElementById("gameTitle").innerHTML = "Level " + currLevelNum;
     console.log("loaded level", currLevelNum);
     showHint();
     drawSolution(currSoln, c, ctx)
@@ -44,17 +45,28 @@ function addLine(l, c, ctx) {
 }
 
 //removeLine: Posn -> Void
-function removeLine(point, c, ctx) {
+function removeLine(line, c, ctx) {
     "use strict";
     if (currSoln.linesErased < (currLevel.restriction.erase)) {
-        var index = getErasedIndex(point, currSoln.solution);
+        var eraseLine = [-1, new Line(new Posn(0, 0), new Posn(100, 100))];
+        for(var i = 0; i < currSoln.solution.length; i+= 1) {
+            if (interset(currSoln.solution[i], line)) {
+                if (lineEqual(currSoln.solution[i], line) || 
+                    (lineToPointDistance(currSoln.solution[i], line.p1) < lineToPointDistance(eraseLine[1], line.p1)) ||
+                        (lineToPointDistance(currSoln.solution[i], line.p1) === lineToPointDistance(eraseLine[1], line.p1) && 
+                            lineLength(currSoln.solution[i]) > lineLength(eraseLine[1]))) {
+                    eraseLine = [i, currSoln.solution[i]];
+                }
+            }
+        }
 
-        if (index > -1) {
+        if (eraseLine[0] > -1) {
             console.log("removing line from solution");
-            currSoln.solution = currSoln.solution.splice(index, 1);
+            currSoln.solution.splice(eraseLine[0], 1);
             currSoln.linesErased += 1;
-            //currSoln.moves.unshift(); Work in progress
-            drawSolution(currSoln, c, ctx)
+            currSoln.moves.unshift(["erase", new Line(new Posn(eraseLine[1].p1.x, eraseLine[1].p1.y), 
+                new Posn(eraseLine[1].p2.x, eraseLine[1].p2.y))]);
+            drawSolution(currSoln, c, ctx);
             console.log("removed line from solution");
         }
     } else {
@@ -124,7 +136,11 @@ function undo(c, ctx) {
                 currSoln.linesDrawn -= 1;
 
             } else if(lastMove[0] === "erase") {
-
+                console.log(currSoln.solution);
+                console.log(lastMove[1]);
+                currSoln.solution.unshift(lastMove[1]);
+                console.log(currSoln.solution);
+                currSoln.linesErased -=1;
             } else {
                 //throw error
             }
@@ -155,10 +171,10 @@ function checkSolution(c, ctx) {
             title        : "Success!",
             text         : "Congratulations, you beat level " + currLevelNum + " press OK to continue.",
             cancelButton : "OK"});
+        while(currSoln.moves.length > 0) { undo(c, ctx); }
         //Add end of game check
         currLevelNum += 1;
         loadLevel(c, ctx);
-        document.getElementById("gameTitle").innerHTML = "Level " + currLevelNum;
     } else {
         App.dialog({
             title : "Incorrect",

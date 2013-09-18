@@ -69,14 +69,14 @@ function scalePoint(point_x, point_y, scaling, canvaslength){
 //CCW: Posn -> Posn -> Posn -> Bool
 function CCW(point1, point2, point3) {
     "use strict";
-    return (((point3.y - point1.y) * (point2.x - point1.x)) > ((point2.y - point1.y) * (point3.x - point1.x)));
+    return (point3.y - point1.y) * (point2.x - point1.x) > (point2.y - point1.y) * (point3.x - point1.x);
 }
 
-//isIntersect: Line -> Line -> Bool
-function isIntersect(line1, line2) {
+//interset: Line -> Line -> Bool
+function interset(line1, line2) {
     "use strict";
-    return ((CWW(line1.p1, line2.p1, line2.p2) != CWW(line1.p2, line2.p1, line2.p2)) && 
-            (CWW(line1.p1, lines1.p2, line2.p1) != CWW(line1.p1, line2.p2, line2.p2)));
+    return ((CCW(line1.p1, line2.p1, line2.p2) != CCW(line1.p2, line2.p1, line2.p2)) && 
+            (CCW(line1.p1, line1.p2, line2.p1) != CCW(line1.p1, line1.p2, line2.p2)));
 }
 
 //getErasedIndex: Posn Graph -> Number[0,∞)   Used only for removeLine in events.js
@@ -94,17 +94,23 @@ function midPoint(line) {
     return new Posn((line.p1.x + line.p2.x) / 2, (line.p1.y + line.p2.y) / 2);
 }
 
-//distanceFromOrigin: Line -> Number
-function distanceFromOrigin(line) {
+//lineLength: Line -> Number
+function lineLength(line) {
+    "use strict";
+    return Math.sqrt(Math.pow(line.p2.x - line.p1.x, 2) + Math.pow(line.p2.y - line.p1.y, 2));
+}
+
+//lineToPointDistance: Line -> Posn -> Number
+function lineToPointDistance(line, point) {
     "use strict";
     var midpoint = midPoint(line);
-    return Math.sqrt(Math.pow(midpoint.x, 2) + Math.pow(midpoint.y, 2));
+    return Math.sqrt(Math.pow(point.x - midpoint.x, 2) + Math.pow(point.y - midpoint.y, 2));
 }
 
 //lineLT: Line Line -> Bool
 function lineLT(line1, line2) {
     "use strict";
-    return distanceFromOrigin(line1) <= distanceFromOrigin(line2);
+    return lineDistance(line1, new Posn(0, 0)) <= lineDistance(line2, new Posn(0, 0));
 }
 
 //pointEqual: Line Line -> Bool

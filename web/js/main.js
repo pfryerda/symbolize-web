@@ -35,7 +35,7 @@ App.populator('game', function (page) {
 		gameCanvas.height = CANVASLENGTH;
 		$(page).find('gameCanvas').width = CANVASLENGTH;
 
-		
+		while(currSoln.moves.length > 0) { undo(gameCanvas, context); }
 		loadLevel(gameCanvas, context);
 
 		//Dynamically Changes the title of the level

@@ -131,15 +131,12 @@ function undo(c, ctx) {
             break;
         default:
             if(lastMove[0] === "draw") {
-                for(var i=0; (currSoln.solution)[i] !== lastMove[1]; i+= 1) {}
+                for(var i=0; (!lineEqual((currSoln.solution)[i], lastMove[1])); i+= 1) {}
                 currSoln.solution.splice(i, 1);
                 currSoln.linesDrawn -= 1;
 
             } else if(lastMove[0] === "erase") {
-                console.log(currSoln.solution);
-                console.log(lastMove[1]);
                 currSoln.solution.unshift(lastMove[1]);
-                console.log(currSoln.solution);
                 currSoln.linesErased -=1;
             } else {
                 //throw error

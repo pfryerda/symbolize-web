@@ -5,7 +5,7 @@
 
 //SCALING: Number
 //Max number for the width and height of the graph
-var SCALING = 50;
+var SCALING = 10;
 
 
 //Editing Functions
@@ -45,7 +45,7 @@ function drawLine(line, ctx) {
     ctx.moveTo(line.p1.x + (0.5 / SCALING), line.p1.y + (0.5 / SCALING));
     ctx.lineTo(line.p2.x + (0.5 / SCALING), line.p2.y + (0.5 / SCALING));
     ctx.lineCap = 'round';
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2/5;
     ctx.stroke();
 }
 

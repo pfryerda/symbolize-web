@@ -63,7 +63,7 @@ function to5(n) {
 //scalePoint: Number -> Number -> Number -> Number -> Posn
 function scalePoint(point_x, point_y, scaling, canvaslength){
     "use strict";
-    return new Posn(to5((point_x - 25) * (scaling / canvaslength)), to5(( point_y - 68) * (scaling / canvaslength)));
+    return new Posn(Math.round((point_x - 25) * (scaling / canvaslength)), Math.round(( point_y - 68) * (scaling / canvaslength)));
 }
 
 //CCW: Posn -> Posn -> Posn -> Bool

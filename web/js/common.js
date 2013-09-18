@@ -94,12 +94,29 @@ function lineLT(line1, line2) {
     return distanceFromOrigin(line1) <= distanceFromOrigin(line2);
 }
 
+//pointEqual: Line Line -> Bool
+function pointEqual(point1, point2) {
+    "use strict";
+    return ((point1.x === point2.x) && (point1.y === point2.y));
+}
+
+//lineEqual: Line Line -> Bool
+function lineEqual(line1, line2) {
+    "use strict";
+    return (((pointEqual(line1.p1, line2.p1)) && (pointEqual(line2.p2, line2.p2))) ||
+            ((pointEqual(line1.p1, line2.p2)) && (pointEqual(line2.p2, line2.p1))));
+}
+
 //graphEqual: Graph Graph -> Bool
 function graphEqual(graph1, graph2) {
     "use strict";
-    console.log(graph1.sort(lineLT));
-    console.log(graph2.sort(lineLT));
-    return ((graph1.sort(lineLT)) === (graph2.sort(lineLT)));
+    graph1.sort(lineLT);
+    graph2.sort(lineLT);
+    if (graph1.length !== graph2.length) { return false; }
+    for(var i = 0; i < graph1.length; i += 1) {
+        if (!(lineEqual(graph1[i], graph2[i]))) { return false; }
+    }
+    return true;
 }
 
 //solutionEqual: Level UserSolution -> Bool

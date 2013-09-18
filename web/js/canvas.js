@@ -1,11 +1,5 @@
 //This module is used to define the functions used for the canvas
-//This module requires puzzles.js
 //Written by: Luke Brown
-
-
-//SCALING: Number
-//Max number for the width and height of the graph
-var SCALING = 10;
 
 
 //Editing Functions

@@ -2,44 +2,23 @@
 //Written by: Luke Brown
 
 
-//Storage Functions
-//-----------------
+//Constants
+//---------
 
-//Graph = [Line]
-//Move = Line | Number
+var SCALING = 10,  //Grid size (10 x 10)
+    XOFFSET = 25,  //width of document to canvas (from the left)
+    YOFFSET = 68;  //width of document to canvas (from top)
 
-//Level: Graph Graph Restriction String String -> Level
-//A level contains the lines for the graph(As they appear at the start), a restriction to number of allowed
-//lines drawn and erased, two hints, and a solution Which contain the correct lines, the neccecary rotation, 
-//and then some weather it needs to be fliped.
-function Level(g, soln, res, h1, h2) {
-    "use strict";
-    return {"graph" : g, "solution" : soln, "restriction" : res, "hint1" : h1, "hint2" : h2};
-}
 
-//Restriction: Number[0,∞) Number[0,∞) -> Restriction
-function Restriction(d, e) {
-    "use strict";
-    return {"draw" : d, "erase" : e};
-}
+//Variable Declaration
+//-------------------
 
-//Line: Posn Posn String -> Line
-function Line(point1, point2, info) {
-    "use strict";
-    return {"p1" : point1, "p2" : point2, "owner" : info};
-}
+var currLevelNum = 1,                                         //Defaults level 1
+    currLevel = Levels[1],                                    //Defaults level 1
+    currSoln = new UserSolution(currLevel.graph, 0, 0, []),   //Defaults level 1
 
-//Posn: Number Number -> Posn
-function Posn(c, l) {
-    "use strict";
-    return {"x" : c, "y" : l};
-}
-
-//UserSolution: Graph Number[0,∞) Number[0,∞) [Move] -> UserSolution
-function UserSolution(s, d, e, ms) {
-    "use strict";
-    return {"solution" : s, "linesDrawn" : d, "linesErased" : e, "moves" : ms};
-}
+    inDrawMode  = true,                                       //Defaults Draw  Mode enabled
+    inEraseMode = !inDrawMode;                                //Defaults Erase Mode disabled
 
 
 //Helper Funcions
@@ -55,19 +34,14 @@ function map(f, lst) {
     return newlst;
 }
 
-//to5: Number -> Number
-function to5(n) {
-    return (5*(Math.round(n/5)));
-}
-
 //scalePoint: Number -> Number -> Number -> Number -> Posn
 function scalePoint(point_x, point_y, scaling, canvaslength){
     "use strict";
-    return new Posn(Math.round((point_x - 25) * (scaling / canvaslength)), Math.round(( point_y - 68) * (scaling / canvaslength)));
+    return new Posn(Math.round((point_x - XOFFSET) * (scaling / canvaslength)), Math.round(( point_y - YOFFSET) * (scaling / canvaslength)));
 }
 
-//CCW: Posn -> Posn -> Posn -> Bool
-function CCW(point1, point2, point3) {
+//counterClock: Posn -> Posn -> Posn -> Bool
+function counterClock(point1, point2, point3) {
     "use strict";
     return (point3.y - point1.y) * (point2.x - point1.x) > (point2.y - point1.y) * (point3.x - point1.x);
 }
@@ -75,8 +49,8 @@ function CCW(point1, point2, point3) {
 //interset: Line -> Line -> Bool
 function interset(line1, line2) {
     "use strict";
-    return ((CCW(line1.p1, line2.p1, line2.p2) != CCW(line1.p2, line2.p1, line2.p2)) && 
-            (CCW(line1.p1, line1.p2, line2.p1) != CCW(line1.p1, line1.p2, line2.p2)));
+    return ((counterClock(line1.p1, line2.p1, line2.p2) != counterClock(line1.p2, line2.p1, line2.p2)) && 
+            (counterClock(line1.p1, line1.p2, line2.p1) != counterClock(line1.p1, line1.p2, line2.p2)));
 }
 
 //getErasedIndex: Posn Graph -> Number[0,∞)   Used only for removeLine in events.js

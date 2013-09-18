@@ -1,5 +1,4 @@
 //Main module 
-//This module requires events.js
 //written by: Peter Fryer Davis & Luke Brown
 
 //Need to make a function that allows me to highlight the current tool and deselect the other tools.
@@ -22,20 +21,18 @@ App.populator('game', function (page) {
 		//This runs every time the page becomes visible to the user and is done animating
 
 
-		//Variable Definition, level loading and Canvas Creation
-		//------------------------------------------------------
+		//Variable/Constant Definition, level set up
+		//--------------------------------------------
+
+		var WIDTH = $(page).width();											 //Document width
+		var CANVASWIDTH = WIDTH - 70;											 //Canvas width
 
 		var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
 		if(gameCanvas.getContext) { var context = gameCanvas.getContext("2d"); } //Context
 
-	    var WIDTH = $(page).width();											 //Document width
-		var CANVASLENGTH = WIDTH - 70;											 //Canvas width
-
-		gameCanvas.width = CANVASLENGTH;
-		gameCanvas.height = CANVASLENGTH;
-		$(page).find('gameCanvas').width = CANVASLENGTH;
-
-		while(currSoln.moves.length > 0) { undo(gameCanvas, context); }
+		gameCanvas.width = CANVASWIDTH;
+		gameCanvas.height = CANVASWIDTH;
+		$(page).find('gameCanvas').width = CANVASWIDTH;
 		loadLevel(gameCanvas, context);
 
 
@@ -43,44 +40,36 @@ App.populator('game', function (page) {
 		//-------
 	
 		$(page).find('.pencil'         ).on('click', function () { activateDrawMode();                 });
-
 	    $(page).find('.eraser'         ).on('click', function () { activateEraseMode();                });
-
 	    $(page).find('.rotate'         ).on('click', function () { rotateGraph(gameCanvas, context);   });
-
 	    $(page).find('.flip'           ).on('click', function () { flipGraph(gameCanvas, context);     });
-
 	    $(page).find('.undo'           ).on('click', function () { undo(gameCanvas, context);          });
-
 		$(page).find('.check'          ).on('click', function () { checkSolution(gameCanvas, context); });
-
 	    $(page).find('.hint'           ).on('click', function () { showHint();                         });
-
 	    $(page).find('.reset'          ).on('click', function () { resetGraph(gameCanvas, context);    });
-
 	    $(page).find('.app-button.left').on('click', function () { currLevelNum = 1;                   });
 
 
 	    //Interactive Drawing
 	    //-------------------
 
-	    var startPoint = "";	    
-
+	    var startPoint = "";
+	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent, false);
+	    document.addEventListener(  "touchstart" , touchHandler  , true);
+	    document.addEventListener(  "touchend"   , touchHandler  , true);
+	    document.addEventListener(  "touchcancel", touchHandler  , true);	    
 	  
-	    //Mouse Interactive Drawing:
-
-	    gameCanvas.addEventListener("mousedown", mouseDownEvent, false);
-	   
+	    //Mouse Interactive Drawing:	   
 	    function mouseDownEvent(event) {
-			startPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASLENGTH);
-	    	console.log("Start: ", startPoint);
+			startPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
+	    	console.log("Start Point: ", startPoint);
 	    	gameCanvas.addEventListener("mouseup", mouseUpEvent, false);
 	    }
 
     	function mouseUpEvent(event) {
     		if(startPoint !== "") {
-				endPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASLENGTH);
-		    	console.log("End  : X = ", endPoint);
+				endPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
+		    	console.log("End Point: = ", endPoint);
 		    	newLine = new Line(startPoint, endPoint, "User");
 
 		    	if (inDrawMode)  {    addLine(newLine, gameCanvas, context); }
@@ -89,33 +78,22 @@ App.populator('game', function (page) {
 		    }
 	    }
 
-	    //Touch interactive Drawing:
-
-	    document.addEventListener("touchstart", touchHandler, true);
-	    document.addEventListener("touchmove", touchHandler, true);
-	    document.addEventListener("touchend", touchHandler, true);
-	    document.addEventListener("touchcancel", touchHandler, true); 
-
-
+	    //Touch interactive Drawing (simulates mouse):
 	    function touchHandler(event) {
-		    var touches = event.changedTouches,
-		        first = touches[0],
-		        type = "";
-		         switch(event.type)
-		    {
-		        case "touchstart": type = "mousedown"; break;
-		        case "touchmove":  type="mousemove"; break;        
-		        case "touchend":   type="mouseup"; break;
+		    var tocuhLst = event.changedTouches,
+		        fst = tocuhLst[0],
+		        touchType = "";
+		    switch(event.type) {
+		        case "touchstart": touchType = "mousedown"; break;      
+		        case "touchend"  : touchType = "mouseup"  ; break;
 		        default: return;
 		    }
 
-		    var simulatedEvent = document.createEvent("MouseEvent");
-		    simulatedEvent.initMouseEvent(type, true, true, window, 1, 
-		                              first.screenX, first.screenY, 
-		                              first.clientX, first.clientY, false, 
-		                              false, false, false, 0/*left*/, null);
+		    var mouseSimulatedEvent = document.createEvent("MouseEvent");
+		    mouseSimulatedEvent.initMouseEvent(touchType, true, true, window, 1, fst.screenX, fst.screenY, 
+		                              fst.clientX, fst.clientY, false, false, false, false, 0/*left*/, null);
 
-		    first.target.dispatchEvent(simulatedEvent);
+		    fst.target.dispatchEvent(mouseSimulatedEvent);
 		    event.preventDefault();
 		}
 	    

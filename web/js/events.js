@@ -144,20 +144,19 @@ function undo(c, ctx) {
     }
 }
 
-//checkSolution: Void
-function checkSolution() {
+//checkSolution: Canvas -> Context -> Void
+function checkSolution(c, ctx) {
     "use strict";
     console.log("checking solution");
-    console.log(currLevel.solution);
-    console.log(currSoln.solution);
     if (solutionEqual(currLevel, currSoln)){
         App.dialog({
             title        : "Success!",
-            text         : "Congratulations, you beat level " + currLevel + " press OK to continue.",
+            text         : "Congratulations, you beat level " + currLevelNum + " press OK to continue.",
             cancelButton : "OK"});
         //Add end of game check
-        currLevel += 1;
-        loadLevel();
+        currLevelNum += 1;
+        loadLevel(c, ctx);
+        document.getElementById("gameTitle").innerHTML = "Level " + currLevelNum;
     } else {
         App.dialog({
             title : "Incorrect",

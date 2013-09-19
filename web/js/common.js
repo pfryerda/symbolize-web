@@ -7,7 +7,13 @@
 
 var SCALING = 10,  //Grid size (10 x 10)
     XOFFSET = 25,  //width of document to canvas (from the left)
-    YOFFSET = 68;  //width of document to canvas (from top)
+    YOFFSET = 68,  //width of document to canvas (from top)
+    GRID = new Array();
+
+for(var i = 1; i < 2*SCALING - 1;i += 1) {
+    if (i < SCALING){ GRID[i-1] = new Line(new Posn(i, 0), new Posn(i, SCALING), "App"); }
+    else { GRID[i-1] = new Line(new Posn(0, i - SCALING + 1), new Posn(SCALING, i - SCALING + 1), "App"); }
+}
 
 
 //Variable Declaration
@@ -18,7 +24,8 @@ var currLevelNum = 1,                                         //Defaults level 1
     currSoln = new UserSolution(currLevel.graph, 0, 0, []),   //Defaults level 1
 
     inDrawMode  = true,                                       //Defaults Draw  Mode enabled
-    inEraseMode = !inDrawMode;                                //Defaults Erase Mode disabled
+    inEraseMode = !inDrawMode,                                //Defaults Erase Mode disabled
+    includeGrid = false;                                      //Defaults false can be set to true by user
 
 
 //Helper Funcions

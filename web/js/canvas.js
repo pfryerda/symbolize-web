@@ -32,23 +32,35 @@ function clearCanvas(can) {
     can.width = can.width;
 }
 
-//drawLine: Line -> Context -> Void
-function drawLine(line, ctx) {
+//drawLine: Line -> Bool -> Context -> Void
+function drawLine(line, isGridLine, ctx) {
     "use strict";
-    console.log("drawing line");
+    if (isGridLine) { console.log("drawing grid line"); }
+    else { console.log("drawing line"); }
+    ctx.beginPath();
     ctx.moveTo(line.p1.x + (0.5 / SCALING), line.p1.y + (0.5 / SCALING));
     ctx.lineTo(line.p2.x + (0.5 / SCALING), line.p2.y + (0.5 / SCALING));
-    ctx.lineCap = 'round';
-    ctx.lineWidth = 2/5;
+    if (isGridLine) {
+        ctx.lineWidth = 1/30; 
+        ctx.strokeStyle = '#A0A0A0';
+        ctx.lineCap = 'butt'
+    }
+    else { 
+        ctx.lineWidth = 2/5; 
+        ctx.strokeStyle = '#000000'
+        ctx.lineCap = 'round';  
+    }
     ctx.stroke();
+    ctx.closePath();
 }
 
-//drawGraph: Graph -> Context -> Void
-function drawGraph(graph, ctx) {
+//drawGraph: Graph -> Bool -> Context -> Void
+function drawGraph(graph, isGrid, ctx) {
     "use strict";
-    console.log("drawing graph");
+    if (isGrid) { console.log("drawing grid"); }
+    else { console.log("drawing graph"); }
     for (var i = 0; i < graph.length; i += 1) { 
-        drawLine(graph[i], ctx); 
+        drawLine(graph[i], isGrid, ctx); 
     }
 }
 
@@ -62,7 +74,8 @@ function drawSolution(userSoln, can, ctx) {
     ctx.scale(can.width / SCALING,                   //Scales the graph to have a max width and height of SCALING
         can.height / SCALING);                
 
-    drawGraph(userSoln.solution, ctx);               //Draws the graph
+    if (includeGrid) { drawGraph(GRID, true, ctx); } //Draws the grid
+    drawGraph(userSoln.solution, false, ctx);        //Draws the graph
 
     ctx.restore();                                   //Resets the coords for the next draw
     console.log("finished canvas drawing");

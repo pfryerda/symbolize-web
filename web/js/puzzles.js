@@ -25,3 +25,15 @@ Levels[3] = new Level([new Line(new Posn(1, 1), new Posn(5, 5), "App"), new Line
     [new Line(new Posn(9, 1), new Posn(5, 5), "App"), new Line(new Posn(5, 5), new Posn(1, 1), "App"), new Line(new Posn(5, 5), new Posn(5, 10), "App")],
         new Restriction(1, 0), "", "");
 
+Levels[4] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");
+
+Levels[5] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");
+
+Levels[6] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");
+
+Levels[7] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");
+
+Levels[8] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");
+
+Levels[9] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");
+

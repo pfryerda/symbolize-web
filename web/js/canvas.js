@@ -69,14 +69,14 @@ function drawSolution(userSoln, can, ctx) {
     "use strict";
     console.log("starting canvas drawing");
 
-    clearCanvas(can);                                //Clears the canvas
-    ctx.save();                                      //Saves current coords
-    ctx.scale(can.width / SCALING,                   //Scales the graph to have a max width and height of SCALING
+    clearCanvas(can);                                           //Clears the canvas
+    ctx.save();                                                 //Saves current coords
+    ctx.scale(can.width / SCALING,                              //Scales the graph to have a max width and height of SCALING
         can.height / SCALING);                
 
-    if (includeGrid) { drawGraph(GRID, true, ctx); } //Draws the grid
-    drawGraph(userSoln.solution, false, ctx);        //Draws the graph
+    if (includeGrid || DEVMODE) { drawGraph(GRID, true, ctx); } //Draws the grid
+    drawGraph(userSoln.solution, false, ctx);                   //Draws the graph
 
-    ctx.restore();                                   //Resets the coords for the next draw
+    ctx.restore();                                              //Resets the coords for the next draw
     console.log("finished canvas drawing");
 }

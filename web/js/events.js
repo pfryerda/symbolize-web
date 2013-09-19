@@ -15,6 +15,10 @@ function gameReset(c, ctx) {
 function loadLevel(c, ctx) {
     "use strict";
     gameReset(c, ctx);
+    if (DEVMODE) {
+        currLevelNum = 0;
+        includeGrid = true;
+    }
     currLevel = Levels[currLevelNum];
     currSoln = new UserSolution(currLevel.graph, 0, 0, []);
     document.getElementById("gameTitle").innerHTML = "Level " + currLevelNum;

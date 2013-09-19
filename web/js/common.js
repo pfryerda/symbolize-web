@@ -5,10 +5,11 @@
 //Constants
 //---------
 
-var SCALING = 10,  //Grid size (10 x 10)
-    XOFFSET = 25,  //width of document to canvas (from the left)
-    YOFFSET = 68,  //width of document to canvas (from top)
-    GRID = new Array();
+var SCALING = 10,       //Define Grid size (10 x 10)
+    XOFFSET = 25,       //Width of document to canvas (from the left)
+    YOFFSET = 68,       //Width of document to canvas (from top)
+    DEVMODE = false,    //Force grid and level 0 (Dev level)
+    GRID = new Array(); //Array of lines making the grid
 
 for(var i = 1; i < 2*SCALING - 1;i += 1) {
     if (i < SCALING){ GRID[i-1] = new Line(new Posn(i, 0), new Posn(i, SCALING), "App"); }

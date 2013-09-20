@@ -43,6 +43,8 @@ App.populator('game', function (page) {
 		//Display Hints
 		//-------------
 
+		setTimeout(function() {$('.hintBox').toggle();},150);
+
 		var lineDrawWord = "lines", lineEraseWord = "lines";
 
 		if(currLevel.restriction.draw === 1)

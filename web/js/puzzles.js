@@ -40,7 +40,9 @@ Levels[6] = new Level([new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line
 	[new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App"), new Line(new Posn(2, 8), new Posn(8, 2), "App")], 
 		new Restriction(1, 0), "Figure _", "");
 
-Levels[7] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");
+Levels[7] = new Level([new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App")], 
+	[new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App"), new Line(new Posn(2, 8), new Posn(8, 2), "App")], 
+		new Restriction(1, 0), "Figure _", "");
 
 Levels[8] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");
 

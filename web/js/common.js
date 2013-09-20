@@ -68,7 +68,7 @@ function scalePoint(point_x, point_y, scaling, canvaslength){
 //getSlope: Line -> Number
 function getSlope(line) {
     "use strict";
-    return Math.round((line.p2.y - line.p1.y) / (line.p2.x - line.p1.x));
+    return ((line.p2.y - line.p1.y) / (line.p2.x - line.p1.x)).toFixed(4);
 }
 
 //isScalarMults: Line -> Line -> Bool

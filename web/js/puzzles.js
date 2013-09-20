@@ -13,7 +13,7 @@ Levels[0] = new Level([], [], new Restriction(99, 99), "Developer Level", "The a
 //Level 1: Answer: 'K'
 Levels[1] = new Level([new Line(new Posn(1, 1), new Posn(5, 5), "App"), new Line(new Posn(5, 5), new Posn(1, 9), "App")],
     [new Line(new Posn(9, 1), new Posn(5, 5), "App"), new Line(new Posn(5, 5), new Posn(9, 9), "App"), new Line(new Posn(5, 1), new Posn(5, 9), "App")],
-        new Restriction(1, 0), "The 11th letter in the alphabet");
+        new Restriction(2, 0), "The 11th letter in the alphabet");
 
 //Level 2: Answer: 'A'
 Levels[2] = new Level([new Line(new Posn(1, 1), new Posn(5, 5), "App"), new Line(new Posn(5, 5), new Posn(1, 9), "App")],

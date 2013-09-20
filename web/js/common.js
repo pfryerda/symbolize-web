@@ -65,6 +65,62 @@ function scalePoint(point_x, point_y, scaling, canvaslength){
     return new Posn(Math.round((point_x - XOFFSET) * (scaling / canvaslength)), Math.round(( point_y - YOFFSET) * (scaling / canvaslength)));
 }
 
+//getSlope: Line -> Number
+function getSlope(line) {
+    "use strict";
+    return Math.round((line.p2.y - line.p1.y) / (line.p2.x - line.p1.x));
+}
+
+//isScalarMults: Line -> Line -> Bool
+function isScalarMults(line1, line2) {
+    "use strict";
+    var slope1 = getSlope(line1),
+        slope2 = getSlope(line2),
+        yInt1  = line1.p1.y - (slope1 * line1.p1.x),
+        yInt2  = line2.p1.y - (slope2 * line2.p1.x);
+    return (slope1 == slope2 && yInt1 == yInt2) || ((slope1 === Infinity && slope2 === Infinity) && (line1.p1.x === line2.p1.x));
+}
+
+//lowestX: Line -> Line -> Posn
+function lowestX(line1, line2) {
+    "use strict";
+    var newPosn = line1.p1;
+    if (line1.p2.x < newPosn.x) { newPosn = line1.p2; }
+    if (line2.p1.x < newPosn.x) { newPosn = line2.p1; }
+    if (line2.p1.x < newPosn.x) { newPosn = line2.p2; }
+    return new Posn(newPosn.x, newPosn.y);
+}
+
+//highestX: Line -> Line -> Posn
+function highestX(line1, line2) {
+    "use strict";
+    var newPosn = line1.p1;
+    if (line1.p2.x > newPosn.x) { newPosn = line1.p2; }
+    if (line2.p1.x > newPosn.x) { newPosn = line2.p1; }
+    if (line2.p1.x > newPosn.x) { newPosn = line2.p2; }
+    return new Posn(newPosn.x, newPosn.y);
+}
+
+//lowestY: Line -> Line -> Posn
+function lowestY(line1, line2) {
+    "use strict";
+    var newPosn = line1.p1;
+    if (line1.p2.y < newPosn.y) { newPosn = line1.p2; }
+    if (line2.p1.y < newPosn.y) { newPosn = line2.p1; }
+    if (line2.p1.y < newPosn.y) { newPosn = line2.p2; }
+    return new Posn(newPosn.x, newPosn.y);
+}
+
+//highestY: Line -> Line -> Posn
+function highestY(line1, line2) {
+    "use strict";
+    var newPosn = line1.p1;
+    if (line1.p2.y > newPosn.y) { newPosn = line1.p2; }
+    if (line2.p1.y > newPosn.y) { newPosn = line2.p1; }
+    if (line2.p1.y > newPosn.y) { newPosn = line2.p2; }
+    return new Posn(newPosn.x, newPosn.y);
+}
+
 //counterClock: Posn -> Posn -> Posn -> Bool
 function counterClock(point1, point2, point3) {
     "use strict";
@@ -75,7 +131,9 @@ function counterClock(point1, point2, point3) {
 function interset(line1, line2) {
     "use strict";
     return ((counterClock(line1.p1, line2.p1, line2.p2) != counterClock(line1.p2, line2.p1, line2.p2)) && 
-            (counterClock(line1.p1, line1.p2, line2.p1) != counterClock(line1.p1, line1.p2, line2.p2)));
+            (counterClock(line1.p1, line1.p2, line2.p1) != counterClock(line1.p1, line1.p2, line2.p2))) ||
+                (getSlope(line1) === Infinity && getSlope(line2) === Infinity && 
+                    (Math.max(line1.p1.y, line1.p2.y) >= Math.min(line2.p1.y, line2.p2.y)));
 }
 
 //lineLength: Line -> Number
@@ -111,6 +169,14 @@ function arrangePoints(line) {
     else if (line.p1.y < line.p2.y) { return line; }
     else if (line.p1.y > line.p2.y) { return swap(line); }
     return line;
+}
+
+//arrangeMoves: [Move] -> Void
+function arrangeMoves(ms) {
+    "use strict";
+    for(var i = 0; i < ms.length; i += 1) {
+        if((ms[i])[0] === "draw" || (ms[i])[0] === "drawSpecial") { (ms[i])[1] = arrangePoints((ms[i])[1]); }
+    }
 }
 
 //lineLT: Line Line -> Number

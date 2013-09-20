@@ -8,7 +8,7 @@
 //gameReset: Canvas -> Context -> Void
 function gameReset(c, ctx) {
     "use strict";
-    while(currSoln.moves.length > 0) { undo(c, ctx); }
+    while (currSoln.moves.length > 0) { undo(c, ctx); }
 }
 
 //loadLevel: Canvas -> Context -> Void
@@ -28,13 +28,32 @@ function loadLevel(c, ctx) {
 //addLine: Line -> Canvas -> Context -> Void
 function addLine(l, c, ctx) {
     "use strict";
+    var j = -1;
     if (l.p1.x !== l.p2.x || l.p1.y !== l.p2.y) {
         if (currSoln.linesDrawn < (currLevel.restriction.draw)) {
             console.log("adding line to solution");
+            for (var i = 0; i < currSoln.solution.length; i += 1) {
+                if (isScalarMults(l, currSoln.solution[i]) && interset(l, currSoln.solution[i])) { 
+                    j = i;
+                    if (l.p1.y === l.p2.y && l.p1 === currSoln.solution[i].p1.y && l.p1.y === currSoln.solution[i].p2.y) {
+                        l = new Line(lowestX(l, currSoln.solution[i]), highestX(l, currSoln.solution[i]), "App");
+                    } else {
+                        l = new Line(lowestY(l, currSoln.solution[i]), highestY(l, currSoln.solution[i]), "App");
+                    }
+                }
+            }
 
+            if (j > -1) { 
+                var oldLine = new Line(new Posn(currSoln.solution[j].p1.x, currSoln.solution[j].p1.y),
+                                new Posn(currSoln.solution[j].p2.x, currSoln.solution[j].p2.y), currSoln.solution[j].owner)
+                currSoln.moves.unshift(["drawSpecial", l, oldLine]);
+                if (currSoln.solution[j].owner == "User") { currSoln.linesDrawn -= 1; }
+                currSoln.solution.splice(j, 1); 
+            } else {
+                currSoln.moves.unshift(["draw", l]);
+            }
             currSoln.solution.unshift(l);
             currSoln.linesDrawn += 1;
-            currSoln.moves.unshift(["draw", l]);
             drawSolution(currSoln, c, ctx)
             console.log("added line to solution");
         } else {

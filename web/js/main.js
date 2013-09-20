@@ -62,7 +62,11 @@ App.populator('game', function (page) {
 		//Buttons
 		//-------
 	
-		$(page).find('.pencil'         ).on('click', function () { activateDrawMode();                 });
+		$(page).find('.pencil'         ).on('click', function () { 
+			activateDrawMode();    
+			console.log($(page).find('.pencil'));
+			//document.getElementById('.pencilimg').src = "img/pencil2.png";          
+		});
 	    $(page).find('.eraser'         ).on('click', function () { activateEraseMode();                });
 	    $(page).find('.rotate'         ).on('click', function () { rotateGraph(gameCanvas, context);   });
 	    $(page).find('.flip'           ).on('click', function () { flipGraph(gameCanvas, context);     });

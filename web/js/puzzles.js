@@ -52,7 +52,7 @@ Levels[8] = new Level([new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(
 
 //level 9: Answer ""
 Levels[9] = new Level([new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(5, 5), "App"),new Line(new Posn(8, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 3), new Posn(2, 8), "App"),new Line(new Posn(2, 3), new Posn(8, 3), "App")], 
-	[new Line(new Posn(2, 8), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(7, 3), "App"),new Line(new Posn(8, 8), new Posn(3, 3), "App"),new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(5, 5), "App"),new Line(new Posn(8, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 3), new Posn(2, 8), "App"),new Line(new Posn(2, 3), new Posn(8, 3), "App")], 
+	[new Line(new Posn(7, 3), new Posn(2, 8), "App"),new Line(new Posn(3, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(8, 8), "App"),new Line(new Posn(8, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 3), new Posn(2, 8), "App"),new Line(new Posn(2, 3), new Posn(8, 3), "App")], 
 		new Restriction(3, 0), "");
 
 //level 10: Answer

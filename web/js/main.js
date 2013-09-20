@@ -96,6 +96,7 @@ App.populator('game', function (page) {
 	    //Mouse Interactive Drawing:	   
 	    function mouseDownEvent(event) {
 			startPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
+			console.log("Start Point: = ", startPoint);
 	    	gameCanvas.addEventListener("mouseup", mouseUpEvent, false);
 	    }
 

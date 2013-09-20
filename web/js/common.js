@@ -87,7 +87,7 @@ function lowestX(line1, line2) {
     var newPosn = line1.p1;
     if (line1.p2.x < newPosn.x) { newPosn = line1.p2; }
     if (line2.p1.x < newPosn.x) { newPosn = line2.p1; }
-    if (line2.p1.x < newPosn.x) { newPosn = line2.p2; }
+    if (line2.p2.x < newPosn.x) { newPosn = line2.p2; }
     return new Posn(newPosn.x, newPosn.y);
 }
 
@@ -97,7 +97,7 @@ function highestX(line1, line2) {
     var newPosn = line1.p1;
     if (line1.p2.x > newPosn.x) { newPosn = line1.p2; }
     if (line2.p1.x > newPosn.x) { newPosn = line2.p1; }
-    if (line2.p1.x > newPosn.x) { newPosn = line2.p2; }
+    if (line2.p2.x > newPosn.x) { newPosn = line2.p2; }
     return new Posn(newPosn.x, newPosn.y);
 }
 
@@ -107,7 +107,7 @@ function lowestY(line1, line2) {
     var newPosn = line1.p1;
     if (line1.p2.y < newPosn.y) { newPosn = line1.p2; }
     if (line2.p1.y < newPosn.y) { newPosn = line2.p1; }
-    if (line2.p1.y < newPosn.y) { newPosn = line2.p2; }
+    if (line2.p2.y < newPosn.y) { newPosn = line2.p2; }
     return new Posn(newPosn.x, newPosn.y);
 }
 
@@ -117,7 +117,7 @@ function highestY(line1, line2) {
     var newPosn = line1.p1;
     if (line1.p2.y > newPosn.y) { newPosn = line1.p2; }
     if (line2.p1.y > newPosn.y) { newPosn = line2.p1; }
-    if (line2.p1.y > newPosn.y) { newPosn = line2.p2; }
+    if (line2.p2.y > newPosn.y) { newPosn = line2.p2; }
     return new Posn(newPosn.x, newPosn.y);
 }
 
@@ -132,8 +132,10 @@ function interset(line1, line2) {
     "use strict";
     return ((counterClock(line1.p1, line2.p1, line2.p2) != counterClock(line1.p2, line2.p1, line2.p2)) && 
             (counterClock(line1.p1, line1.p2, line2.p1) != counterClock(line1.p1, line1.p2, line2.p2))) ||
-                (getSlope(line1) === Infinity && getSlope(line2) === Infinity && 
-                    (Math.max(line1.p1.y, line1.p2.y) >= Math.min(line2.p1.y, line2.p2.y)));
+            (getSlope(line1) === Infinity && getSlope(line2) === Infinity && 
+            (Math.max(line1.p1.y, line1.p2.y) >= Math.min(line2.p1.y, line2.p2.y))) ||
+            (pointEqual(line1.p1, line2.p1)) || (pointEqual(line1.p1, line2.p2)) || 
+            (pointEqual(line1.p2, line2.p1)) || (pointEqual(line1.p2, line2.p2));
 }
 
 //lineLength: Line -> Number

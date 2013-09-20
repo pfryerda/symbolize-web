@@ -96,18 +96,18 @@ function arrangePoints(line) {
     return line;
 }
 
-//lineLT: Line Line -> Bool
+//lineLT: Line Line -> Number
 function lineLT(line1, line2) {
     "use strict";
-    if (line1.p1.x < line2.p1.x) { return true; }
-    else if (line1.p1.x > line2.p1.x) { return false; }
-    else if (line1.p1.y < line2.p1.y) { return true; }
-    else if (line1.p1.y > line2.p1.y) { return false; }
-    else if (line1.p2.x < line2.p2.x) { return true; }
-    else if (line1.p2.x > line2.p2.x) { return false; }
-    else if (line1.p2.y < line2.p2.y) { return true; }
-    else if (line1.p2.y > line2.p2.y) { return false; }
-    else { return true; }
+    if      (line1.p1.x < line2.p1.x) { return  1; }
+    else if (line1.p1.x > line2.p1.x) { return -1; }
+    else if (line1.p1.y < line2.p1.y) { return  1; }
+    else if (line1.p1.y > line2.p1.y) { return -1; }
+    else if (line1.p2.x < line2.p2.x) { return  1; }
+    else if (line1.p2.x > line2.p2.x) { return -1; }
+    else if (line1.p2.y < line2.p2.y) { return  1; }
+    else if (line1.p2.y > line2.p2.y) { return -1; }
+    else                              { return  0; }
 }
 
 //pointEqual: Line Line -> Bool

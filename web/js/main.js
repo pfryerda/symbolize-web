@@ -9,6 +9,17 @@ cards.ready(function(){
 	}
 });
 
+var WIDTH = window.innerWidth;											 //Document width
+var CANVASWIDTH = WIDTH - 70;											 //Canvas width
+
+var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
+
+gameCanvas.width = CANVASWIDTH;
+gameCanvas.height = CANVASWIDTH;
+document.getElementById('gameCanvas').width = CANVASWIDTH;
+
+$('.hintBox').toggle();		//Shows the hintBox when the level loads
+
 
 App.populator('home', function (page) {
 	console.log("loaded home");
@@ -20,35 +31,30 @@ App.populator('game', function (page) {
 	$(page).on('appShow', function () {
 		//This runs every time the page becomes visible to the user and is done animating
 
-
 		//Variable/Constant Definition, level set up
 		//--------------------------------------------
 
-		var WIDTH = $(page).width();											 //Document width
-		var CANVASWIDTH = WIDTH - 70;											 //Canvas width
 
 		var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
 		if(gameCanvas.getContext) { var context = gameCanvas.getContext("2d"); } //Context
-
-		gameCanvas.width = CANVASWIDTH;
-		gameCanvas.height = CANVASWIDTH;
-		$(page).find('gameCanvas').width = CANVASWIDTH;
 		loadLevel(gameCanvas, context);
 
 
 		//Display Hints
 		//-------------
 
-		var lineWord = "lines";
+		var lineDrawWord = "lines", lineEraseWord = "lines";
 
-		if(currLevel.restriction.draw === 1 || currLevel.restriction.draw === 0)
-			lineWord = "line";
-		else
-			lineWord = "lines";
-
-		document.getElementById("hint1").innerHTML = currLevel.hint1;	
-		document.getElementById("drawAmount").innerHTML = "Can draw " + currLevel.restriction.draw + " " + lineWord;
-		document.getElementById("eraseAmount").innerHTML = "Can erase " + currLevel.restriction.erase + " " + lineWord;
+		if(currLevel.restriction.draw === 1)
+			lineDrawWord = "line";
+		if(currLevel.restriction.erase === 1)
+			lineEraseWord = "line";
+ 
+		document.getElementById("hint").innerHTML = currLevel.hint;	
+		document.getElementById("drawAmount").innerHTML = currLevel.restriction.draw;
+		document.getElementById("lineDraw").innerHTML = lineDrawWord;
+		document.getElementById("eraseAmount").innerHTML = currLevel.restriction.erase;
+		document.getElementById("lineErase").innerHTML = lineEraseWord;
 
 
 		//Buttons

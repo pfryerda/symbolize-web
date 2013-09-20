@@ -30,10 +30,10 @@
 	z-index:0;
 	position: fixed;
 	float: left;
-	height: 250px;
+	height: 230px;
 	width: 200px;
 	left: 50px;
-	top: 100px;
+	top: 120px;
 	background: #FFF;
 	border-top: 1px solid #FFF;
 	-webkit-box-shadow: 0 0 8px rgba(0,0,0,0.85);
@@ -46,10 +46,10 @@
 
 .close
 {
-	font-weight: 800;
+	font-weight: 300;
+	font-size: 22px;
+	color: #17B;
 }
-
-
 
 .settings
 {
@@ -82,8 +82,3 @@
 }
 
 .gameCanvas{ z-index: -1;}
-
-/*.app-button.pencil.active changes the image source when active
-{
-	background-image: url(../img/rotate.png); ../ goes up a dir
-}*/

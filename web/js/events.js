@@ -35,7 +35,7 @@ function addLine(l, c, ctx) {
             for (var i = 0; i < currSoln.solution.length; i += 1) {
                 if (isScalarMults(l, currSoln.solution[i]) && interset(l, currSoln.solution[i])) { 
                     j = i;
-                    if (l.p1.y === l.p2.y && l.p1 === currSoln.solution[i].p1.y && l.p1.y === currSoln.solution[i].p2.y) {
+                    if (l.p1.y === l.p2.y && l.p1.y === currSoln.solution[i].p1.y && l.p1.y === currSoln.solution[i].p2.y) {
                         l = new Line(lowestX(l, currSoln.solution[i]), highestX(l, currSoln.solution[i]), "App");
                     } else {
                         l = new Line(lowestY(l, currSoln.solution[i]), highestY(l, currSoln.solution[i]), "App");

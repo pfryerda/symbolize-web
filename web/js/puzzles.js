@@ -25,10 +25,10 @@ Levels[3] = new Level([new Line(new Posn(1, 2), new Posn(4, 5), "App"), new Line
     [new Line(new Posn(2, 1), new Posn(5, 4), "App"), new Line(new Posn(5, 4), new Posn(8, 1), "App"), new Line(new Posn(5, 4), new Posn(5, 9), "App")],
         new Restriction(1, 0), "");
 
-//Level 4: Answer: 'F'
+//Level 4: Answer: 'E'
 Levels[4] = new Level([new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App")], 
-	[new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(5, 5), new Posn(8, 5), "App")], 
-		new Restriction(1, 1), "");
+	[new Line(new Posn(5, 5), new Posn(7, 5), "App"), new Line(new Posn(5, 8), new Posn(8, 8), "App"),new Line(new Posn(5, 2), new Posn(5, 8), "App"),new Line(new Posn(5, 2), new Posn(8, 2), "App")], 
+		new Restriction(2, 1), "");
 
 //Level 5: Answer: 'L'
 Levels[5] = new Level([new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App")], 
@@ -52,7 +52,7 @@ Levels[8] = new Level([new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(
 
 //level 9: Answer ""
 Levels[9] = new Level([new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(5, 5), "App"),new Line(new Posn(8, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 3), new Posn(2, 8), "App"),new Line(new Posn(2, 3), new Posn(8, 3), "App")], 
-	[new Line(new Posn(2, 8), new Posn(8, 8), "App"),new Line(new Posn(5, 5), new Posn(7, 3), "App"),new Line(new Posn(5, 5), new Posn(3, 3), "App"),new Line(new Posn(2, 3), new Posn(8, 3), "App"),new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(5, 5), "App"),new Line(new Posn(8, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 3), new Posn(2, 8), "App")], 
+	[new Line(new Posn(2, 8), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(7, 3), "App"),new Line(new Posn(8, 8), new Posn(3, 3), "App"),new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(5, 5), "App"),new Line(new Posn(8, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 3), new Posn(2, 8), "App"),new Line(new Posn(2, 3), new Posn(8, 3), "App")], 
 		new Restriction(3, 0), "");
 
 //level 10: Answer

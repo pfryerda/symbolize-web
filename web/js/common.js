@@ -175,8 +175,18 @@ function arrangePoints(line) {
 function arrangeMoves(ms) {
     "use strict";
     for(var i = 0; i < ms.length; i += 1) {
-        if((ms[i])[0] === "draw" || (ms[i])[0] === "drawSpecial") { (ms[i])[1] = arrangePoints((ms[i])[1]); }
+        if ((ms[i])[0] === "draw" || (ms[i])[0] === "erase") { (ms[i])[1] = arrangePoints((ms[i])[1]); }
+        else if ((ms[i])[0] === "drawSpecial") { 
+            (ms[i])[1] = arrangePoints((ms[i])[1]);
+            (ms[i])[2] = arrangePoints((ms[i])[2]);
+        }
     }
+}
+
+//makeNew: Line -> Line
+function makeNew(line) {
+    "use strict";
+    return new Line(new Posn(line.p1.x, line.p1.y), new Posn(line.p2.x, line.p2.y), line.owner);
 }
 
 //lineLT: Line Line -> Number

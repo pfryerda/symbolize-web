@@ -17,12 +17,12 @@ function loadLevel(c, ctx) {
     gameReset(c, ctx);
     if (DEVMODE) { currLevelNum = 0; }
     currLevel = Levels[currLevelNum];
-    currSoln = new UserSolution(currLevel.graph, 0, 0, []);
+    currSoln = new UserSolution(map(makeNew, currLevel.graph), 0, 0, []);
     if (currLevelNum === 0) { document.getElementById("gameTitle").innerHTML = "Development Level "; }
     else if(currLevelNum === Levels.length) { document.getElementById("gameTitle").innerHTML = "Final Level "; }
     else { document.getElementById("gameTitle").innerHTML = "Level " + currLevelNum; }
     console.log("loaded level", currLevelNum);
-    drawSolution(currSoln, c, ctx)
+    drawSolution(currSoln, c, ctx);
 }
 
 //addLine: Line -> Canvas -> Context -> Void
@@ -44,9 +44,7 @@ function addLine(l, c, ctx) {
             }
 
             if (j > -1) { 
-                var oldLine = new Line(new Posn(currSoln.solution[j].p1.x, currSoln.solution[j].p1.y),
-                                new Posn(currSoln.solution[j].p2.x, currSoln.solution[j].p2.y), currSoln.solution[j].owner)
-                currSoln.moves.unshift(["drawSpecial", l, oldLine]);
+                currSoln.moves.unshift(["drawSpecial", l, makeNew(currSoln.solution[j])]);
                 if (currSoln.solution[j].owner == "User") { currSoln.linesDrawn -= 1; }
                 currSoln.solution.splice(j, 1); 
             } else {
@@ -87,8 +85,7 @@ function removeLine(line, c, ctx) {
         currSoln.solution.splice(eraseLine[0], 1);
         if (eraseLine[1].owner === "App") { currSoln.linesErased += 1; }
         else { currSoln.linesDrawn -=1; }
-        currSoln.moves.unshift(["erase", new Line(new Posn(eraseLine[1].p1.x, eraseLine[1].p1.y), 
-            new Posn(eraseLine[1].p2.x, eraseLine[1].p2.y), eraseLine[1].owner)]);
+        currSoln.moves.unshift(["erase", makeNew(eraseLine[1])]);
         drawSolution(currSoln, c, ctx);
         console.log("removed line from solution");
     } else if (currSoln.linesErased >= (currLevel.restriction.erase) && eraseLine[1].owner === "App") {

@@ -50,15 +50,13 @@ Levels[8] = new Level([new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(
 	[new Line(new Posn(8, 2), new Posn(2, 2), "App"),new Line(new Posn(8, 7), new Posn(2, 7), "App"),new Line(new Posn(5, 5), new Posn(2, 2), "App"),new Line(new Posn(8, 2), new Posn(5, 5), "App"),new Line(new Posn(2, 7), new Posn(2, 2), "App"),new Line(new Posn(8, 7), new Posn(8, 2), "App")], 
 		new Restriction(1, 0), "You got mail!");
 
-//level 9: Answer ""
+//level 9: Answer "Bridge"
 Levels[9] = new Level([new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(5, 5), "App"),new Line(new Posn(8, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 3), new Posn(2, 8), "App"),new Line(new Posn(2, 3), new Posn(8, 3), "App")], 
-	[new Line(new Posn(7, 3), new Posn(2, 8), "App"),new Line(new Posn(3, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(8, 8), "App"),new Line(new Posn(8, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 3), new Posn(2, 8), "App"),new Line(new Posn(2, 3), new Posn(8, 3), "App")], 
-		new Restriction(3, 0), "");
+	[new Line(new Posn(8, 5), new Posn(2, 5), "App"),new Line(new Posn(5, 5), new Posn(2, 2), "App"),new Line(new Posn(8, 2), new Posn(5, 5), "App"),new Line(new Posn(2, 7), new Posn(2, 2), "App"),new Line(new Posn(8, 7), new Posn(8, 2), "App")], 
+		new Restriction(1, 1), "");
 
 //level 10: Answer
-Levels[10] = new Level([new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App")], 
-	[new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App"), new Line(new Posn(2, 8), new Posn(8, 2), "App")], 
-		new Restriction(1, 0), "Figure _", "");
+Levels[10] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");
 
 //level 11: Answer
 Levels[11] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");

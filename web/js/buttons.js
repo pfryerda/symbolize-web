@@ -65,7 +65,6 @@ function undo(c, ctx) {
                 for(var i=0; (!lineEqual((currSoln.solution)[i], lastMove[1])); i+= 1) {}
                 currSoln.solution.splice(i, 1);
                 currSoln.linesDrawn -= 1;
-
             } else if(lastMove[0] === "erase") {
                 if (lastMove[1].owner === "App") { currSoln.linesErased -= 1; }
                 else { currSoln.linesDrawn += 1; }
@@ -93,8 +92,6 @@ function undo(c, ctx) {
 function checkSolution(c, ctx) {
     "use strict";
     console.log("checking solution");
-    console.log(currLevel.solution);
-    console.log(currSoln.solution);
     if (solutionEqual(currLevel, currSoln)){
         App.dialog({
             title        : "Success!",

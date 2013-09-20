@@ -71,9 +71,9 @@ function removeLine(line, c, ctx) {
             new Posn(eraseLine[1].p2.x, eraseLine[1].p2.y), eraseLine[1].owner)]);
         drawSolution(currSoln, c, ctx);
         console.log("removed line from solution");
-    } else {
+    } else if (currSoln.linesErased >= (currLevel.restriction.erase)) {
         var options = {
-            text: "Cannot erase any more lines",  // String
+            text: "Cannot erase any more graph lines",  // String
             duration: 2000 // Integer
         };
 

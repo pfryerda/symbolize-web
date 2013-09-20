@@ -42,7 +42,7 @@ function map(f, lst) {
     return newlst;
 }
 
-//scalePoint: Number -> Number -> Number -> Number -> Posn
+//scalePointscalePoint: Number -> Number -> Number -> Number -> Posn
 function scalePoint(point_x, point_y, scaling, canvaslength){
     "use strict";
     return new Posn(Math.round((point_x - XOFFSET) * (scaling / canvaslength)), Math.round(( point_y - YOFFSET) * (scaling / canvaslength)));
@@ -61,25 +61,16 @@ function interset(line1, line2) {
             (counterClock(line1.p1, line1.p2, line2.p1) != counterClock(line1.p1, line1.p2, line2.p2)));
 }
 
-//getErasedIndex: Posn Graph -> Number[0,∞)   Used only for removeLine in events.js
-function getErasedIndex(point, graph) {
+//lineLength: Line -> Number
+function lineLength(line) {
     "use strict";
-    for (var i = 0; i < graph.length; i += 1) {
-        if ((point === graph[i].p1) || (point === graph[i].p2)) { return i; }
-    }
-    return -1;
+    return Math.sqrt(Math.pow(line.p2.x - line.p1.x, 2) + Math.pow(line.p2.y - line.p1.y, 2));
 }
 
 //midPoint: Line -> Posn
 function midPoint(line) {
     "use strict";
     return new Posn((line.p1.x + line.p2.x) / 2, (line.p1.y + line.p2.y) / 2);
-}
-
-//lineLength: Line -> Number
-function lineLength(line) {
-    "use strict";
-    return Math.sqrt(Math.pow(line.p2.x - line.p1.x, 2) + Math.pow(line.p2.y - line.p1.y, 2));
 }
 
 //lineToPointDistance: Line -> Posn -> Number
@@ -89,10 +80,34 @@ function lineToPointDistance(line, point) {
     return Math.sqrt(Math.pow(point.x - midpoint.x, 2) + Math.pow(point.y - midpoint.y, 2));
 }
 
+//swap: Line -> Line
+function swap(line) {
+    "use strict";
+    return new Line(new Posn(line.p2.x, line.p2.y), new Posn(line.p1.x, line.p1.y), line.owner);
+}
+
+//arrangePoints: Line -> Line
+function arrangePoints(line) {
+    "use strict";
+    if (line.p1.x < line.p2.x) { return line; }
+    else if (line.p1.x > line.p2.x) { return swap(line); }
+    else if (line.p1.y < line.p2.y) { return line; }
+    else if (line.p1.y > line.p2.y) { return swap(line); }
+    return line;
+}
+
 //lineLT: Line Line -> Bool
 function lineLT(line1, line2) {
     "use strict";
-    return lineToPointDistance(line1, new Posn(0, 0)) <= lineToPointDistance(line2, new Posn(0, 0));
+    if (line1.p1.x < line2.p1.x) { return true; }
+    else if (line1.p1.x > line2.p1.x) { return false; }
+    else if (line1.p1.y < line2.p1.y) { return true; }
+    else if (line1.p1.y > line2.p1.y) { return false; }
+    else if (line1.p2.x < line2.p2.x) { return true; }
+    else if (line1.p2.x > line2.p2.x) { return false; }
+    else if (line1.p2.y < line2.p2.y) { return true; }
+    else if (line1.p2.y > line2.p2.y) { return false; }
+    else { return true; }
 }
 
 //pointEqual: Line Line -> Bool
@@ -111,6 +126,8 @@ function lineEqual(line1, line2) {
 //graphEqual: Graph Graph -> Bool
 function graphEqual(graph1, graph2) {
     "use strict";
+    graph1 = map(arrangePoints, graph1);
+    graph2 = map(arrangePoints, graph2);
     graph1.sort(lineLT);
     graph2.sort(lineLT);
     if (graph1.length !== graph2.length) { return false; }
@@ -123,7 +140,6 @@ function graphEqual(graph1, graph2) {
 //solutionEqual: Level UserSolution -> Bool
 function solutionEqual(level, usersolution) {
     "use strict";
-    var solution2 = usersolution.solution;
     return graphEqual(level.solution, usersolution.solution);
 
 }

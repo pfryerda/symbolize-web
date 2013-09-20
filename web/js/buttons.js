@@ -115,17 +115,18 @@ function checkSolution(c, ctx) {
 }
 
 //showHint: Void
-function showHint() {
-    "use strict"; 
-    console.log("showing hints")
-    var hints        = "1) " + (currLevel.hint1) + "\n2)\n " + (currLevel.hint2),
-        restrictions = ("\nlines allowed drawn: " + (currLevel.restriction.draw).toString() + 
-                        "\nlines allowed erased: " + (currLevel.restriction.erase).toString());
-    App.dialog({
-        title        : "Level " + currLevelNum.toString() + " Hints",
-        text         : hints + restrictions,
-        cancelButton : "OK"});
-}
+// function showHint(p) {
+//     "use strict"; 
+//     console.log("showing hints")
+
+//     var hints        = (currLevel.hint1) + ".  " + (currLevel.hint2) + ".  ",
+//         restrictions = ("Can draw " + (currLevel.restriction.draw).toString() + "line(s).  " +
+//                         "Can erase " + (currLevel.restriction.erase).toString() +" lines(s).");
+// //     App.dialog({
+// //         title        : "Level " + currLevelNum.toString() + " Hints",
+// //         text         : hints + restrictions,
+// //         cancelButton : "OK"});
+// }
 
 //resetGraph: Canvas -> Context -> Void
 function resetGraph(c, ctx) {

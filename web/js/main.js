@@ -36,6 +36,22 @@ App.populator('game', function (page) {
 		loadLevel(gameCanvas, context);
 
 
+		//Display Hints
+		//-------------
+
+		var lineWord = "lines";
+
+		if(currLevel.restriction.draw === 1 || currLevel.restriction.draw === 0)
+			lineWord = "line";
+		else
+			lineWord = "lines";
+
+		document.getElementById("hint1").innerHTML = currLevel.hint1;	
+		document.getElementById("hint2").innerHTML = currLevel.hint2;
+		document.getElementById("drawAmount").innerHTML = "Can draw " + currLevel.restriction.draw + " " + lineWord;
+		document.getElementById("eraseAmount").innerHTML = "Can erase " + currLevel.restriction.erase + " " + lineWord;
+
+
 		//Buttons
 		//-------
 	
@@ -45,13 +61,20 @@ App.populator('game', function (page) {
 	    $(page).find('.flip'           ).on('click', function () { flipGraph(gameCanvas, context);     });
 	    $(page).find('.undo'           ).on('click', function () { undo(gameCanvas, context);          });
 		$(page).find('.check'          ).on('click', function () { checkSolution(gameCanvas, context); });
-	    $(page).find('.hint'           ).on('click', function () { showHint();                         });
+	    // $(page).find('.hint'           ).on('click', function () {                                     });
 	    $(page).find('.reset'          ).on('click', function () { resetGraph(gameCanvas, context);    });
 	    $(page).find('.app-button.left').on('click', function () {
 	    	currLevelNum = 1;
 	    	App.load('levels', 'slide-right');
 	    });
 
+		$('.hint').click(function() {
+	    	$('.hintBox').toggle();
+		});
+
+		$('.close').click(function() {
+		    $('.hintBox').toggle();
+		});
 
 	    //Interactive Drawing
 	    //-------------------
@@ -109,7 +132,7 @@ App.populator('levels', function (page) {
     });
 
 	$(page).on('appShow', function () {
-		console.log("loaded levels appShow");
+		console.log("loaded levels");
 		$(page).find('.lvl1').on('click', function () {
 			console.log("loaded1");
 			currLevelNum = 1;

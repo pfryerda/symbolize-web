@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/custom.css">
-    <style>
-      /* TODO */
-    </style>
   </head>
 
   <body>
@@ -30,6 +27,7 @@
         <div class="app-title" id="gameTitle">Level X</div>
         <div class="app-button right" data-target="tut1">?</div>
       </div>
+
       <div class="app-content" data-no-scroll="true">
         <div class="app-section">
           <center> <canvas id="gameCanvas" width="270" height="270" style="border:1px solid #d3d3d3;">Your browser does not support HTML5 Canvas.  Sucks to be you.</canvas> </center>
@@ -42,12 +40,23 @@
             <div class="app-button tool undo"><img src="img/undo.png" height="50px" width="50px"></div>
           </div>
 
+          <div class="hintBox">
+            <center><h4>Hints</h4></center>
+            <ol>
+              <li id="hint1">Hint 1 d</li>
+              <li id="hint2">Hint 2</li>
+              <li id="drawAmount">Can draw <b>1</b> line</li>
+              <li id="eraseAmount">Can erase <b>1</b> line</li>
+            </ol>
+
+            <div class="app-button close"><p>Close<p></div>
+          </div>
+
           <div class="settings">
             <div class="app-button green check">Check</div>
             <div class="app-button blue hint">Hint</div>
             <div class="app-button red reset">Reset</div>
           </div>
-
         </div>
       </div>
     </div>

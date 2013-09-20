@@ -17,7 +17,6 @@
 	/*border: 1px solid black;*/
 }
 
-
 .app-button.tool
 {
 	width: 20%;
@@ -25,6 +24,32 @@
 	/*border: 1px solid black;*/
 	float: left;
 }
+
+.hintBox
+{
+	z-index:0;
+	position: fixed;
+	float: left;
+	height: 250px;
+	width: 200px;
+	left: 50px;
+	top: 100px;
+	background: #FFF;
+	border-top: 1px solid #FFF;
+	-webkit-box-shadow: 0 0 8px rgba(0,0,0,0.85);
+	box-shadow: 0 0 8px rgba(0,0,0,0.85);
+	color: #777;
+	padding-right: 10px;
+	padding-left: 10px;
+	opacity: 1;
+}
+
+.close
+{
+	font-weight: 800;
+}
+
+
 
 .settings
 {
@@ -55,6 +80,8 @@
 	width:33%;
 	float: left;
 }
+
+.gameCanvas{ z-index: -1;}
 
 /*.app-button.pencil.active changes the image source when active
 {

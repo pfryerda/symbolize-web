@@ -20,7 +20,6 @@ function loadLevel(c, ctx) {
     currSoln = new UserSolution(currLevel.graph, 0, 0, []);
     document.getElementById("gameTitle").innerHTML = "Level " + currLevelNum;
     console.log("loaded level", currLevelNum);
-    showHint();
     drawSolution(currSoln, c, ctx)
 }
 

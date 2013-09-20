@@ -26,7 +26,7 @@ var currLevelNum = 1,                                         //Defaults level 1
 
     inDrawMode  = true,                                       //Defaults Draw  Mode enabled
     inEraseMode = !inDrawMode,                                //Defaults Erase Mode disabled
-    includeGrid = false;                                      //Defaults false can be set to true by user
+    includeGrid = true;                                      //Defaults false can be set to true by user
 
 
 //Helper Funcions

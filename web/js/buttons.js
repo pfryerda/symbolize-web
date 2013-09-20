@@ -95,7 +95,7 @@ function checkSolution(c, ctx) {
     if (solutionEqual(currLevel, currSoln)){
         App.dialog({
             title        : "Success!",
-            text         : "Congratulations, you beat level " + currLevelNum + " press OK to continue.",
+            text         : "Congratulations, you beat level " + currLevelNum + " press OK to continue." ,
             cancelButton : "OK"});
         gameReset(c, ctx);
         //Add end of game check
@@ -105,6 +105,11 @@ function checkSolution(c, ctx) {
         App.dialog({
             title : "Incorrect",
             text : "Your guess was wrong.",
+            cancelButton : "OK"});
+
+        App.dialog({
+            title        : "Stuff",
+            text         : "[" + currLevel.solution[0].p1.x + ", " + currLevel.solution[0].p1.y + "] [" + currLevel.solution[0].p2.x + ", " + currLevel.solution[0].p2.y + "]" ,
             cancelButton : "OK"});
     }
 }

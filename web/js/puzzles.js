@@ -21,13 +21,13 @@ Levels[2] = new Level([new Line(new Posn(1, 1), new Posn(5, 5), "App"), new Line
         new Restriction(1, 0), "", "Your favourite grade!");
 
 //Level 3: Answer: 'Y'
-Levels[3] = new Level([new Line(new Posn(1, 1), new Posn(5, 5), "App"), new Line(new Posn(5, 5), new Posn(1, 9), "App")],
-    [new Line(new Posn(9, 1), new Posn(5, 5), "App"), new Line(new Posn(5, 5), new Posn(1, 1), "App"), new Line(new Posn(5, 5), new Posn(5, 10), "App")],
+Levels[3] = new Level([new Line(new Posn(1, 2), new Posn(4, 5), "App"), new Line(new Posn(4, 5), new Posn(1, 8), "App")],
+    [new Line(new Posn(2, 1), new Posn(5, 4), "App"), new Line(new Posn(5, 4), new Posn(8, 1), "App"), new Line(new Posn(5, 4), new Posn(5, 9), "App")],
         new Restriction(1, 0), "", "");
 
 //Level 4: Answer: 'F'
 Levels[4] = new Level([new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App")], 
-	[new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(5, 4), new Posn(7, 4), "App")], 
+	[new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(5, 5), new Posn(8, 5), "App")], 
 		new Restriction(1, 1), "", "");
 
 //Level 5: Answer: 'L'

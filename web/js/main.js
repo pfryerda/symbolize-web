@@ -47,7 +47,10 @@ App.populator('game', function (page) {
 		$(page).find('.check'          ).on('click', function () { checkSolution(gameCanvas, context); });
 	    $(page).find('.hint'           ).on('click', function () { showHint();                         });
 	    $(page).find('.reset'          ).on('click', function () { resetGraph(gameCanvas, context);    });
-	    $(page).find('.app-button.left').on('click', function () { currLevelNum = 1;                   });
+	    $(page).find('.app-button.left').on('click', function () {
+	    	currLevelNum = 1;
+	    	App.load('levels', 'slide-right');
+	    });
 
 
 	    //Interactive Drawing
@@ -101,6 +104,10 @@ App.populator('game', function (page) {
 
 App.populator('levels', function (page) {
 
+	$(page).find('.app-button.left').on('click', function () {
+    	App.load('home', 'slide-right');
+    });
+
 	$(page).on('appShow', function () {
 		console.log("loaded levels appShow");
 		$(page).find('.lvl1').on('click', function () {
@@ -113,10 +120,9 @@ App.populator('levels', function (page) {
 			currLevelNum = 2;
 			App.load('game');
 		});
-		$(page).find('.app-button.lvl3').on('click', function () {
+		$(page).find('.lvl3').on('click', function () {
 			console.log("loaded3");
 			currLevelNum = 3;
-			console.log("currLevelNum = " + currLevelNum);
 			App.load('game');
 		});
 		$(page).find('.lvl4').on('click', function () {

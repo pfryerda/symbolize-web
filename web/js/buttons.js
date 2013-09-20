@@ -107,10 +107,10 @@ function checkSolution(c, ctx) {
             text : "Your guess was wrong.",
             cancelButton : "OK"});
 
-        App.dialog({
-            title        : "Stuff",
-            text         : "[" + currLevel.solution[0].p1.x + ", " + currLevel.solution[0].p1.y + "] [" + currLevel.solution[0].p2.x + ", " + currLevel.solution[0].p2.y + "]" ,
-            cancelButton : "OK"});
+        // App.dialog({
+        //     title        : "Stuff",
+        //     text         : "[" + currLevel.solution[0].p1.x + ", " + currLevel.solution[0].p1.y + "] [" + currLevel.solution[0].p2.x + ", " + currLevel.solution[0].p2.y + "]" ,
+        //     cancelButton : "OK"});
     }
 }
 

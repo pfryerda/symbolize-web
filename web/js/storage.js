@@ -7,13 +7,13 @@
 //Graph = [Line]
 //Move = Line | Number
 
-//Level: Graph Graph Restriction String String -> Level
+//Level: Graph Graph Restriction String -> Level
 //A level contains the lines for the graph(As they appear at the start), a restriction to number of allowed
 //lines drawn and erased, two hints, and a solution Which contain the correct lines, the neccecary rotation, 
 //and then some weather it needs to be fliped.
-function Level(g, soln, res, h1, h2) {
+function Level(g, soln, res, h) {
     "use strict";
-    return {"graph" : g, "solution" : soln, "restriction" : res, "hint1" : h1, "hint2" : h2};
+    return {"graph" : g, "solution" : soln, "restriction" : res, "hint" : h};
 }
 
 //Restriction: Number[0,∞) Number[0,∞) -> Restriction

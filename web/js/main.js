@@ -47,7 +47,6 @@ App.populator('game', function (page) {
 			lineWord = "lines";
 
 		document.getElementById("hint1").innerHTML = currLevel.hint1;	
-		document.getElementById("hint2").innerHTML = currLevel.hint2;
 		document.getElementById("drawAmount").innerHTML = "Can draw " + currLevel.restriction.draw + " " + lineWord;
 		document.getElementById("eraseAmount").innerHTML = "Can erase " + currLevel.restriction.erase + " " + lineWord;
 

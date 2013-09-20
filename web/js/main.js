@@ -73,6 +73,7 @@ App.populator('game', function (page) {
 	    $(page).find('.app-button.left').on('click', function () {
 	    	currLevelNum = 1;
 	    	App.load('levels', 'slide-right');
+	    	$('.hintBox').toggle();
 	    });
 
 		$('.hint').click(function() {

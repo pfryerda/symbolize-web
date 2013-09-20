@@ -18,7 +18,9 @@ function loadLevel(c, ctx) {
     if (DEVMODE) { currLevelNum = 0; }
     currLevel = Levels[currLevelNum];
     currSoln = new UserSolution(currLevel.graph, 0, 0, []);
-    document.getElementById("gameTitle").innerHTML = "Level " + currLevelNum;
+    if (currLevelNum === 0) { document.getElementById("gameTitle").innerHTML = "Development Level "; }
+    else if(currLevelNum === Levels.length) { document.getElementById("gameTitle").innerHTML = "Final Level "; }
+    else { document.getElementById("gameTitle").innerHTML = "Level " + currLevelNum; }
     console.log("loaded level", currLevelNum);
     drawSolution(currSoln, c, ctx)
 }
@@ -70,7 +72,7 @@ function removeLine(line, c, ctx) {
             new Posn(eraseLine[1].p2.x, eraseLine[1].p2.y), eraseLine[1].owner)]);
         drawSolution(currSoln, c, ctx);
         console.log("removed line from solution");
-    } else if (currSoln.linesErased >= (currLevel.restriction.erase)) {
+    } else if (currSoln.linesErased >= (currLevel.restriction.erase) && eraseLine[1].owner === "App") {
         var options = {
             text: "Cannot erase any more graph lines",  // String
             duration: 2000 // Integer

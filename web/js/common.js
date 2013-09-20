@@ -42,6 +42,23 @@ function map(f, lst) {
     return newlst;
 }
 
+//printLine:Line -> String
+function printLine(line) {
+    "use strict";
+    return "new Line(new Posn(" + line.p1.x + ", " + line.p1.y +"), new Posn(" + line.p2.x + ", " + line.p2.y + "), \"App\")";
+}
+
+//printGraph: String
+function printGraph() {
+    "ues strict";
+    var graphStr = "";
+    for(var i = 0; i < currSoln.solution.length; i += 1) {
+        if (i === (currSoln.solution.length - 1)) { graphStr += printLine(currSoln.solution[i]); }
+        else { graphStr += (printLine(currSoln.solution[i]) + ","); }
+    }
+    return ("[" + graphStr + "]");
+}
+
 //scalePointscalePoint: Number -> Number -> Number -> Number -> Posn
 function scalePoint(point_x, point_y, scaling, canvaslength){
     "use strict";

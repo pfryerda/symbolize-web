@@ -36,13 +36,12 @@ function addLine(l, c, ctx) {
                 if (isScalarMults(l, currSoln.solution[i]) && interset(l, currSoln.solution[i])) { 
                     j = i;
                     if (l.p1.y === l.p2.y && l.p1.y === currSoln.solution[i].p1.y && l.p1.y === currSoln.solution[i].p2.y) {
-                        l = new Line(lowestX(l, currSoln.solution[i]), highestX(l, currSoln.solution[i]), "App");
+                        l = new Line(lowestX(l, currSoln.solution[i]), highestX(l, currSoln.solution[i]), "AppExtended");
                     } else {
-                        l = new Line(lowestY(l, currSoln.solution[i]), highestY(l, currSoln.solution[i]), "App");
+                        l = new Line(lowestY(l, currSoln.solution[i]), highestY(l, currSoln.solution[i]), "AppExtended");
                     }
                 }
             }
-
             if (j > -1) { 
                 currSoln.moves.unshift(["drawSpecial", l, makeNew(currSoln.solution[j])]);
                 if (currSoln.solution[j].owner == "User") { currSoln.linesDrawn -= 1; }
@@ -83,8 +82,8 @@ function removeLine(line, c, ctx) {
     if (eraseLine[0] > -1 && (eraseLine[1].owner === "User" || currSoln.linesErased < (currLevel.restriction.erase))) {
         console.log("removing line from solution");
         currSoln.solution.splice(eraseLine[0], 1);
-        if (eraseLine[1].owner === "App") { currSoln.linesErased += 1; }
-        else { currSoln.linesDrawn -=1; }
+        if (eraseLine[1].owner !== "User") { currSoln.linesErased += 1; }
+        if (eraseLine[1].owner !== "App") { currSoln.linesDrawn -=1; }
         currSoln.moves.unshift(["erase", makeNew(eraseLine[1])]);
         drawSolution(currSoln, c, ctx);
         console.log("removed line from solution");

@@ -235,6 +235,8 @@ function graphEqual(graph1, graph2) {
 //solutionEqual: Level UserSolution -> Bool
 function solutionEqual(level, usersolution) {
     "use strict";
-    return graphEqual(level.solution, usersolution.solution);
-
+    for(var i = 0; i < level.solution.length; i+= 1){
+        if (graphEqual(level.solution[i], usersolution.solution)) { return true; }
+    }
+    return false;
 }

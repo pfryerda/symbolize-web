@@ -75,10 +75,15 @@ Levels[13] = new Level([new Line(new Posn(2, 8), new Posn(4, 8), "App"),new Line
 	[], new Restriction(99, 99), "Developer Level");
 
 //level 14: Answer
+Levels[14] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");
+
+//level 15: Answer
 Levels[15] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");
 
 //level 16: Answer
-Levels[16] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");
+Levels[16] = new Level([new Line(new Posn(7, 7), new Posn(7, 3), "App"),new Line(new Posn(3, 7), new Posn(3, 3), "App"),new Line(new Posn(5, 9), new Posn(7, 7), "App"),new Line(new Posn(5, 9), new Posn(3, 7), "App"),new Line(new Posn(3, 3), new Posn(5, 1), "App"),new Line(new Posn(7, 3), new Posn(5, 1), "App")], 
+	[new Line(new Posn(5, 6), new Posn(3, 5), "App"),new Line(new Posn(5, 7), new Posn(5, 6), "App"),new Line(new Posn(5, 4), new Posn(7, 5), "App"),new Line(new Posn(5, 3), new Posn(5, 4), "App"),new Line(new Posn(7, 7), new Posn(7, 3), "App"),new Line(new Posn(3, 7), new Posn(3, 3), "App"),new Line(new Posn(5, 9), new Posn(7, 7), "App"),new Line(new Posn(5, 9), new Posn(3, 7), "App"),new Line(new Posn(3, 3), new Posn(5, 1), "App"),new Line(new Posn(7, 3), new Posn(5, 1), "App")], 
+		new Restriction(4, 0), "S");
 
 //level 17: Answer
 Levels[17] = new Level([], [], new Restriction(99, 99), "Developer Level", "The answer is nothing");

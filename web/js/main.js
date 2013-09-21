@@ -38,25 +38,7 @@ App.populator('game', function (page) {
 		var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
 		if(gameCanvas.getContext) { var context = gameCanvas.getContext("2d"); } //Context
 		loadLevel(gameCanvas, context);
-
-
-		//Display Hints
-		//-------------
-
 		setTimeout(function() {$('.hintBox').toggle();},150);
-
-		var lineDrawWord = "lines", lineEraseWord = "lines";
-
-		if(currLevel.restriction.draw === 1)
-			lineDrawWord = "line";
-		if(currLevel.restriction.erase === 1)
-			lineEraseWord = "line";
- 
-		document.getElementById("hint").innerHTML = currLevel.hint;	
-		document.getElementById("drawAmount").innerHTML = currLevel.restriction.draw;
-		document.getElementById("lineDraw").innerHTML = lineDrawWord;
-		document.getElementById("eraseAmount").innerHTML = currLevel.restriction.erase;
-		document.getElementById("lineErase").innerHTML = lineEraseWord;
 
 
 		//Buttons

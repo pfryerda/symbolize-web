@@ -18,9 +18,21 @@ function loadLevel(c, ctx) {
     if (DEVMODE) { currLevelNum = 0; }
     currLevel = Levels[currLevelNum];
     currSoln = new UserSolution(map(makeNew, currLevel.graph), 0, 0, []);
+    
     if (currLevelNum === 0) { document.getElementById("gameTitle").innerHTML = "Development Level "; }
     else if(currLevelNum === Levels.length) { document.getElementById("gameTitle").innerHTML = "Final Level "; }
     else { document.getElementById("gameTitle").innerHTML = "Level " + currLevelNum; }
+
+    var lineDrawWord = "lines", lineEraseWord = "lines";
+    if(currLevel.restriction.draw  === 1) { lineDrawWord = "line"; }
+    if(currLevel.restriction.erase === 1) { lineEraseWord = "line"; }
+
+    document.getElementById("hint").innerHTML = currLevel.hint; 
+    document.getElementById("drawAmount").innerHTML = currLevel.restriction.draw;
+    document.getElementById("lineDraw").innerHTML = lineDrawWord;
+    document.getElementById("eraseAmount").innerHTML = currLevel.restriction.erase;
+    document.getElementById("lineErase").innerHTML = lineEraseWord;
+
     console.log("loaded level", currLevelNum);
     drawSolution(currSoln, c, ctx);
 }

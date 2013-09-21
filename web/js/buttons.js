@@ -24,27 +24,41 @@ function activateEraseMode() {
 //rotateGraph Canvas -> Context -> Void
 function rotateGraph(c, ctx) {
     "use strict";
-    console.log("rotating graph 90 degree");
+    if (currLevelNum === 19) {
+        currSoln.solution = map(makeNew, dice[Math.floor(Math.random()*6)]);
+        currSoln.moves = [];
+        currSoln.linesDrawn = 0;
+        currSoln.linesErased = 0;
+        drawSolution(currSoln, c, ctx);
+    } else {
+        console.log("rotating graph 90 degree");
 
-    currSoln.solution = map(rotateLine, currSoln.solution);
-    currSoln.moves.unshift("rotate");
+        currSoln.solution = map(rotateLine, currSoln.solution);
+        currSoln.moves.unshift("rotate");
 
-    drawSolution(currSoln, c, ctx)
-    console.log("rotated graph 90 degree");
-
+        drawSolution(currSoln, c, ctx)
+        console.log("rotated graph 90 degree");
+    }
 }
 
 //flipGraph: Canvas -> Context -> Void
 function flipGraph(c, ctx) {
     "use strict";
-    console.log("reflecting graph");
+    if (currLevelNum === 19) {
+        currSoln.solution = map(makeNew, dice[Math.floor(Math.random()*6)]);
+        currSoln.moves = [];
+        currSoln.linesDrawn = 0;
+        currSoln.linesErased = 0;
+        drawSolution(currSoln, c, ctx);
+    } else {
+        console.log("reflecting graph");
 
-    currSoln.solution = map(flipLine, currSoln.solution);
-    currSoln.moves.unshift("flip");
+        currSoln.solution = map(flipLine, currSoln.solution);
+        currSoln.moves.unshift("flip");
 
-    drawSolution(currSoln, c, ctx);
-    console.log("reflected graph");
-
+        drawSolution(currSoln, c, ctx);
+        console.log("reflected graph");
+    }
 }
 
 //undo: Canvas -> Context -> Void
@@ -93,6 +107,7 @@ function undo(c, ctx) {
 
         var toast = new Toast(options);
     }
+
 }
 
 //checkSolution: Canvas -> Context -> Void
@@ -146,6 +161,7 @@ function resetGraph(c, ctx) {
 
     if (result ===  "reset") {
         gameReset(c, ctx);
+        if (currLevelNum === 19) { currSoln.solution = map(makeNew, dice[0])}
         drawSolution(currSoln, c, ctx);
         console.log("reseted graph");
     } else {

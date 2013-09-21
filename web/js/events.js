@@ -15,12 +15,13 @@ function gameReset(c, ctx) {
 function loadLevel(c, ctx) {
     "use strict";
     gameReset(c, ctx);
-    if (DEVMODE) { currLevelNum = 0; }
+    if (DEVMODE) { currLevelNum = 20; }
     currLevel = Levels[currLevelNum];
     currSoln = new UserSolution(map(makeNew, currLevel.graph), 0, 0, []);
-    
-    if (currLevelNum === 0) { document.getElementById("gameTitle").innerHTML = "Development Level "; }
-    else if(currLevelNum === Levels.length) { document.getElementById("gameTitle").innerHTML = "Final Level "; }
+
+    if (currLevelNum === 0) { document.getElementById("gameTitle").innerHTML = "Tutorial"; }
+    else if (currLevelNum === 19) { document.getElementById("gameTitle").innerHTML = "Final Level"; }
+    else if (currLevelNum === 20) { document.getElementById("gameTitle").innerHTML = "Development Level"; }
     else { document.getElementById("gameTitle").innerHTML = "Level " + currLevelNum; }
 
     var lineDrawWord = "lines", lineEraseWord = "lines";

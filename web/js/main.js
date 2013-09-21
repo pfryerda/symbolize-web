@@ -53,7 +53,9 @@ App.populator('game', function (page) {
 	    $(page).find('.rotate'         ).on('click', function () { rotateGraph(gameCanvas, context);   });
 	    $(page).find('.flip'           ).on('click', function () { flipGraph(gameCanvas, context);     });
 	    $(page).find('.undo'           ).on('click', function () { undo(gameCanvas, context);          });
-		$(page).find('.check'          ).on('click', function () { checkSolution(gameCanvas, context); });
+		$(page).find('.check'          ).on('click', function () { 
+			if (checkSolution(gameCanvas, context)) { setTimeout(function() {$('.hintBox').toggle();},150); } 
+		});
 	    // $(page).find('.hint'           ).on('click', function () {                                     });
 	    $(page).find('.reset'          ).on('click', function () { resetGraph(gameCanvas, context);    });
 	    $(page).find('.app-button.left').on('click', function () {

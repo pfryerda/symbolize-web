@@ -101,19 +101,17 @@ function checkSolution(c, ctx) {
     console.log("checking solution");
     arrangeMoves(currSoln.moves);
     if (solutionEqual(currLevel, currSoln)){
-        App.dialog({
-            title        : "Success!",
-            text         : "Congratulations, you beat level " + currLevelNum + " press OK to continue." ,
-            cancelButton : "OK"});
         gameReset(c, ctx);
         //Add end of game check
         currLevelNum += 1;
-        loadLevel(c, ctx);
+        loadLevel(c, ctx); 
+        return true; 
     } else {
         App.dialog({
             title : "Incorrect",
             text : "Your guess was wrong.",
             cancelButton : "OK"});
+        return false;
 
         // App.dialog({
         //     title        : "Stuff",

@@ -28,10 +28,10 @@ App.populator('home', function (page) {
 App.populator('game', function (page) {
 	console.log("loaded game");
 
-	App.removeFromStack(1);
 
 	$(page).on('appShow', function () {
 		//This runs every time the page becomes visible to the user and is done animating
+		App.removeFromStack(1);
 
 		//Variable/Constant Definition, level set up
 		//--------------------------------------------
@@ -60,11 +60,11 @@ App.populator('game', function (page) {
 		});
 	    // $(page).find('.hint'           ).on('click', function () {                                     });
 	    $(page).find('.reset'          ).on('click', function () { resetGraph(gameCanvas, context);    });
-	    $(page).find('.app-button.left').on('click', function () {
+	    /*$(page).find('.app-button.left').on('click', function () {
 	    	currLevelNum = 1;
 	    	App.load('levels', 'slide-right');
 	    	$('.hintBox').toggle();
-	    });
+	    });*/
 
 		$('.hint').click(function() {
 	    	$('.hintBox').toggle();

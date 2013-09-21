@@ -64,7 +64,7 @@ App.populator('game', function (page) {
 	
 		$(page).find('.pencil'         ).on('click', function () { 
 			activateDrawMode();    
-			console.log($(page).find('.pencil'));
+			//console.log($(page).find('.pencil'));
 			//document.getElementById('.pencilimg').src = "img/pencil2.png";          
 		});
 	    $(page).find('.eraser'         ).on('click', function () { activateEraseMode();                });
@@ -189,6 +189,21 @@ App.populator('levels', function (page) {
 		$(page).find('.lvl9').on('click', function () {
 			console.log("loaded9");
 			currLevelNum = 9;
+			App.load('game');
+		});
+		$(page).find('.lvl10').on('click', function () {
+			console.log("loaded10");
+			currLevelNum = 10;
+			App.load('game');
+		});
+		$(page).find('.lvl11').on('click', function () {
+			console.log("loaded11");
+			currLevelNum = 11;
+			App.load('game');
+		});
+		$(page).find('.lvl12').on('click', function () {
+			console.log("loaded12");
+			currLevelNum = 12;
 			App.load('game');
 		});
 	});

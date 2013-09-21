@@ -161,7 +161,7 @@ function resetGraph(c, ctx) {
 
     if (result ===  "reset") {
         gameReset(c, ctx);
-        if (currLevelNum === 19) { currSoln.solution = map(makeNew, dice[0])}
+        if (currLevelNum === 19) { currSoln.solution = map(makeNew, dice[Math.floor(Math.random()*6)])}
         drawSolution(currSoln, c, ctx);
         console.log("reseted graph");
     } else {

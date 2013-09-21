@@ -28,6 +28,8 @@ App.populator('home', function (page) {
 App.populator('game', function (page) {
 	console.log("loaded game");
 
+	App.removeFromStack(1);
+
 	$(page).on('appShow', function () {
 		//This runs every time the page becomes visible to the user and is done animating
 

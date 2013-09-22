@@ -648,8 +648,8 @@ textarea.app-input {
 }
 
 .app-section {
-	margin: 16px;
-	padding: 8px;
+	margin: 6px;
+	padding: 6px;
 	background: #FFF;
 	border-bottom: 1px solid rgba(0,0,0,0.1);
 	-webkit-border-radius: 6px;
@@ -660,9 +660,9 @@ p.app-section {
 	color: #665;
 }
 .app-content .app-section > * {
-	margin: 8px 0 0;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
+	margin: 1px 0 0;
+	-webkit-border-radius: 1px;
+	border-radius: 1px;
 }
 .app-content .app-section > :first-child {
 	margin-top: 0;

@@ -14,13 +14,12 @@ cards.ready(function(){    //Force portrait mode
 
 var WIDTH = window.innerWidth;											 //Document width
 var hintStartLeft = WIDTH/2 - 110;										 //Hint Box position from left
-var CANVASWIDTH = WIDTH - 70;											 //Canvas width
+var CANVASWIDTH = WIDTH - 30;											 //Canvas width
 var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
 
 gameCanvas.width = CANVASWIDTH;
 gameCanvas.height = CANVASWIDTH;
 document.getElementById('gameCanvas').width = CANVASWIDTH;
-//document.getElementById('hintBox').left = hintStartLeft;
 document.getElementById('hintbox').style.left = hintStartLeft + "px";
 
 $('.hintBox').toggle();				//Shows the hintBox when the level loads

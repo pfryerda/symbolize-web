@@ -57,10 +57,10 @@ Levels[9] = new Level([new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(
 	[[new Line(new Posn(8, 5), new Posn(2, 5), "App"),new Line(new Posn(5, 5), new Posn(2, 2), "App"),new Line(new Posn(8, 2), new Posn(5, 5), "App"),new Line(new Posn(2, 7), new Posn(2, 2), "App"),new Line(new Posn(8, 7), new Posn(8, 2), "App")]], 
 		new Restriction(1, 1), "An amazing feat of engineering and a popular card game.");
 
-//level 10: Answer '%'
+//level 10: Answer 'Hook'
 Levels[10] = new Level([new Line(new Posn(2, 8), new Posn(4, 8), "App"),new Line(new Posn(2, 6), new Posn(2, 8), "App"),new Line(new Posn(4, 6), new Posn(6, 4), "App"),new Line(new Posn(8, 4), new Posn(6, 4), "App"),new Line(new Posn(8, 2), new Posn(8, 4), "App"),new Line(new Posn(6, 2), new Posn(8, 2), "App"),new Line(new Posn(6, 4), new Posn(6, 2), "App"),new Line(new Posn(4, 8), new Posn(4, 6), "App"),new Line(new Posn(4, 6), new Posn(2, 6), "App")], 
-	[[new Line(new Posn(1, 9), new Posn(9, 1), "App"),new Line(new Posn(2, 2), new Posn(2, 4), "App"),new Line(new Posn(4, 2), new Posn(2, 2), "App"),new Line(new Posn(6, 8), new Posn(6, 6), "App"),new Line(new Posn(8, 8), new Posn(6, 8), "App"),new Line(new Posn(8, 6), new Posn(8, 8), "App"),new Line(new Posn(6, 6), new Posn(8, 6), "App"),new Line(new Posn(2, 4), new Posn(4, 4), "App"),new Line(new Posn(4, 4), new Posn(4, 2), "App")], [new Line(new Posn(2, 8), new Posn(8, 2), "App"),new Line(new Posn(2, 2), new Posn(2, 4), "App"),new Line(new Posn(4, 2), new Posn(2, 2), "App"),new Line(new Posn(6, 8), new Posn(6, 6), "App"),new Line(new Posn(8, 8), new Posn(6, 8), "App"),new Line(new Posn(8, 6), new Posn(8, 8), "App"),new Line(new Posn(6, 6), new Posn(8, 6), "App"),new Line(new Posn(2, 4), new Posn(4, 4), "App"),new Line(new Posn(4, 4), new Posn(4, 2), "App")]], 
-		new Restriction(1, 1), "A common symbol found on all keyboards.");
+	[[new Line(new Posn(2, 8), new Posn(4, 8), "App"),new Line(new Posn(2, 6), new Posn(2, 8), "App"),new Line(new Posn(4, 6), new Posn(6, 4), "App"),new Line(new Posn(8, 2), new Posn(8, 4), "App"),new Line(new Posn(6, 2), new Posn(8, 2), "App"),new Line(new Posn(6, 4), new Posn(6, 2), "App"),new Line(new Posn(4, 8), new Posn(4, 6), "App"),new Line(new Posn(4, 6), new Posn(2, 6), "App")]], 
+		new Restriction(0, 1), "Captain _____");
 
 //level 11: Answer "Arrow"
 Levels[11] = new Level([new Line(new Posn(2, 8), new Posn(4, 8), "App"),new Line(new Posn(2, 6), new Posn(2, 8), "App"),new Line(new Posn(4, 6), new Posn(6, 4), "App"),new Line(new Posn(8, 4), new Posn(6, 4), "App"),new Line(new Posn(8, 2), new Posn(8, 4), "App"),new Line(new Posn(6, 2), new Posn(8, 2), "App"),new Line(new Posn(6, 4), new Posn(6, 2), "App"),new Line(new Posn(4, 8), new Posn(4, 6), "App"),new Line(new Posn(4, 6), new Posn(2, 6), "App")], 
@@ -77,10 +77,10 @@ Levels[13] = new Level([new Line(new Posn(2, 6), new Posn(8, 6), "App"),new Line
 	[[new Line(new Posn(4, 2), new Posn(4, 8), "App"),new Line(new Posn(2, 6), new Posn(8, 6), "App"),new Line(new Posn(2, 4), new Posn(8, 4), "App"),new Line(new Posn(6, 2), new Posn(6, 8), "App")]], 
 		new Restriction(0, 4), "Change this side of a rubik cube into another well known game.");
 
-//level 14: Answer '★'
-Levels[14] = new Level([new Line(new Posn(1, 3), new Posn(9, 9), "App"),new Line(new Posn(1, 9), new Posn(5, 1), "App")], 
-	[[new Line(new Posn(9, 3), new Posn(1, 9), "App"),new Line(new Posn(1, 3), new Posn(9, 3), "App"),new Line(new Posn(1, 3), new Posn(9, 9), "App"),new Line(new Posn(5, 1), new Posn(9, 9), "App"),new Line(new Posn(1, 9), new Posn(5, 1), "App")]], 
-		new Restriction(3, 0), "Twinkle");
+//level 14: Answer '*'
+Levels[14] = new Level([new Line(new Posn(1, 5), new Posn(9, 5), "App"),new Line(new Posn(5, 1), new Posn(5, 9), "App"),new Line(new Posn(9, 1), new Posn(1, 1), "App"),new Line(new Posn(9, 9), new Posn(9, 1), "App"),new Line(new Posn(1, 9), new Posn(9, 9), "App"),new Line(new Posn(1, 1), new Posn(1, 9), "App"),new Line(new Posn(8, 2), new Posn(2, 8), "App"),new Line(new Posn(4, 6), new Posn(4, 8), "App"),new Line(new Posn(2, 2), new Posn(8, 8), "App"),new Line(new Posn(6, 4), new Posn(8, 4), "App"),new Line(new Posn(4, 4), new Posn(2, 4), "App"),new Line(new Posn(2, 6), new Posn(4, 6), "App"),new Line(new Posn(4, 2), new Posn(4, 4), "App"),new Line(new Posn(6, 4), new Posn(6, 2), "App"),new Line(new Posn(6, 6), new Posn(8, 6), "App"),new Line(new Posn(6, 8), new Posn(6, 6), "App")], 
+	[[new Line(new Posn(1, 5), new Posn(9, 5), "App"),new Line(new Posn(5, 1), new Posn(5, 9), "App"),new Line(new Posn(8, 2), new Posn(2, 8), "App"),new Line(new Posn(4, 6), new Posn(4, 8), "App"),new Line(new Posn(2, 2), new Posn(8, 8), "App"),new Line(new Posn(6, 4), new Posn(8, 4), "App"),new Line(new Posn(4, 4), new Posn(2, 4), "App"),new Line(new Posn(2, 6), new Posn(4, 6), "App"),new Line(new Posn(4, 2), new Posn(4, 4), "App"),new Line(new Posn(6, 4), new Posn(6, 2), "App"),new Line(new Posn(6, 6), new Posn(8, 6), "App"),new Line(new Posn(6, 8), new Posn(6, 6), "App")]], 
+		new Restriction(0, 4), "Winter Wonderland");
 
 //level 15: Answer '♥'
 Levels[15] = new Level([new Line(new Posn(6, 6), new Posn(7, 7), "App"),new Line(new Posn(4, 6), new Posn(3, 7), "App"),new Line(new Posn(5, 1), new Posn(9, 5), "App"),new Line(new Posn(5, 1), new Posn(1, 5), "App"),new Line(new Posn(7, 7), new Posn(9, 5), "App"),new Line(new Posn(3, 7), new Posn(1, 5), "App"),new Line(new Posn(4, 8), new Posn(4, 6), "App"),new Line(new Posn(6, 8), new Posn(6, 6), "App"),new Line(new Posn(7, 9), new Posn(6, 8), "App"),new Line(new Posn(3, 9), new Posn(4, 8), "App"),new Line(new Posn(3, 9), new Posn(7, 9), "App")], 

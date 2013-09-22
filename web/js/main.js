@@ -23,6 +23,9 @@ $('.hintBox').toggle();		//Shows the hintBox when the level loads
 
 App.populator('home', function (page) {
 	console.log("loaded home");
+	if (App.getStack().length > 2) { 
+		for (var i = 0; i < App.getStack().length; i += 1) { App.removeFromStack(1); }
+	}
 });
 
 App.populator('game', function (page) {
@@ -215,11 +218,4 @@ App.populator('levels', function (page) {
 	});
 });
 
-App.load('game');
-
-// try {
-// 	App.restore();
-// }
-// catch (err) {
-// 	App.load('home');
-// }
+App.load('home');

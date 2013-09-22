@@ -25,7 +25,7 @@ Levels[2] = new Level([new Line(new Posn(1, 1), new Posn(5, 5), "App"), new Line
 //Level 3: Answer 'Y'
 Levels[3] = new Level([new Line(new Posn(1, 2), new Posn(4, 5), "App"), new Line(new Posn(4, 5), new Posn(1, 8), "App")],
     [[new Line(new Posn(2, 1), new Posn(5, 4), "App"), new Line(new Posn(5, 4), new Posn(8, 1), "App"), new Line(new Posn(5, 4), new Posn(5, 9), "App")], [new Line(new Posn(5, 8), new Posn(5, 4), "App"),new Line(new Posn(8, 1), new Posn(5, 4), "App"),new Line(new Posn(5, 4), new Posn(2, 1), "App")]],
-        new Restriction(1, 0), "The only letter that comes with a partner.");
+        new Restriction(1, 0), "A confused vowel.");
 
 //Level 4: Answer 'E' or 'I'
 Levels[4] = new Level([new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App")], 

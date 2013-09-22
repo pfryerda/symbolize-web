@@ -9,7 +9,7 @@ var Levels = new Array();
 
 //Tutorial: Answer '7'
 Levels[0] = new Level([new Line(new Posn(3, 2), new Posn(5, 2), "App"),new Line(new Posn(4, 2), new Posn(8, 9), "App"),new Line(new Posn(2, 9), new Posn(8, 9), "App")], 
-	[new Line(new Posn(5, 4), new Posn(7, 4), "App"),new Line(new Posn(4, 8), new Posn(8, 1), "App"),new Line(new Posn(2, 1), new Posn(8, 1), "App")],
+	[[new Line(new Posn(5, 4), new Posn(7, 4), "App"),new Line(new Posn(4, 8), new Posn(8, 1), "App"),new Line(new Posn(2, 1), new Posn(8, 1), "App")]],
 		new Restriction(1, 1), "Lucky No.");
 
 //Level 1: Answer 'K'

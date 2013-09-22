@@ -741,11 +741,19 @@ p.app-section {
 }
 
 .app-content .app-button.green {
-	background-color: #189f38;
+	background-color: #537625;
 	color: #F3F4F5;
 }
 .app-content .app-button.green.active {
 	background-color: #2A6;
+}
+
+.app-content .app-button.purple {
+	background-color: #783a96;
+	color: #F3F4F5;
+}
+.app-content .app-button.purple.active {
+	background-color: #4f256d;
 }
 .app-content .app-button.yellow {
 	background-color: #EC1;
@@ -766,14 +774,14 @@ p.app-section {
 	color: #F3F4F5;
 }
 .app-content .app-button.red.active {
-	background-color: #C43;
+	background-color: #881010;
 }
 .app-content .app-button.blue {
 	background-color: #4486F0;
 	color: #F3F4F5;
 }
 .app-content .app-button.blue.active {
-	background-color: #27A;
+	background-color: #285090;
 }
 .app-content .app-button.dark-blue {
 	background-color: #345;

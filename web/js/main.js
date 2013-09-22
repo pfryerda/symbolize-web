@@ -27,9 +27,7 @@ App.populator('home', function (page) {
 
 App.populator('game', function (page) {
 	console.log("loaded game");
-	// console.log("AppStack = " + App.getStack(3));
-	// App.removeFromStack(1);
-	// console.log("AppStack2 = " + App.getStack());
+	$(page).find('.pencil')[0].className = "app-button tools-Active pencil";
 
 	$(page).on('appShow', function () {
 		//This runs every time the page becomes visible to the user and is done animating
@@ -37,7 +35,6 @@ App.populator('game', function (page) {
 
 		//Variable/Constant Definition, level set up
 		//--------------------------------------------
-
 
 		var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
 		if(gameCanvas.getContext) { var context = gameCanvas.getContext("2d"); } //Context
@@ -48,12 +45,23 @@ App.populator('game', function (page) {
 		//Buttons
 		//-------
 	
-		$(page).find('.pencil'         ).on('click', function () { 
-			activateDrawMode();    
-			//console.log($(page).find('.pencil'));
-			//document.getElementById('.pencilimg').src = "img/pencil2.png";          
+		$(page).find('.pencil').on('click', function () { 
+			activateDrawMode(); 
+			console.log(this);
+			if(this.className === "app-button tool pencil")
+			{
+				this.className = "app-button tools-Active pencil";
+				$(page).find('.eraser')[0].className = "app-button tool eraser";
+			}
 		});
-	    $(page).find('.eraser'         ).on('click', function () { activateEraseMode();                });
+	    $(page).find('.eraser').on('click', function () {
+	    	activateEraseMode();
+	    	if(this.className === "app-button tool eraser")
+			{
+				this.className = "app-button tools-Active eraser";
+				$(page).find('.pencil')[0].className = "app-button tool pencil";
+			}
+	    });
 	    $(page).find('.rotate'         ).on('click', function () { rotateGraph(gameCanvas, context);   });
 	    $(page).find('.flip'           ).on('click', function () { flipGraph(gameCanvas, context);     });
 	    $(page).find('.undo'           ).on('click', function () { undo(gameCanvas, context);          });
@@ -66,7 +74,7 @@ App.populator('game', function (page) {
 	    	console.log("backbutton");
 	    	currLevelNum = 1;
 	    	//App.load('levels', 'slide-right');
-	    	$('.hintBox').toggle();
+	    	//$('.hintBox').toggle();
 	    	App.removeFromStack(1);
 	    });
 
@@ -207,7 +215,7 @@ App.populator('levels', function (page) {
 	});
 });
 
-App.load('home');
+App.load('game');
 
 // try {
 // 	App.restore();

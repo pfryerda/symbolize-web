@@ -3,6 +3,14 @@
 	height: 50px;
 }
 
+.app-button.tools-Active{
+	width: 20%;
+	height: 50px;
+	/*border: 1px solid black;*/
+	float: left;
+	background: #8bc63f;
+}
+
 .levelsContainer {
 	height: 500px;
 	/*border: 1px solid black;*/

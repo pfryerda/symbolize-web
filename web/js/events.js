@@ -68,6 +68,7 @@ function addLine(l, c, ctx) {
             drawSolution(currSoln, c, ctx)
             console.log("added line to solution");
         } else {
+            console.log("Cannot draw more lines");
             var options = {
                 text: "Cannot draw any more lines",  // String
                 duration: 2000 // Integer

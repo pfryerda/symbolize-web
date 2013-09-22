@@ -127,6 +127,10 @@ function checkSolution(c, ctx) {
             App.load('home')
         }
         else {
+            App.dialog({
+            title : "Correct!",
+            text : "On to the next level!",
+            cancelButton : "OK"});
             currLevelNum += 1;
             loadLevel(c, ctx); 
             return true; 

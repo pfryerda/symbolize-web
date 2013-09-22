@@ -104,7 +104,7 @@ function removeLine(line, c, ctx) {
         console.log("removed line from solution");
     } else if (currSoln.linesErased >= (currLevel.restriction.erase) && eraseLine[1].owner === "App") {
         var options = {
-            text: "Cannot erase any more graph lines",  // String
+            text: "Cannot erase any more lines",  // String
             duration: 2000 // Integer
         };
 

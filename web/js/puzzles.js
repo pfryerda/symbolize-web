@@ -30,7 +30,7 @@ Levels[3] = new Level([new Line(new Posn(1, 2), new Posn(4, 5), "App"), new Line
 //Level 4: Answer 'E' or 'I'
 Levels[4] = new Level([new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App")], 
 	[[new Line(new Posn(5, 5), new Posn(7, 5), "App"), new Line(new Posn(5, 8), new Posn(8, 8), "App"),new Line(new Posn(5, 2), new Posn(5, 8), "App"),new Line(new Posn(5, 2), new Posn(8, 2), "App")], [new Line(new Posn(5, 5), new Posn(8, 5), "App"),new Line(new Posn(5, 8), new Posn(8, 8), "App"),new Line(new Posn(5, 2), new Posn(5, 8), "App"),new Line(new Posn(5, 2), new Posn(8, 2), "App")], [new Line(new Posn(2, 2), new Posn(8, 2), "App"),new Line(new Posn(2, 8), new Posn(8, 8), "App"),new Line(new Posn(5, 2), new Posn(5, 8), "App")]], 
-		new Restriction(2, 1), "My favourite letter in favourite that is not F or T");
+		new Restriction(2, 1), "My favourite letter in FAVOURITE that is not F or T");
 
 //Level 5: Answer 'L'
 Levels[5] = new Level([new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App")], 

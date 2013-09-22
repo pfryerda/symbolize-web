@@ -46,7 +46,7 @@ function rotateGraph(c, ctx) {
 //flipGraph: Canvas -> Context -> Void
 function flipGraph(c, ctx) {
     "use strict";
-    if (currLevelNum === 19) {
+    if (currLevelNum === (Levels.length - 2)) {
         currSoln.solution = map(makeNew, dice[Math.floor(Math.random()*6)]);
         currSoln.moves = [];
         currSoln.linesDrawn = 0;
@@ -119,7 +119,7 @@ function checkSolution(c, ctx) {
     arrangeMoves(currSoln.moves);
     if (solutionEqual(currLevel, currSoln)){
         gameReset(c, ctx);
-        if (currLevelNum === 19) {
+        if (currLevelNum === (Levels.length - 2)) {
             App.dialog({
             title : "Congratulations",
             text : "You have beaten Symbolize!",

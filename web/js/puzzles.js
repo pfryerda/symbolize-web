@@ -27,15 +27,15 @@ Levels[3] = new Level([new Line(new Posn(1, 2), new Posn(4, 5), "App"), new Line
     [[new Line(new Posn(2, 1), new Posn(5, 4), "App"), new Line(new Posn(5, 4), new Posn(8, 1), "App"), new Line(new Posn(5, 4), new Posn(5, 9), "App")], [new Line(new Posn(5, 8), new Posn(5, 4), "App"),new Line(new Posn(8, 1), new Posn(5, 4), "App"),new Line(new Posn(5, 4), new Posn(2, 1), "App")]],
         new Restriction(1, 0), "");
 
-//Level 4: Answer 'E'
+//Level 4: Answer 'E' or 'I'
 Levels[4] = new Level([new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App")], 
-	[[new Line(new Posn(5, 5), new Posn(7, 5), "App"), new Line(new Posn(5, 8), new Posn(8, 8), "App"),new Line(new Posn(5, 2), new Posn(5, 8), "App"),new Line(new Posn(5, 2), new Posn(8, 2), "App")], [new Line(new Posn(5, 5), new Posn(8, 5), "App"),new Line(new Posn(5, 8), new Posn(8, 8), "App"),new Line(new Posn(5, 2), new Posn(5, 8), "App"),new Line(new Posn(5, 2), new Posn(8, 2), "App")]], 
-		new Restriction(2, 1), "");
+	[[new Line(new Posn(5, 5), new Posn(7, 5), "App"), new Line(new Posn(5, 8), new Posn(8, 8), "App"),new Line(new Posn(5, 2), new Posn(5, 8), "App"),new Line(new Posn(5, 2), new Posn(8, 2), "App")], [new Line(new Posn(5, 5), new Posn(8, 5), "App"),new Line(new Posn(5, 8), new Posn(8, 8), "App"),new Line(new Posn(5, 2), new Posn(5, 8), "App"),new Line(new Posn(5, 2), new Posn(8, 2), "App")], [new Line(new Posn(2, 2), new Posn(8, 2), "App"),new Line(new Posn(2, 8), new Posn(8, 8), "App"),new Line(new Posn(5, 2), new Posn(5, 8), "App")]], 
+		new Restriction(2, 1), "My favourite letter in favourite that is not F or T");
 
 //Level 5: Answer 'L'
 Levels[5] = new Level([new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App")], 
 	[[new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 8), new Posn(8, 8))]], 
-		new Restriction(0, 1), "");
+		new Restriction(0, 1), "He__o wor_d");
 
 //Level 6: Answer '8'
 Levels[6] = new Level([new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line(new Posn(5, 2), new Posn(8, 2), "App"), new Line(new Posn(2, 8), new Posn(5, 8), "App")], 
@@ -45,7 +45,7 @@ Levels[6] = new Level([new Line(new Posn(5, 2), new Posn(5, 8), "App"), new Line
 //level 7: Answer 'M'
 Levels[7] = new Level([new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(5, 5), "App"),new Line(new Posn(8, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 3), new Posn(2, 8), "App"),new Line(new Posn(2, 3), new Posn(8, 3), "App")], 
 	[[new Line(new Posn(5, 5), new Posn(2, 2), "App"),new Line(new Posn(8, 2), new Posn(5, 5), "App"),new Line(new Posn(2, 7), new Posn(2, 2), "App"),new Line(new Posn(8, 7), new Posn(8, 2), "App")]], 
-		new Restriction(0, 1), "");
+		new Restriction(0, 1), "Maybe the answer is the largest letter in this hint.");
 
 //level 8: Answer "Envelope"
 Levels[8] = new Level([new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(5, 5), "App"),new Line(new Posn(8, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 3), new Posn(2, 8), "App"),new Line(new Posn(2, 3), new Posn(8, 3), "App")],
@@ -55,7 +55,7 @@ Levels[8] = new Level([new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(
 //level 9: Answer "Bridge"
 Levels[9] = new Level([new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(5, 5), "App"),new Line(new Posn(8, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 3), new Posn(2, 8), "App"),new Line(new Posn(2, 3), new Posn(8, 3), "App")], 
 	[[new Line(new Posn(8, 5), new Posn(2, 5), "App"),new Line(new Posn(5, 5), new Posn(2, 2), "App"),new Line(new Posn(8, 2), new Posn(5, 5), "App"),new Line(new Posn(2, 7), new Posn(2, 2), "App"),new Line(new Posn(8, 7), new Posn(8, 2), "App")]], 
-		new Restriction(1, 1), "");
+		new Restriction(1, 1), "An amazing feat of engineering and a popular card game.");
 
 //level 10: Answer '%'
 Levels[10] = new Level([new Line(new Posn(2, 8), new Posn(4, 8), "App"),new Line(new Posn(2, 6), new Posn(2, 8), "App"),new Line(new Posn(4, 6), new Posn(6, 4), "App"),new Line(new Posn(8, 4), new Posn(6, 4), "App"),new Line(new Posn(8, 2), new Posn(8, 4), "App"),new Line(new Posn(6, 2), new Posn(8, 2), "App"),new Line(new Posn(6, 4), new Posn(6, 2), "App"),new Line(new Posn(4, 8), new Posn(4, 6), "App"),new Line(new Posn(4, 6), new Posn(2, 6), "App")], 

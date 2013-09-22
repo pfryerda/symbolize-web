@@ -50,7 +50,7 @@ Levels[7] = new Level([new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(
 //level 8: Answer "Envelope"
 Levels[8] = new Level([new Line(new Posn(5, 5), new Posn(8, 8), "App"),new Line(new Posn(2, 8), new Posn(5, 5), "App"),new Line(new Posn(8, 3), new Posn(8, 8), "App"),new Line(new Posn(2, 3), new Posn(2, 8), "App"),new Line(new Posn(2, 3), new Posn(8, 3), "App")],
 	[[new Line(new Posn(8, 2), new Posn(2, 2), "App"),new Line(new Posn(8, 7), new Posn(2, 7), "App"),new Line(new Posn(5, 5), new Posn(2, 2), "App"),new Line(new Posn(8, 2), new Posn(5, 5), "App"),new Line(new Posn(2, 7), new Posn(2, 2), "App"),new Line(new Posn(8, 7), new Posn(8, 2), "App")]], 
-		new Restriction(1, 0), "You got mail!");
+		new Restriction(1, 0), "You've got mail!");
 
 //level 9: Answer '#'
 Levels[9] = new Level([new Line(new Posn(2, 6), new Posn(8, 6), "App"),new Line(new Posn(2, 4), new Posn(8, 4), "App"),new Line(new Posn(6, 2), new Posn(6, 8), "App"),new Line(new Posn(4, 2), new Posn(4, 8), "App"),new Line(new Posn(2, 8), new Posn(8, 8), "App"),new Line(new Posn(8, 2), new Posn(8, 8), "App"),new Line(new Posn(2, 2), new Posn(8, 2), "App"),new Line(new Posn(2, 8), new Posn(2, 2), "App")], 

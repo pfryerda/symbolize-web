@@ -13,12 +13,15 @@ cards.ready(function(){    //Force portrait mode
 //----------------------------------------
 
 var WIDTH = window.innerWidth;											 //Document width
+var hintStartLeft = WIDTH/2 - 110;										 //Hint Box position from left
 var CANVASWIDTH = WIDTH - 70;											 //Canvas width
 var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
 
 gameCanvas.width = CANVASWIDTH;
 gameCanvas.height = CANVASWIDTH;
 document.getElementById('gameCanvas').width = CANVASWIDTH;
+//document.getElementById('hintBox').left = hintStartLeft;
+document.getElementById('hintbox').style.left = hintStartLeft + "px";
 
 $('.hintBox').toggle();				//Shows the hintBox when the level loads
 
@@ -43,7 +46,6 @@ App.populator('game', function (page) {
 
 	$(page).on('appShow', function () {
 		//This runs every time the page becomes visible to the user and is done animating
-		
 
 		//Variable/Constant Definition, level set up
 		//--------------------------------------------
@@ -51,7 +53,7 @@ App.populator('game', function (page) {
 		var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
 		if(gameCanvas.getContext) { var context = gameCanvas.getContext("2d"); } //Context
 		loadLevel(gameCanvas, context);
-		setTimeout(function() {$('.hintBox').toggle();},150);
+		setTimeout(function() { $('.hintBox').toggle(); },150);
 
 
 		//Buttons

@@ -28,7 +28,7 @@ function loadLevel(c, ctx) {
     if(currLevel.restriction.draw  === 1) { lineDrawWord = "line"; }
     if(currLevel.restriction.erase === 1) { lineEraseWord = "line"; }
 
-    document.getElementById("hinttitle").innerHTML = "Level " + currLevelNum + " hints"; 
+    document.getElementById("hinttitle").innerHTML = "Level " + currLevelNum + " Hints"; 
     document.getElementById("hint").innerHTML = currLevel.hint; 
     document.getElementById("drawAmount").innerHTML = currLevel.restriction.draw;
     document.getElementById("lineDraw").innerHTML = lineDrawWord;

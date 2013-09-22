@@ -61,7 +61,6 @@ App.populator('game', function (page) {
 	
 		$(page).find('.pencil').on('click', function () { 
 			activateDrawMode(); 
-			console.log(this);
 			if(this.className === "app-button tool pencil") {
 				this.className = "app-button tools-Active pencil";
 				$(page).find('.eraser')[0].className = "app-button tool eraser";

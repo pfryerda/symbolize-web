@@ -27,11 +27,13 @@ App.populator('home', function (page) {
 
 App.populator('game', function (page) {
 	console.log("loaded game");
-
+	// console.log("AppStack = " + App.getStack(3));
+	// App.removeFromStack(1);
+	// console.log("AppStack2 = " + App.getStack());
 
 	$(page).on('appShow', function () {
 		//This runs every time the page becomes visible to the user and is done animating
-		App.removeFromStack(1);
+		
 
 		//Variable/Constant Definition, level set up
 		//--------------------------------------------
@@ -60,11 +62,13 @@ App.populator('game', function (page) {
 		});
 	    // $(page).find('.hint'           ).on('click', function () {                                     });
 	    $(page).find('.reset'          ).on('click', function () { resetGraph(gameCanvas, context);    });
-	    /*$(page).find('.app-button.left').on('click', function () {
+	    $(page).find('.app-button.left').on('click', function () {
+	    	console.log("backbutton");
 	    	currLevelNum = 1;
-	    	App.load('levels', 'slide-right');
+	    	//App.load('levels', 'slide-right');
 	    	$('.hintBox').toggle();
-	    });*/
+	    	App.removeFromStack(1);
+	    });
 
 		$('.hint').click(function() {
 	    	$('.hintBox').toggle();
@@ -126,101 +130,79 @@ App.populator('game', function (page) {
 
 App.populator('levels', function (page) {
 
-	$(page).find('.app-button.left').on('click', function () {
-    	App.load('home', 'slide-right');
-    });
-
 	$(page).on('appShow', function () {
 		console.log("loaded levels");
 		$(page).find('.lvl1').on('click', function () {
 			console.log("loaded1");
 			currLevelNum = 1;
-			App.load('game');
 		});
 		$(page).find('.lvl2').on('click', function () {
 			console.log("loaded2");
 			currLevelNum = 2;
-			App.load('game');
 		});
 		$(page).find('.lvl3').on('click', function () {
 			console.log("loaded3");
 			currLevelNum = 3;
-			App.load('game');
 		});
 		$(page).find('.lvl4').on('click', function () {
 			console.log("loaded4");
 			currLevelNum = 4;
-			App.load('game');
 		});
 		$(page).find('.lvl5').on('click', function () {
 			console.log("loaded5");
 			currLevelNum = 5;
-			App.load('game');
 		});
 		$(page).find('.lvl6').on('click', function () {
 			console.log("loaded6");
 			currLevelNum = 6;
-			App.load('game');
 		});
 		$(page).find('.lvl7').on('click', function () {
 			console.log("loaded7");
 			currLevelNum = 7;
-			App.load('game');
 		});
 		$(page).find('.lvl8').on('click', function () {
 			console.log("loaded8");
 			currLevelNum = 8;
-			App.load('game');
 		});
 		$(page).find('.lvl9').on('click', function () {
 			console.log("loaded9");
 			currLevelNum = 9;
-			App.load('game');
 		});
 		$(page).find('.lvl10').on('click', function () {
 			console.log("loaded10");
 			currLevelNum = 10;
-			App.load('game');
 		});
 		$(page).find('.lvl11').on('click', function () {
 			console.log("loaded11");
 			currLevelNum = 11;
-			App.load('game');
 		});
 		$(page).find('.lvl12').on('click', function () {
 			console.log("loaded12");
 			currLevelNum = 12;
-			App.load('game');
 		});
 		$(page).find('.lvl13').on('click', function () {
 			console.log("loaded13");
 			currLevelNum = 13;
-			App.load('game');
 		});
 		$(page).find('.lvl14').on('click', function () {
 			console.log("loaded14");
 			currLevelNum = 14;
-			App.load('game');
 		});
 		$(page).find('.lvl15').on('click', function () {
 			console.log("loaded15");
 			currLevelNum = 15;
-			App.load('game');
 		});
 		$(page).find('.lvl16').on('click', function () {
 			console.log("loaded16");
 			currLevelNum = 16;
-			App.load('game');
 		});
 		$(page).find('.lvl17').on('click', function () {
 			console.log("loaded17");
 			currLevelNum = 17;
-			App.load('game');
 		});
 		$(page).find('.lvl18').on('click', function () {
 			console.log("loaded18");
 			currLevelNum = 18;
-			App.load('game');
 		});
 	});
 });

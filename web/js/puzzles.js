@@ -15,11 +15,11 @@ Levels[0] = new Level([new Line(new Posn(3, 2), new Posn(5, 2), "App"),new Line(
 //Level 1: Answer 'K'
 Levels[1] = new Level([new Line(new Posn(1, 1), new Posn(5, 5), "App"), new Line(new Posn(5, 5), new Posn(1, 9), "App")],
     [([new Line(new Posn(9, 1), new Posn(5, 5), "App"), new Line(new Posn(5, 5), new Posn(9, 9), "App"), new Line(new Posn(5, 1), new Posn(5, 9), "App")])],
-        new Restriction(2, 0), "The 11th letter in the alphabet.");
+        new Restriction(1, 0), "The 11th letter in the alphabet.");
 
 //Level 2: Answer 'A'
 Levels[2] = new Level([new Line(new Posn(1, 1), new Posn(5, 5), "App"), new Line(new Posn(5, 5), new Posn(1, 9), "App")],
-    [[new Line(new Posn(1, 9), new Posn(5, 5), "App"), new Line(new Posn(5, 5), new Posn(9, 9), "App"), new Line(new Posn(3, 7), new Posn(7, 7), "App")]],
+    [[new Line(new Posn(1, 9), new Posn(5, 5), "App"), new Line(new Posn(5, 5), new Posn(9, 9), "App"), new Line(new Posn(3, 7), new Posn(7, 7), "App")], [new Line(new Posn(2, 8), new Posn(8, 8), "App"),new Line(new Posn(1, 9), new Posn(5, 5), "App"),new Line(new Posn(5, 5), new Posn(9, 9), "App")]],
         new Restriction(1, 0), "Your favourite grade!");
 
 //Level 3: Answer 'Y'
@@ -59,7 +59,7 @@ Levels[9] = new Level([new Line(new Posn(2, 6), new Posn(8, 6), "App"),new Line(
 
 //level 10: Answer 'Hook'
 Levels[10] = new Level([new Line(new Posn(2, 8), new Posn(4, 8), "App"),new Line(new Posn(2, 6), new Posn(2, 8), "App"),new Line(new Posn(4, 6), new Posn(6, 4), "App"),new Line(new Posn(8, 4), new Posn(6, 4), "App"),new Line(new Posn(8, 2), new Posn(8, 4), "App"),new Line(new Posn(6, 2), new Posn(8, 2), "App"),new Line(new Posn(6, 4), new Posn(6, 2), "App"),new Line(new Posn(4, 8), new Posn(4, 6), "App"),new Line(new Posn(4, 6), new Posn(2, 6), "App")], 
-	[[new Line(new Posn(2, 8), new Posn(4, 8), "App"),new Line(new Posn(2, 6), new Posn(2, 8), "App"),new Line(new Posn(4, 6), new Posn(6, 4), "App"),new Line(new Posn(8, 2), new Posn(8, 4), "App"),new Line(new Posn(6, 2), new Posn(8, 2), "App"),new Line(new Posn(6, 4), new Posn(6, 2), "App"),new Line(new Posn(4, 8), new Posn(4, 6), "App"),new Line(new Posn(4, 6), new Posn(2, 6), "App")]], 
+	[[new Line(new Posn(2, 8), new Posn(4, 8), "App"),new Line(new Posn(2, 6), new Posn(2, 8), "App"),new Line(new Posn(4, 6), new Posn(6, 4), "App"),new Line(new Posn(8, 2), new Posn(8, 4), "App"),new Line(new Posn(6, 2), new Posn(8, 2), "App"),new Line(new Posn(6, 4), new Posn(6, 2), "App"),new Line(new Posn(4, 8), new Posn(4, 6), "App"),new Line(new Posn(4, 6), new Posn(2, 6), "App")], [new Line(new Posn(2, 2), new Posn(2, 4), "App"),new Line(new Posn(4, 2), new Posn(2, 2), "App"),new Line(new Posn(4, 4), new Posn(6, 6), "App"),new Line(new Posn(6, 8), new Posn(6, 6), "App"),new Line(new Posn(8, 8), new Posn(6, 8), "App"),new Line(new Posn(8, 6), new Posn(8, 8), "App"),new Line(new Posn(6, 6), new Posn(8, 6), "App"),new Line(new Posn(4, 4), new Posn(4, 2), "App")]], 
 		new Restriction(0, 1), "Captain _____");
 
 //level 11: Answer "Arrow"
@@ -85,7 +85,7 @@ Levels[14] = new Level([new Line(new Posn(1, 5), new Posn(9, 5), "App"),new Line
 //level 15: Answer '♥'
 Levels[15] = new Level([new Line(new Posn(6, 6), new Posn(7, 7), "App"),new Line(new Posn(4, 6), new Posn(3, 7), "App"),new Line(new Posn(5, 1), new Posn(9, 5), "App"),new Line(new Posn(5, 1), new Posn(1, 5), "App"),new Line(new Posn(7, 7), new Posn(9, 5), "App"),new Line(new Posn(3, 7), new Posn(1, 5), "App"),new Line(new Posn(4, 8), new Posn(4, 6), "App"),new Line(new Posn(6, 8), new Posn(6, 6), "App"),new Line(new Posn(7, 9), new Posn(6, 8), "App"),new Line(new Posn(3, 9), new Posn(4, 8), "App"),new Line(new Posn(3, 9), new Posn(7, 9), "App")], 
 	[[new Line(new Posn(7, 3), new Posn(5, 5), "App"),new Line(new Posn(3, 3), new Posn(5, 5), "App"),new Line(new Posn(5, 9), new Posn(1, 5), "App"),new Line(new Posn(5, 9), new Posn(9, 5), "App"),new Line(new Posn(3, 3), new Posn(1, 5), "App"),new Line(new Posn(7, 3), new Posn(9, 5), "App")]], 
-		new Restriction(2, 5), "Change the Suite");
+		new Restriction(2, 5), "Change the Suit");
 
 //level 16: Answer "Math"
 Levels[16] = new Level([new Line(new Posn(5, 2), new Posn(5, 4), "App"),new Line(new Posn(7, 6), new Posn(7, 8), "App"),new Line(new Posn(6, 7), new Posn(7, 7), "App"),new Line(new Posn(6, 6), new Posn(6, 7), "App"),new Line(new Posn(5, 6), new Posn(5, 8), "App"),new Line(new Posn(2, 7), new Posn(3, 7), "App"),new Line(new Posn(2, 6), new Posn(3, 6), "App"),new Line(new Posn(8, 2), new Posn(8, 4), "App"),new Line(new Posn(7, 3), new Posn(8, 3), "App"),new Line(new Posn(7, 2), new Posn(7, 3), "App"),new Line(new Posn(7, 2), new Posn(8, 2), "App"),new Line(new Posn(4, 3), new Posn(6, 3), "App"),new Line(new Posn(3, 4), new Posn(2, 4), "App"),new Line(new Posn(3, 3), new Posn(3, 4), "App"),new Line(new Posn(2, 3), new Posn(3, 3), "App"),new Line(new Posn(2, 2), new Posn(2, 3), "App"),new Line(new Posn(2, 2), new Posn(3, 2), "App")], 

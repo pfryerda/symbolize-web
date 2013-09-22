@@ -25,7 +25,9 @@ function activateEraseMode() {
 function rotateGraph(c, ctx) {
     "use strict";
     if (currLevelNum === 19) {
-        currSoln.solution = map(makeNew, dice[Math.floor(Math.random()*6)]);
+        for(var i = diceRoll; i == diceRoll; i = Math.floor(Math.random()*6)) {}
+        diceRoll = i;
+        currSoln.solution = map(makeNew, dice[diceRoll]);
         currSoln.moves = [];
         currSoln.linesDrawn = 0;
         currSoln.linesErased = 0;
@@ -117,37 +119,26 @@ function checkSolution(c, ctx) {
     arrangeMoves(currSoln.moves);
     if (solutionEqual(currLevel, currSoln)){
         gameReset(c, ctx);
-        //Add end of game check
-        currLevelNum += 1;
-        loadLevel(c, ctx); 
-        return true; 
+        if (currLevelNum === 19) {
+            App.dialog({
+            title : "Congratulations",
+            text : "You have beaten Symbolize!",
+            cancelButton : "OK"});
+            App.load('home')
+        }
+        else {
+            currLevelNum += 1;
+            loadLevel(c, ctx); 
+            return true; 
+        }
     } else {
         App.dialog({
             title : "Incorrect",
             text : "Your guess was wrong.",
             cancelButton : "OK"});
         return false;
-
-        // App.dialog({
-        //     title        : "Stuff",
-        //     text         : "[" + currLevel.solution[0].p1.x + ", " + currLevel.solution[0].p1.y + "] [" + currLevel.solution[0].p2.x + ", " + currLevel.solution[0].p2.y + "]" ,
-        //     cancelButton : "OK"});
     }
 }
-
-//showHint: Void
-// function showHint(p) {
-//     "use strict"; 
-//     console.log("showing hints")
-
-//     var hints        = (currLevel.hint1) + ".  " + (currLevel.hint2) + ".  ",
-//         restrictions = ("Can draw " + (currLevel.restriction.draw).toString() + "line(s).  " +
-//                         "Can erase " + (currLevel.restriction.erase).toString() +" lines(s).");
-// //     App.dialog({
-// //         title        : "Level " + currLevelNum.toString() + " Hints",
-// //         text         : hints + restrictions,
-// //         cancelButton : "OK"});
-// }
 
 //resetGraph: Canvas -> Context -> Void
 function resetGraph(c, ctx) {

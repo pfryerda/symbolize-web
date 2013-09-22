@@ -1,25 +1,30 @@
 //Main module 
 //written by: Peter Fryer Davis & Luke Brown
 
-//Need to make a function that allows me to highlight the current tool and deselect the other tools.
 
-cards.ready(function(){
+cards.ready(function(){    //Force portrait mode
 	if ( cards.browser){
 	  cards.browser.setOrientationLock('portrait');
 	}
 });
 
+
+//Constants definition and canvas set up
+//----------------------------------------
+
 var WIDTH = window.innerWidth;											 //Document width
 var CANVASWIDTH = WIDTH - 70;											 //Canvas width
-
 var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
 
 gameCanvas.width = CANVASWIDTH;
 gameCanvas.height = CANVASWIDTH;
 document.getElementById('gameCanvas').width = CANVASWIDTH;
 
-$('.hintBox').toggle();		//Shows the hintBox when the level loads
+$('.hintBox').toggle();				//Shows the hintBox when the level loads
 
+
+//Home Page
+//---------
 
 App.populator('home', function (page) {
 	console.log("loaded home");
@@ -28,9 +33,13 @@ App.populator('home', function (page) {
 	}
 });
 
+
+//Game Page
+//----------
+
 App.populator('game', function (page) {
 	console.log("loaded game");
-	$(page).find('.pencil')[0].className = "app-button tools-Active pencil";
+	$(page).find('.pencil')[0].className = "app-button tools-Active pencil"; // Default highlighted pencil
 
 	$(page).on('appShow', function () {
 		//This runs every time the page becomes visible to the user and is done animating
@@ -51,16 +60,14 @@ App.populator('game', function (page) {
 		$(page).find('.pencil').on('click', function () { 
 			activateDrawMode(); 
 			console.log(this);
-			if(this.className === "app-button tool pencil")
-			{
+			if(this.className === "app-button tool pencil") {
 				this.className = "app-button tools-Active pencil";
 				$(page).find('.eraser')[0].className = "app-button tool eraser";
 			}
 		});
 	    $(page).find('.eraser').on('click', function () {
 	    	activateEraseMode();
-	    	if(this.className === "app-button tool eraser")
-			{
+	    	if(this.className === "app-button tool eraser") {
 				this.className = "app-button tools-Active eraser";
 				$(page).find('.pencil')[0].className = "app-button tool pencil";
 			}
@@ -71,23 +78,11 @@ App.populator('game', function (page) {
 		$(page).find('.check'          ).on('click', function () { 
 			if (checkSolution(gameCanvas, context)) { setTimeout(function() {$('.hintBox').toggle();},150); } 
 		});
-	    // $(page).find('.hint'           ).on('click', function () {                                     });
 	    $(page).find('.reset'          ).on('click', function () { resetGraph(gameCanvas, context);    });
-	    $(page).find('.app-button.left').on('click', function () {
-	    	console.log("backbutton");
-	    	currLevelNum = 1;
-	    	//App.load('levels', 'slide-right');
-	    	//$('.hintBox').toggle();
-	    	App.removeFromStack(1);
-	    });
+	    $(page).find('.app-button.left').on('click', function () { App.removeFromStack(1);             });
 
-		$('.hint').click(function() {
-	    	$('.hintBox').toggle();
-		});
-
-		$('.close').click(function() {
-		    $('.hintBox').toggle();
-		});
+		$('.hint' ).click(function() { $('.hintBox').toggle(); });
+		$('.close').click(function() { $('.hintBox').toggle(); });
 
 	    //Interactive Drawing
 	    //-------------------
@@ -139,83 +134,34 @@ App.populator('game', function (page) {
 	});
 });
 
+
+//Levels Page
+//------------
+
 App.populator('levels', function (page) {
 
 	$(page).on('appShow', function () {
 		console.log("loaded levels");
-		$(page).find('.lvl1').on('click', function () {
-			console.log("loaded1");
-			currLevelNum = 1;
-		});
-		$(page).find('.lvl2').on('click', function () {
-			console.log("loaded2");
-			currLevelNum = 2;
-		});
-		$(page).find('.lvl3').on('click', function () {
-			console.log("loaded3");
-			currLevelNum = 3;
-		});
-		$(page).find('.lvl4').on('click', function () {
-			console.log("loaded4");
-			currLevelNum = 4;
-		});
-		$(page).find('.lvl5').on('click', function () {
-			console.log("loaded5");
-			currLevelNum = 5;
-		});
-		$(page).find('.lvl6').on('click', function () {
-			console.log("loaded6");
-			currLevelNum = 6;
-		});
-		$(page).find('.lvl7').on('click', function () {
-			console.log("loaded7");
-			currLevelNum = 7;
-		});
-		$(page).find('.lvl8').on('click', function () {
-			console.log("loaded8");
-			currLevelNum = 8;
-		});
-		$(page).find('.lvl9').on('click', function () {
-			console.log("loaded9");
-			currLevelNum = 9;
-		});
-		$(page).find('.lvl10').on('click', function () {
-			console.log("loaded10");
-			currLevelNum = 10;
-		});
-		$(page).find('.lvl11').on('click', function () {
-			console.log("loaded11");
-			currLevelNum = 11;
-		});
-		$(page).find('.lvl12').on('click', function () {
-			console.log("loaded12");
-			currLevelNum = 12;
-		});
-		$(page).find('.lvl13').on('click', function () {
-			console.log("loaded13");
-			currLevelNum = 13;
-		});
-		$(page).find('.lvl14').on('click', function () {
-			console.log("loaded14");
-			currLevelNum = 14;
-		});
-		$(page).find('.lvl15').on('click', function () {
-			console.log("loaded15");
-			currLevelNum = 15;
-		});
-		$(page).find('.lvl16').on('click', function () {
-			console.log("loaded16");
-			currLevelNum = 16;
-		});
-		$(page).find('.lvl17').on('click', function () {
-			console.log("loaded17");
-			currLevelNum = 17;
-		});
-		$(page).find('.lvl18').on('click', function () {
-			console.log("loaded18");
-			currLevelNum = 18;
-		});
+		$(page).find('.lvl1' ).on('click', function () { currLevelNum = 1;  });
+		$(page).find('.lvl2' ).on('click', function () { currLevelNum = 2;  });
+		$(page).find('.lvl3' ).on('click', function () { currLevelNum = 3;  });
+		$(page).find('.lvl4' ).on('click', function () { currLevelNum = 4;  });
+		$(page).find('.lvl5' ).on('click', function () { currLevelNum = 5;  });
+		$(page).find('.lvl6' ).on('click', function () { currLevelNum = 6;  });
+		$(page).find('.lvl7' ).on('click', function () { currLevelNum = 7;  });
+		$(page).find('.lvl8' ).on('click', function () { currLevelNum = 8;  });
+		$(page).find('.lvl9' ).on('click', function () { currLevelNum = 9;  });
+		$(page).find('.lvl10').on('click', function () { currLevelNum = 10; });
+		$(page).find('.lvl11').on('click', function () { currLevelNum = 11; });
+		$(page).find('.lvl12').on('click', function () { currLevelNum = 12; });
+		$(page).find('.lvl13').on('click', function () { currLevelNum = 13; });
+		$(page).find('.lvl14').on('click', function () { currLevelNum = 14; });
+		$(page).find('.lvl15').on('click', function () { currLevelNum = 15; });
+		$(page).find('.lvl16').on('click', function () { currLevelNum = 16; });
+		$(page).find('.lvl17').on('click', function () { currLevelNum = 17; });
+		$(page).find('.lvl18').on('click', function () { currLevelNum = 18; });
 	});
 });
 
-App.load('home');
+
+App.load('home'); //Game start up

@@ -79,7 +79,7 @@ App.populator('game', function (page) {
 			if (checkSolution(gameCanvas, context)) { setTimeout(function() {$('.hintBox').toggle();},150); } 
 		});
 	    $(page).find('.reset'          ).on('click', function () { resetGraph(gameCanvas, context);    });
-	    //$(page).find('.app-button.left').on('click', function () { App.removeFromStack(1);             });
+	    $(page).find('.app-button.left').on('click', function () { activateDrawMode();                 });
 
 		$('.hint' ).click(function() { $('.hintBox').toggle(); });
 		$('.close').click(function() { $('.hintBox').toggle(); });

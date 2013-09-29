@@ -232,7 +232,7 @@ function lineLT(line1, line2) {
     else if (Math.round(line1.p2.x / 10) * 10 > Math.round(line2.p2.x / 10) * 10) { return -1; }
     else if (Math.round(line1.p2.y / 10) * 10 < Math.round(line2.p2.y / 10) * 10) { return  1; }
     else if (Math.round(line1.p2.y / 10) * 10 > Math.round(line2.p2.y / 10) * 10) { return -1; }
-    else                                                      { return  0; }
+    else                                                                          { return  0; }
 }
 
 //pointEqual: Line Line -> Bool

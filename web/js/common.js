@@ -224,22 +224,22 @@ function makeNew(line) {
 //lineLT: Line Line -> Number
 function lineLT(line1, line2) {
     "use strict";
-    if      (Math.round(line1.p1.x) < Math.round(line2.p1.x)) { return  1; }
-    else if (Math.round(line1.p1.x) > Math.round(line2.p1.x)) { return -1; }
-    else if (Math.round(line1.p1.y) < Math.round(line2.p1.y)) { return  1; }
-    else if (Math.round(line1.p1.y) > Math.round(line2.p1.y)) { return -1; }
-    else if (Math.round(line1.p2.x) < Math.round(line2.p2.x)) { return  1; }
-    else if (Math.round(line1.p2.x) > Math.round(line2.p2.x)) { return -1; }
-    else if (Math.round(line1.p2.y) < Math.round(line2.p2.y)) { return  1; }
-    else if (Math.round(line1.p2.y) > Math.round(line2.p2.y)) { return -1; }
+    if      (Math.round(line1.p1.x / 10) * 10 < Math.round(line2.p1.x / 10) * 10) { return  1; }
+    else if (Math.round(line1.p1.x / 10) * 10 > Math.round(line2.p1.x / 10) * 10) { return -1; }
+    else if (Math.round(line1.p1.y / 10) * 10 < Math.round(line2.p1.y / 10) * 10) { return  1; }
+    else if (Math.round(line1.p1.y / 10) * 10 > Math.round(line2.p1.y / 10) * 10) { return -1; }
+    else if (Math.round(line1.p2.x / 10) * 10 < Math.round(line2.p2.x / 10) * 10) { return  1; }
+    else if (Math.round(line1.p2.x / 10) * 10 > Math.round(line2.p2.x / 10) * 10) { return -1; }
+    else if (Math.round(line1.p2.y / 10) * 10 < Math.round(line2.p2.y / 10) * 10) { return  1; }
+    else if (Math.round(line1.p2.y / 10) * 10 > Math.round(line2.p2.y / 10) * 10) { return -1; }
     else                                                      { return  0; }
 }
 
 //pointEqual: Line Line -> Bool
 function pointEqual(point1, point2) {
     "use strict";
-    return (((point1.x - 15) <= point2.x) && (point2.x <= (point1.x + 15)) && 
-            ((point1.y - 15) <= point2.y) && (point2.y <= (point1.y + 15)));
+    return (((point1.x - 14) <= point2.x) && (point2.x <= (point1.x + 14)) && 
+            ((point1.y - 14) <= point2.y) && (point2.y <= (point1.y + 14)));
 }
 
 //lineEqual: Line Line -> Bool

@@ -208,7 +208,7 @@ function lineLT(line1, line2) {
 //pointEqual: Line Line -> Bool
 function pointEqual(point1, point2) {
     "use strict";
-    return ((point1.x === point2.x) && (point1.y === point2.y));
+    return ((point1.x - 1) <= point2.x) && (point2.x <= (point1.x + 1)) && ((point1.y - 1) <= point2.y) && (point2.y <= (point1.y + 1));
 }
 
 //lineEqual: Line Line -> Bool

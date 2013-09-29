@@ -8,13 +8,20 @@
 var SCALING = 10,       //Define Grid size (10 x 10)
     XOFFSET = 25,       //Width of document to canvas (from the left)
     YOFFSET = 68,       //Width of document to canvas (from top)
-    DEVMODE = false,    //Force grid and level 0 (Dev level)
     GRID = new Array(); //Array of lines making the grid
 
 for(var i = 1; i < 2*SCALING - 1;i += 1) {
     if (i < SCALING){ GRID[i-1] = new Line(new Posn(i, 0), new Posn(i, SCALING), "App"); }
     else { GRID[i-1] = new Line(new Posn(0, i - SCALING + 1), new Posn(SCALING, i - SCALING + 1), "App"); }
 }
+
+//Options
+//-------
+
+var DEVMODE = false,      //Force grid and level 0 (Dev level)
+    includeGrid = false,  //Defaults false can be set to true by user
+    snapDraw = false;     //Drawing snaps to nearest whole numbers (good for dev mode)
+
 
 
 //Variable Declaration
@@ -25,8 +32,7 @@ var currLevelNum = 1,                                         //Defaults level 1
     currSoln = new UserSolution(currLevel.graph, 0, 0, []),   //Defaults level 1
 
     inDrawMode  = true,                                       //Defaults Draw  Mode enabled
-    inEraseMode = !inDrawMode,                                //Defaults Erase Mode disabled
-    includeGrid = true;                                       //Defaults false can be set to true by user
+    inEraseMode = !inDrawMode;                                //Defaults Erase Mode disabled
 
 
 //Helper Funcions
@@ -62,7 +68,9 @@ function printGraph() {
 //scalePointscalePoint: Number -> Number -> Number -> Number -> Posn
 function scalePoint(point_x, point_y, scaling, canvaslength){
     "use strict";
-    return new Posn(Math.round((point_x - XOFFSET) * (scaling / canvaslength)), Math.round(( point_y - YOFFSET) * (scaling / canvaslength)));
+    var newPosn = new Posn((point_x - XOFFSET) * (scaling / canvaslength), ( point_y - YOFFSET) * (scaling / canvaslength));
+    if (snapDraw && inDrawMode) { newPosn = new Posn(Math.round(newPosn.x), Math.round(newPosn.y)); }
+    return newPosn;
 }
 
 //getSlope: Line -> Number
@@ -194,21 +202,22 @@ function makeNew(line) {
 //lineLT: Line Line -> Number
 function lineLT(line1, line2) {
     "use strict";
-    if      (line1.p1.x < line2.p1.x) { return  1; }
-    else if (line1.p1.x > line2.p1.x) { return -1; }
-    else if (line1.p1.y < line2.p1.y) { return  1; }
-    else if (line1.p1.y > line2.p1.y) { return -1; }
-    else if (line1.p2.x < line2.p2.x) { return  1; }
-    else if (line1.p2.x > line2.p2.x) { return -1; }
-    else if (line1.p2.y < line2.p2.y) { return  1; }
-    else if (line1.p2.y > line2.p2.y) { return -1; }
-    else                              { return  0; }
+    if      (Math.round(line1.p1.x) < Math.round(line2.p1.x)) { return  1; }
+    else if (Math.round(line1.p1.x) > Math.round(line2.p1.x)) { return -1; }
+    else if (Math.round(line1.p1.y) < Math.round(line2.p1.y)) { return  1; }
+    else if (Math.round(line1.p1.y) > Math.round(line2.p1.y)) { return -1; }
+    else if (Math.round(line1.p2.x) < Math.round(line2.p2.x)) { return  1; }
+    else if (Math.round(line1.p2.x) > Math.round(line2.p2.x)) { return -1; }
+    else if (Math.round(line1.p2.y) < Math.round(line2.p2.y)) { return  1; }
+    else if (Math.round(line1.p2.y) > Math.round(line2.p2.y)) { return -1; }
+    else                                                      { return  0; }
 }
 
 //pointEqual: Line Line -> Bool
 function pointEqual(point1, point2) {
     "use strict";
-    return ((point1.x - 1) <= point2.x) && (point2.x <= (point1.x + 1)) && ((point1.y - 1) <= point2.y) && (point2.y <= (point1.y + 1));
+    return (((point1.x - 1) <= point2.x) && (point2.x <= (point1.x + 1)) && 
+            ((point1.y - 1) <= point2.y) && (point2.y <= (point1.y + 1)));
 }
 
 //lineEqual: Line Line -> Bool

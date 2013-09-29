@@ -5,15 +5,21 @@
 //Constants
 //---------
 
-var SCALING = 100,      //Define Grid size (100 x 100)
-    XOFFSET = 25,       //Width of document to canvas (from the left)
-    YOFFSET = 68,       //Width of document to canvas (from top)
-    GRID = new Array(); //Array of lines making the grid
+var SCALING = 100,        //Define Grid size (100 x 100)
+    XOFFSET = 25,         //Width of document to canvas (from the left)
+    YOFFSET = 68,         //Width of document to canvas (from top)
+    GRID = new Array(),   //Array of lines making the grid
+    BORDER = new Array();
 
 for(var i = 10; i < 2*SCALING - 1;i += 10) {
     if (i < SCALING){ GRID[(i/10)-1] = new Line(new Posn(i, 0), new Posn(i, SCALING), "App"); }
     else { GRID[(i/10)-1] = new Line(new Posn(0, i - SCALING + 1), new Posn(SCALING, i - SCALING + 1), "App"); }
 }
+
+BORDER[0] = new Line(new Posn(0, 0), new Posn(0, SCALING), "App");
+BORDER[1] = new Line(new Posn(0, 0), new Posn(SCALING, 0), "App");
+BORDER[2] = new Line(new Posn(0, SCALING), new Posn(SCALING, SCALING), "App");
+BORDER[3] = new Line(new Posn(SCALING, 0), new Posn(SCALING, SCALING), "App");
 
 //Options
 //-------

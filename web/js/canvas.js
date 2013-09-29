@@ -75,6 +75,7 @@ function drawSolution(userSoln, can, ctx) {
         can.height / SCALING);                
 
     if (includeGrid || DEVMODE) { drawGraph(GRID, true, ctx); } //Draws the grid
+    drawGraph(BORDER, false, ctx);                              //Draws border
     drawGraph(userSoln.solution, false, ctx);                   //Draws the graph
 
     ctx.restore();                                              //Resets the coords for the next draw

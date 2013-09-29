@@ -38,7 +38,7 @@ function rotateGraph(c, ctx) {
         currSoln.solution = map(rotateLine, currSoln.solution);
         currSoln.moves.unshift("rotate");
 
-        drawSolution(currSoln, c, ctx)
+        drawSolution(currSoln, c, ctx);
         console.log("rotated graph 90 degree");
     }
 }

@@ -41,12 +41,12 @@ function drawLine(line, isGridLine, ctx) {
     ctx.moveTo(line.p1.x + (0.5 / SCALING), line.p1.y + (0.5 / SCALING));
     ctx.lineTo(line.p2.x + (0.5 / SCALING), line.p2.y + (0.5 / SCALING));
     if (isGridLine) {
-        ctx.lineWidth = 1/30; 
+        ctx.lineWidth = 1/3; 
         ctx.strokeStyle = '#A0A0A0';
         ctx.lineCap = 'butt'
     }
     else { 
-        ctx.lineWidth = 2/5; 
+        ctx.lineWidth = 4; 
         ctx.strokeStyle = '#000000'
         ctx.lineCap = 'round';  
     }

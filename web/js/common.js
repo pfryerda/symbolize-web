@@ -5,14 +5,14 @@
 //Constants
 //---------
 
-var SCALING = 10,       //Define Grid size (10 x 10)
+var SCALING = 100,      //Define Grid size (100 x 100)
     XOFFSET = 25,       //Width of document to canvas (from the left)
     YOFFSET = 68,       //Width of document to canvas (from top)
     GRID = new Array(); //Array of lines making the grid
 
-for(var i = 1; i < 2*SCALING - 1;i += 1) {
-    if (i < SCALING){ GRID[i-1] = new Line(new Posn(i, 0), new Posn(i, SCALING), "App"); }
-    else { GRID[i-1] = new Line(new Posn(0, i - SCALING + 1), new Posn(SCALING, i - SCALING + 1), "App"); }
+for(var i = 10; i < 2*SCALING - 1;i += 10) {
+    if (i < SCALING){ GRID[(i/10)-1] = new Line(new Posn(i, 0), new Posn(i, SCALING), "App"); }
+    else { GRID[(i/10)-1] = new Line(new Posn(0, i - SCALING + 1), new Posn(SCALING, i - SCALING + 1), "App"); }
 }
 
 //Options
@@ -33,6 +33,28 @@ var currLevelNum = 1,                                         //Defaults level 1
 
     inDrawMode  = true,                                       //Defaults Draw  Mode enabled
     inEraseMode = !inDrawMode;                                //Defaults Erase Mode disabled
+
+
+//Dev functions
+//--------------
+
+//toogleDevMode: Void
+function toogleDevMode() {
+    "use strict";
+    DEVMODE = !DEVMODE;
+}
+
+//toogleSnap: Void
+function toogleSnap() {
+    "use strict";
+    snapDraw = !snapDraw;
+}
+
+//toogleGrid: Void
+function toogleGrid() {
+    "use strict";
+    includeGrid = !includeGrid;
+}
 
 
 //Helper Funcions
@@ -69,7 +91,7 @@ function printGraph() {
 function scalePoint(point_x, point_y, scaling, canvaslength){
     "use strict";
     var newPosn = new Posn((point_x - XOFFSET) * (scaling / canvaslength), ( point_y - YOFFSET) * (scaling / canvaslength));
-    if (snapDraw && inDrawMode) { newPosn = new Posn(Math.round(newPosn.x), Math.round(newPosn.y)); }
+    if ((snapDraw || DEVMODE) && inDrawMode) { newPosn = new Posn(Math.round(newPosn.x / 10) * 10, Math.round(newPosn.y / 10) * 10); }
     return newPosn;
 }
 
@@ -216,8 +238,8 @@ function lineLT(line1, line2) {
 //pointEqual: Line Line -> Bool
 function pointEqual(point1, point2) {
     "use strict";
-    return (((point1.x - 1) <= point2.x) && (point2.x <= (point1.x + 1)) && 
-            ((point1.y - 1) <= point2.y) && (point2.y <= (point1.y + 1)));
+    return (((point1.x - 15) <= point2.x) && (point2.x <= (point1.x + 15)) && 
+            ((point1.y - 15) <= point2.y) && (point2.y <= (point1.y + 15)));
 }
 
 //lineEqual: Line Line -> Bool

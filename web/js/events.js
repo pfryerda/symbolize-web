@@ -42,17 +42,18 @@ function loadLevel(c, ctx) {
 //addLine: Line -> Canvas -> Context -> Void
 function addLine(l, c, ctx) {
     "use strict";
-    var j = -1;
+    var scaledl = new Line(new Posn(Math.round(l.p1.x / 10) * 10, Math.round(l.p1.y / 10) * 10), new Posn(Math.round(l.p2.x / 10) * 10, Math.round(l.p2.y / 10) * 10), l.owner),
+        j = -1;
     if (l.p1.x !== l.p2.x || l.p1.y !== l.p2.y) {
         if (currSoln.linesDrawn < (currLevel.restriction.draw)) {
             console.log("adding line to solution");
             for (var i = 0; i < currSoln.solution.length; i += 1) {
-                if (isScalarMults(l, currSoln.solution[i]) && interset(l, currSoln.solution[i])) { 
+                if (isScalarMults(scaledl, currSoln.solution[i]) && interset(scaledl, currSoln.solution[i]) && currSoln.solution[i].owner != "User") { 
                     j = i;
-                    if (l.p1.y === l.p2.y && l.p1.y === currSoln.solution[i].p1.y && l.p1.y === currSoln.solution[i].p2.y) {
-                        l = new Line(lowestX(l, currSoln.solution[i]), highestX(l, currSoln.solution[i]), "AppExtended");
+                    if (scaledl.p1.y === scaledl.p2.y && scaledl.p1.y === currSoln.solution[i].p1.y && scaledl.p1.y === currSoln.solution[i].p2.y) {
+                        l = new Line(lowestX(scaledl, currSoln.solution[i]), highestX(scaledl, currSoln.solution[i]), "AppExtended");
                     } else {
-                        l = new Line(lowestY(l, currSoln.solution[i]), highestY(l, currSoln.solution[i]), "AppExtended");
+                        l = new Line(lowestY(scaledl, currSoln.solution[i]), highestY(scaledl, currSoln.solution[i]), "AppExtended");
                     }
                 }
             }

@@ -255,16 +255,28 @@ function lineEqual(line1, line2) {
             ((pointEqual(line1.p1, line2.p2)) && (pointEqual(line1.p2, line2.p1))));
 }
 
+//lineMember: Line Graph -> Bool
+function lineMember(line, graph) {
+    "use strict";
+    for (var i = 0; i < graph.length; i += 1) {
+        if (lineEqual(line, graph[i])) { return true; } 
+    }
+    return false;
+}
+
 //graphEqual: Graph Graph -> Bool
 function graphEqual(graph1, graph2) {
     "use strict";
     graph1 = map(arrangePoints, graph1);
     graph2 = map(arrangePoints, graph2);
-    graph1.sort(lineLT);
-    graph2.sort(lineLT);
-    if (graph1.length !== graph2.length) { return false; }
-    for(var i = 0; i < graph1.length; i += 1) {
+    //graph1.sort(lineLT);
+    //graph2.sort(lineLT);
+    //if (graph1.length !== graph2.length) { return false; }
+    /*for(var i = 0; i < graph1.length; i += 1) {
         if (!(lineEqual(graph1[i], graph2[i]))) { return false; }
+    }*/
+    for(var i = 0; i < graph1.length; i += 1) {
+        if (!lineMember(graph1[i], graph2)) { return false; }
     }
     return true;
 }

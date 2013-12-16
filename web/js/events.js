@@ -47,7 +47,7 @@ function addLine(l, c, ctx) {
     if (l.p1.x !== l.p2.x || l.p1.y !== l.p2.y) {
         if (currSoln.linesDrawn < (currLevel.restriction.draw)) {
             console.log("adding line to solution");
-            for (var i = 0; i < currSoln.solution.length; i += 1) {
+            /*for (var i = 0; i < currSoln.solution.length; i += 1) {
                 if (isScalarMults(scaledl, currSoln.solution[i]) && interset(scaledl, currSoln.solution[i]) && currSoln.solution[i].owner != "User") { 
                     j = i;
                     if (scaledl.p1.y === scaledl.p2.y && scaledl.p1.y === currSoln.solution[i].p1.y && scaledl.p1.y === currSoln.solution[i].p2.y) {
@@ -56,7 +56,7 @@ function addLine(l, c, ctx) {
                         l = new Line(lowestY(scaledl, currSoln.solution[i]), highestY(scaledl, currSoln.solution[i]), "AppExtended");
                     }
                 }
-            }
+            }*/
             if (j > -1) { 
                 currSoln.moves.unshift(["drawSpecial", l, makeNew(currSoln.solution[j])]);
                 if (currSoln.solution[j].owner == "User") { currSoln.linesDrawn -= 1; }

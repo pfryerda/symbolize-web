@@ -35,13 +35,20 @@ function rotateGraph(c, ctx) {
     } else {
         console.log("rotating graph 90 degree");
 
-        currSoln.solution = map(rotateLine, currSoln.solution);
-        currSoln.moves.unshift("rotate");
+        for (var i = 0; i < 300; i += 1) {
+            (function (x) {
+                setTimeout(function () { 
+                    currSoln.solution = map(rotateLine, currSoln.solution);
+                    drawSolution(currSoln, c, ctx);
+                }, 1);
+            })();
+        }
 
-        drawSolution(currSoln, c, ctx);
+        currSoln.moves.unshift("rotate");
         console.log("rotated graph 90 degree");
     }
 }
+
 
 //flipGraph: Canvas -> Context -> Void
 function flipGraph(c, ctx) {
@@ -54,10 +61,7 @@ function flipGraph(c, ctx) {
         drawSolution(currSoln, c, ctx);
     } else {
         console.log("reflecting graph");
-
         currSoln.solution = map(flipLine, currSoln.solution);
-        currSoln.moves.unshift("flip");
-
         drawSolution(currSoln, c, ctx);
         console.log("reflected graph");
     }

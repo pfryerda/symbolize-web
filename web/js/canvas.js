@@ -7,7 +7,34 @@
 //rotateLine: Line -> Line
 function rotateLine(l) {
     "use strict";
-    return new Line(new Posn((SCALING - l.p1.y), l.p1.x), new Posn((SCALING - l.p2.y), l.p2.x), l.owner);
+    //return new Line(new Posn((SCALING - l.p1.y), l.p1.x), new Posn((SCALING - l.p2.y), l.p2.x), l.owner);
+    return(new Line(rotatePosn(l.p1, -Math.PI/600), rotatePosn(l.p2, -Math.PI/600)));
+}
+
+//rotatePosn: Posn Number -> Posn
+function rotatePosn(p, a) {
+    "use strict";
+    var newPosn = new Posn(p.x - SCALING/2, SCALING/2 - p.y);
+    if (newPosn.x != 0 || newPosn.y != 0) {
+        var r = Math.sqrt(Math.pow(newPosn.x, 2) + Math.pow(newPosn.y, 2));
+        var theta;
+        if (newPosn.x == 0) {
+            if (newPosn.y > 0) {
+                theta = Math.PI/2;
+            } else {
+                theta = 3*Math.PI/2;
+            }
+        } else {
+            theta = Math.atan(newPosn.y/newPosn.x);
+            if (newPosn.x < 0) theta += Math.PI;
+        }
+        newPosn.x = r*Math.cos(theta+a) + SCALING/2;
+        newPosn.y = SCALING/2 - r*Math.sin(theta+a);
+    } else {
+        newPosn.x = newPosn.x + SCALING/2;
+        newPosn.y = SCALING/2 - newPosn.y;
+    }
+    return newPosn;
 }
 
 //unrotateLine: Line -> Line
@@ -17,10 +44,20 @@ function unrotateLine(l) {
 }
 
 //flipLine: Line -> Line
-function flipLine(l) {
+function flipLine(l, n) {
     "use strict";
-    return new Line(new Posn((SCALING - l.p1.x), l.p1.y), new Posn((SCALING - l.p2.x), l.p2.y), l.owner);
+    //return new Line(new Posn((SCALING - l.p1.x), l.p1.y), new Posn((SCALING - l.p2.x), l.p2.y), l.owner);
+    return new Line(flipPosn(l.p1, -1), flipPosn(l.p2, -1));
 }
+
+//flipPosn: Posn Number -> Number
+function flipPosn(p, n) {
+    "use strict";
+    var newPosn = new Posn(p.x - SCALING/2, p.y);
+    newPosn.x = n*newPosn.x + SCALING/2;
+    return newPosn;
+};
+
 
 //Graphing Functions
 //------------------

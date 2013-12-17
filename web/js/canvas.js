@@ -4,11 +4,11 @@
 
 //Editing Functions
 //-----------------
-//rotateLine: Line -> Line
-function rotateLine(l) {
+//rotateLine: Line Number -> Line
+function rotateLine(l, a) {
     "use strict";
     //return new Line(new Posn((SCALING - l.p1.y), l.p1.x), new Posn((SCALING - l.p2.y), l.p2.x), l.owner);
-    return(new Line(rotatePosn(l.p1, -Math.PI/600), rotatePosn(l.p2, -Math.PI/600)));
+    return(new Line(rotatePosn(l.p1, a), rotatePosn(l.p2, a), l.owner));
 }
 
 //rotatePosn: Posn Number -> Posn
@@ -46,18 +46,26 @@ function unrotateLine(l) {
 //flipLine: Line -> Line
 function flipLine(l, n) {
     "use strict";
-    //return new Line(new Posn((SCALING - l.p1.x), l.p1.y), new Posn((SCALING - l.p2.x), l.p2.y), l.owner);
-    return new Line(flipPosn(l.p1, -1), flipPosn(l.p2, -1));
+    return new Line(flipPosn(l.p1, n), flipPosn(l.p2, n), l.owner);
 }
 
 //flipPosn: Posn Number -> Number
 function flipPosn(p, n) {
     "use strict";
-    var newPosn = new Posn(p.x - SCALING/2, p.y);
-    newPosn.x = n*newPosn.x + SCALING/2;
-    return newPosn;
+    return new Posn((p.x*(500-2*n) + n*SCALING)/500, p.y);
 };
 
+//unflipLine: Line -> Line
+function unflipLine(l, n) {
+    "use strict";
+    return new Line(unflipPosn(l.p1, n), unflipPosn(l.p2, n), l.owner);
+}
+
+//unflipPosn: Posn Number -> Number
+function unflipPosn(p, n) {
+    "use strict";
+    return new Posn((500*p.x - n*SCALING)/(500 - 2*n), p.y);
+};
 
 //Graphing Functions
 //------------------
@@ -72,8 +80,8 @@ function clearCanvas(can) {
 //drawLine: Line -> Bool -> Context -> Void
 function drawLine(line, isGridLine, ctx) {
     "use strict";
-    if (isGridLine) { console.log("drawing grid line"); }
-    else { console.log("drawing line"); }
+    if (isGridLine) { /*console.log("drawing grid line");*/ }
+    else { /*console.log("drawing line");*/ }
     ctx.beginPath();
     ctx.moveTo(line.p1.x + (0.5 / SCALING), line.p1.y + (0.5 / SCALING));
     ctx.lineTo(line.p2.x + (0.5 / SCALING), line.p2.y + (0.5 / SCALING));

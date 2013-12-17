@@ -37,8 +37,8 @@ function rotateGraph(c, ctx) {
 
         for (var i = 0; i < 300; i += 1) {
             (function (x) {
-                setTimeout(function () { 
-                    currSoln.solution = map(rotateLine, currSoln.solution);
+                setTimeout(function () {
+                    currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/600); }), currSoln.solution);
                     drawSolution(currSoln, c, ctx);
                 }, 1);
             })();
@@ -61,8 +61,21 @@ function flipGraph(c, ctx) {
         drawSolution(currSoln, c, ctx);
     } else {
         console.log("reflecting graph");
-        currSoln.solution = map(flipLine, currSoln.solution);
-        drawSolution(currSoln, c, ctx);
+        var j = 1;
+        for (var i = 1; i <= 500; i += 1) {
+            (function (x) {
+                setTimeout(function () { 
+                    if (j != 250) {
+                        currSoln.solution = map((function (l) { return flipLine(l, j); }), currSoln.solution);
+                        drawSolution(currSoln, c, ctx);
+                        if (j != 500) { currSoln.solution = map((function (l) { return unflipLine(l, j); }), currSoln.solution); }  
+                    }
+                    j += 1;
+                }, 1);
+            })();
+        }
+        //currSoln.solution = map((function (l) { return flipLine(l, -1); }), currSoln.solution);
+        //drawSolution(currSoln, c, ctx);
         console.log("reflected graph");
     }
 }

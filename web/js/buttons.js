@@ -35,11 +35,14 @@ function rotateGraph(c, ctx) {
     } else {
         console.log("rotating graph 90 degree");
 
-        for (var i = 0; i < 300; i += 1) {
+        var j = 1;
+        for (var i = 0; i < ROTATIONFRAMES; i += 1) {
             (function (x) {
                 setTimeout(function () {
-                    currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/600); }), currSoln.solution);
+                    if (j != ROTATIONFRAMES) { currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/(2*ROTATIONFRAMES), false); }), currSoln.solution); }
+                    else { currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/(2*ROTATIONFRAMES), true); }), currSoln.solution); }
                     drawSolution(currSoln, c, ctx);
+                    j += 1;
                 }, 1);
             })();
         }
@@ -62,20 +65,20 @@ function flipGraph(c, ctx) {
     } else {
         console.log("reflecting graph");
         var j = 1;
-        for (var i = 1; i <= 500; i += 1) {
+        for (var i = 1; i <= FLIPPINGFRAMES; i += 1) {
             (function (x) {
                 setTimeout(function () { 
-                    if (j != 250) {
-                        currSoln.solution = map((function (l) { return flipLine(l, j); }), currSoln.solution);
+                    if (j != (FLIPPINGFRAMES/2)) {
+                        if (j != FLIPPINGFRAMES) { currSoln.solution = map((function (l) { return compressLine(l, j, false); }), currSoln.solution); }
+                        else { currSoln.solution = map((function (l) { return compressLine(l, j, true); }), currSoln.solution); }
                         drawSolution(currSoln, c, ctx);
-                        if (j != 500) { currSoln.solution = map((function (l) { return unflipLine(l, j); }), currSoln.solution); }  
+                        if (j != FLIPPINGFRAMES) { currSoln.solution = map((function (l) { return stretchLine(l, j); }), currSoln.solution); }  
                     }
                     j += 1;
                 }, 1);
             })();
         }
-        //currSoln.solution = map((function (l) { return flipLine(l, -1); }), currSoln.solution);
-        //drawSolution(currSoln, c, ctx);
+        currSoln.moves.unshift("flip");
         console.log("reflected graph");
     }
 }

@@ -8,6 +8,8 @@
 var SCALING = 100,        //Define Grid size (100 x 100)
     XOFFSET = 25,         //Width of document to canvas (from the left)
     YOFFSET = 68,         //Width of document to canvas (from top)
+    ROTATIONFRAMES = 300;
+    FLIPPINGFRAMES = 500;
     GRID = new Array(),   //Array of lines making the grid
     BORDER = new Array();
 

@@ -4,15 +4,14 @@
 
 //Editing Functions
 //-----------------
-//rotateLine: Line Number -> Line
-function rotateLine(l, a) {
+//rotateLine: Line Number Boolean -> Line
+function rotateLine(l, a, round) {
     "use strict";
-    //return new Line(new Posn((SCALING - l.p1.y), l.p1.x), new Posn((SCALING - l.p2.y), l.p2.x), l.owner);
-    return(new Line(rotatePosn(l.p1, a), rotatePosn(l.p2, a), l.owner));
+    return(new Line(rotatePosn(l.p1, a, round), rotatePosn(l.p2, a, round), l.owner));
 }
 
-//rotatePosn: Posn Number -> Posn
-function rotatePosn(p, a) {
+//rotatePosn: Posn Number Boolean -> Posn
+function rotatePosn(p, a, round) {
     "use strict";
     var newPosn = new Posn(p.x - SCALING/2, SCALING/2 - p.y);
     if (newPosn.x != 0 || newPosn.y != 0) {
@@ -34,6 +33,10 @@ function rotatePosn(p, a) {
         newPosn.x = newPosn.x + SCALING/2;
         newPosn.y = SCALING/2 - newPosn.y;
     }
+    if (round) {
+        newPosn.x = Math.round(newPosn.x);
+        newPosn.y = Math.round(newPosn.y);
+    }
     return newPosn;
 }
 
@@ -44,27 +47,34 @@ function unrotateLine(l) {
 }
 
 //flipLine: Line -> Line
-function flipLine(l, n) {
+function flipLine(l) {
     "use strict";
-    return new Line(flipPosn(l.p1, n), flipPosn(l.p2, n), l.owner);
+    return new Line(new Posn((SCALING - l.p1.x), l.p1.y), new Posn((SCALING - l.p2.x), l.p2.y), l.owner);
 }
 
-//flipPosn: Posn Number -> Number
-function flipPosn(p, n) {
+//compressLine: Line Number Boolean -> Line
+function compressLine(l, n, round) {
     "use strict";
-    return new Posn((p.x*(500-2*n) + n*SCALING)/500, p.y);
+    return new Line(compressPosn(l.p1, n, round), compressPosn(l.p2, n, round), l.owner);
+}
+
+//compressPosn: Posn Number Boolean -> Number
+function compressPosn(p, n, round) {
+    "use strict";
+    if (round) { return new Posn(Math.round((p.x*(FLIPPINGFRAMES-2*n) + n*SCALING)/FLIPPINGFRAMES), p.y); }
+    else { return new Posn((p.x*(FLIPPINGFRAMES-2*n) + n*SCALING)/FLIPPINGFRAMES, p.y); }
 };
 
-//unflipLine: Line -> Line
-function unflipLine(l, n) {
+//stretchLine: Line Number -> Line
+function stretchLine(l, n) {
     "use strict";
-    return new Line(unflipPosn(l.p1, n), unflipPosn(l.p2, n), l.owner);
+    return new Line(stretchPosn(l.p1, n), stretchPosn(l.p2, n), l.owner);
 }
 
-//unflipPosn: Posn Number -> Number
-function unflipPosn(p, n) {
+//stretchPosn: Posn Number -> Number
+function stretchPosn(p, n) {
     "use strict";
-    return new Posn((500*p.x - n*SCALING)/(500 - 2*n), p.y);
+    return new Posn((FLIPPINGFRAMES*p.x - n*SCALING)/(FLIPPINGFRAMES - 2*n), p.y);
 };
 
 //Graphing Functions

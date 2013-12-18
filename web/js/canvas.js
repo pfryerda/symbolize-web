@@ -52,29 +52,29 @@ function flipLine(l) {
     return new Line(new Posn((SCALING - l.p1.x), l.p1.y), new Posn((SCALING - l.p2.x), l.p2.y), l.owner);
 }
 
-//compressLine: Line Number Boolean -> Line
-function compressLine(l, n, round) {
+//compressLine: Line Number Boolean Number -> Line
+function compressLine(l, n, round, frames) {
     "use strict";
-    return new Line(compressPosn(l.p1, n, round), compressPosn(l.p2, n, round), l.owner);
+    return new Line(compressPosn(l.p1, n, round, frames), compressPosn(l.p2, n, round, frames), l.owner);
 }
 
-//compressPosn: Posn Number Boolean -> Number
-function compressPosn(p, n, round) {
+//compressPosn: Posn Number Boolean Number -> Number
+function compressPosn(p, n, round, frames) {
     "use strict";
-    if (round) { return new Posn(Math.round((p.x*(FLIPPINGFRAMES-2*n) + n*SCALING)/FLIPPINGFRAMES), p.y); }
-    else { return new Posn((p.x*(FLIPPINGFRAMES-2*n) + n*SCALING)/FLIPPINGFRAMES, p.y); }
+    if (round) { return new Posn(Math.round((p.x*(frames-2*n) + n*SCALING)/frames), p.y); }
+    else { return new Posn((p.x*(frames-2*n) + n*SCALING)/frames, p.y); }
 };
 
-//stretchLine: Line Number -> Line
-function stretchLine(l, n) {
+//unCompressLine: Line Number Number -> Line
+function unCompressLine(l, n, frames) {
     "use strict";
-    return new Line(stretchPosn(l.p1, n), stretchPosn(l.p2, n), l.owner);
+    return new Line(unCompressPosn(l.p1, n, frames), unCompressPosn(l.p2, n, frames), l.owner);
 }
 
-//stretchPosn: Posn Number -> Number
-function stretchPosn(p, n) {
+//stretchPosn: Posn Number Number -> Number
+function unCompressPosn(p, n, frames) {
     "use strict";
-    return new Posn((FLIPPINGFRAMES*p.x - n*SCALING)/(FLIPPINGFRAMES - 2*n), p.y);
+    return new Posn((frames*p.x - n*SCALING)/(frames - 2*n), p.y);
 };
 
 //Graphing Functions

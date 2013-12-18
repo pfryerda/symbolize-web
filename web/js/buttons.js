@@ -35,12 +35,14 @@ function rotateGraph(c, ctx) {
     } else {
         console.log("rotating graph 90 degree");
 
+        var rFrames = ROTATIONFRAMES - ROTATIONDROPOFF*currSoln.solution.length;
+        console.log(rFrames);
         var j = 1;
-        for (var i = 0; i < ROTATIONFRAMES; i += 1) {
+        for (var i = 0; i < rFrames; i += 1) {
             (function (x) {
                 setTimeout(function () {
-                    if (j != ROTATIONFRAMES) { currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/(2*ROTATIONFRAMES), false); }), currSoln.solution); }
-                    else { currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/(2*ROTATIONFRAMES), true); }), currSoln.solution); }
+                    if (j != rFrames) { currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/(2*rFrames), false); }), currSoln.solution); }
+                    else { currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/(2*rFrames), true); }), currSoln.solution); }
                     drawSolution(currSoln, c, ctx, false);
                     j += 1;
                 }, 1);
@@ -64,15 +66,18 @@ function flipGraph(c, ctx) {
         drawSolution(currSoln, c, ctx, true);
     } else {
         console.log("reflecting graph");
+
+        var fFrames = FLIPPINGFRAMES - FLIPPINGDROPOFF*currSoln.solution.length;
+        console.log(fFrames);
         var j = 1;
-        for (var i = 1; i <= FLIPPINGFRAMES; i += 1) {
+        for (var i = 1; i <= fFrames; i += 1) {
             (function (x) {
                 setTimeout(function () { 
-                    if (j != (FLIPPINGFRAMES/2)) {
-                        if (j != FLIPPINGFRAMES) { currSoln.solution = map((function (l) { return compressLine(l, j, false); }), currSoln.solution); }
-                        else { currSoln.solution = map((function (l) { return compressLine(l, j, true); }), currSoln.solution); }
+                    if (j != (fFrames/2)) {
+                        if (j != fFrames) { currSoln.solution = map((function (l) { return compressLine(l, j, false, fFrames); }), currSoln.solution); }
+                        else { currSoln.solution = map((function (l) { return compressLine(l, j, true, fFrames); }), currSoln.solution); }
                         drawSolution(currSoln, c, ctx, false);
-                        if (j != FLIPPINGFRAMES) { currSoln.solution = map((function (l) { return stretchLine(l, j); }), currSoln.solution); }  
+                        if (j != fFrames) { currSoln.solution = map((function (l) { return unCompressLine(l, j, fFrames); }), currSoln.solution); }  
                     }
                     j += 1;
                 }, 1);

@@ -31,7 +31,7 @@ function rotateGraph(c, ctx) {
         currSoln.moves = [];
         currSoln.linesDrawn = 0;
         currSoln.linesErased = 0;
-        drawSolution(currSoln, c, ctx);
+        drawSolution(currSoln, c, ctx, true);
     } else {
         console.log("rotating graph 90 degree");
 
@@ -41,12 +41,12 @@ function rotateGraph(c, ctx) {
                 setTimeout(function () {
                     if (j != ROTATIONFRAMES) { currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/(2*ROTATIONFRAMES), false); }), currSoln.solution); }
                     else { currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/(2*ROTATIONFRAMES), true); }), currSoln.solution); }
-                    drawSolution(currSoln, c, ctx);
+                    drawSolution(currSoln, c, ctx, false);
                     j += 1;
                 }, 1);
             })();
         }
-
+        drawSolution(currSoln, c, ctx, true);
         currSoln.moves.unshift("rotate");
         console.log("rotated graph 90 degree");
     }
@@ -61,7 +61,7 @@ function flipGraph(c, ctx) {
         currSoln.moves = [];
         currSoln.linesDrawn = 0;
         currSoln.linesErased = 0;
-        drawSolution(currSoln, c, ctx);
+        drawSolution(currSoln, c, ctx, true);
     } else {
         console.log("reflecting graph");
         var j = 1;
@@ -71,13 +71,14 @@ function flipGraph(c, ctx) {
                     if (j != (FLIPPINGFRAMES/2)) {
                         if (j != FLIPPINGFRAMES) { currSoln.solution = map((function (l) { return compressLine(l, j, false); }), currSoln.solution); }
                         else { currSoln.solution = map((function (l) { return compressLine(l, j, true); }), currSoln.solution); }
-                        drawSolution(currSoln, c, ctx);
+                        drawSolution(currSoln, c, ctx, false);
                         if (j != FLIPPINGFRAMES) { currSoln.solution = map((function (l) { return stretchLine(l, j); }), currSoln.solution); }  
                     }
                     j += 1;
                 }, 1);
             })();
         }
+        drawSolution(currSoln, c, ctx, true);
         currSoln.moves.unshift("flip");
         console.log("reflected graph");
     }
@@ -116,7 +117,7 @@ function undo(c, ctx) {
                 //throw error
             }
         }
-        drawSolution(currSoln, c, ctx)
+        drawSolution(currSoln, c, ctx, true)
         currSoln.moves.splice(0, 1);
         console.log("undoed");
     }
@@ -177,7 +178,7 @@ function resetGraph(c, ctx) {
     if (result ===  "reset") {
         gameReset(c, ctx);
         if (currLevelNum === 19) { currSoln.solution = map(makeNew, dice[Math.floor(Math.random()*6)])}
-        drawSolution(currSoln, c, ctx);
+        drawSolution(currSoln, c, ctx, true);
         console.log("reseted graph");
     } else {
         console.log("reseted graph canceled");

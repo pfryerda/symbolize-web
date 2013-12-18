@@ -36,7 +36,7 @@ function loadLevel(c, ctx) {
     document.getElementById("lineErase").innerHTML = lineEraseWord;
 
     console.log("loaded level", currLevelNum);
-    drawSolution(currSoln, c, ctx);
+    drawSolution(currSoln, c, ctx, true);
 }
 
 //addLine: Line -> Canvas -> Context -> Void
@@ -66,7 +66,7 @@ function addLine(l, c, ctx) {
             }
             currSoln.solution.unshift(l);
             currSoln.linesDrawn += 1;
-            drawSolution(currSoln, c, ctx)
+            drawSolution(currSoln, c, ctx, true)
             console.log("added line to solution");
         } else {
             console.log("Cannot draw more lines");
@@ -101,7 +101,7 @@ function removeLine(line, c, ctx) {
         if (eraseLine[1].owner !== "User") { currSoln.linesErased += 1; }
         if (eraseLine[1].owner !== "App") { currSoln.linesDrawn -=1; }
         currSoln.moves.unshift(["erase", makeNew(eraseLine[1])]);
-        drawSolution(currSoln, c, ctx);
+        drawSolution(currSoln, c, ctx, true);
         console.log("removed line from solution");
     } else if (currSoln.linesErased >= (currLevel.restriction.erase) && eraseLine[1].owner === "App") {
         var options = {

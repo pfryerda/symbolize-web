@@ -5,13 +5,13 @@
 //Constants
 //---------
 
-var SCALING = 100,        //Define Grid size (100 x 100)
-    XOFFSET = 25,         //Width of document to canvas (from the left)
-    YOFFSET = 68,         //Width of document to canvas (from top)
-    ROTATIONFRAMES = 300;
-    FLIPPINGFRAMES = 500;
-    GRID = new Array(),   //Array of lines making the grid
-    BORDER = new Array();
+var SCALING = 100,          //Define Grid size (100 x 100)
+    XOFFSET = 25,           //Width of document to canvas (from the left)
+    YOFFSET = 68,           //Width of document to canvas (from top)
+    ROTATIONFRAMES = 5750;  //Number of frames in rotation animation (larger equals slower)
+    FLIPPINGFRAMES = 6500;  //Number of frames in flipping animation (larger equals slower)
+    GRID = new Array(),     //Array of lines making the grid (optional)
+    BORDER = new Array();   //Array of lines making the border
 
 for(var i = 10; i < 2*SCALING - 1;i += 10) {
     if (i < SCALING){ GRID[(i/10)-1] = new Line(new Posn(i, 0), new Posn(i, SCALING), "App"); }

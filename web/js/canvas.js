@@ -80,18 +80,16 @@ function stretchPosn(p, n) {
 //Graphing Functions
 //------------------
 
-//clearCanvas: Canvas -> Void
-function clearCanvas(can) {
+//clearCanvas: Canvas Boolean -> Void
+function clearCanvas(can, msg) {
     "use strict";
-    console.log("clearing canvas");
+    if (msg) { console.log("clearing canvas"); }
     can.width = can.width;
 }
 
 //drawLine: Line -> Bool -> Context -> Void
 function drawLine(line, isGridLine, ctx) {
     "use strict";
-    if (isGridLine) { /*console.log("drawing grid line");*/ }
-    else { /*console.log("drawing line");*/ }
     ctx.beginPath();
     ctx.moveTo(line.p1.x + (0.5 / SCALING), line.p1.y + (0.5 / SCALING));
     ctx.lineTo(line.p2.x + (0.5 / SCALING), line.p2.y + (0.5 / SCALING));
@@ -109,30 +107,29 @@ function drawLine(line, isGridLine, ctx) {
     ctx.closePath();
 }
 
-//drawGraph: Graph -> Bool -> Context -> Void
+//drawGraph: Graph Bool Context -> Void
 function drawGraph(graph, isGrid, ctx) {
     "use strict";
-    if (isGrid) { console.log("drawing grid"); }
-    else { console.log("drawing graph"); }
     for (var i = 0; i < graph.length; i += 1) { 
         drawLine(graph[i], isGrid, ctx); 
     }
 }
 
-//drawSolution: UserSolution -> Canvas -> Context ->  Void
-function drawSolution(userSoln, can, ctx) {
+//drawSolution: UserSolution Canvas Context Boolean ->  Void
+function drawSolution(userSoln, can, ctx, msg) {
     "use strict";
-    console.log("starting canvas drawing");
+    if (msg) { console.log("starting canvas drawing"); }
 
-    clearCanvas(can);                                           //Clears the canvas
+    clearCanvas(can, msg);                                           //Clears the canvas
     ctx.save();                                                 //Saves current coords
     ctx.scale(can.width / SCALING,                              //Scales the graph to have a max width and height of SCALING
         can.height / SCALING);                
 
+    if (msg) { console.log("drawing graph"); }
     if (includeGrid || DEVMODE) { drawGraph(GRID, true, ctx); } //Draws the grid
     drawGraph(BORDER, false, ctx);                              //Draws border
     drawGraph(userSoln.solution, false, ctx);                   //Draws the graph
 
     ctx.restore();                                              //Resets the coords for the next draw
-    console.log("finished canvas drawing");
+    if (msg) { console.log("finished canvas drawing"); }
 }

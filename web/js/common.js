@@ -184,10 +184,10 @@ function interset(line1, line2) {
 function onLine(p, l) {
     "use strict";
     var slope = getSlope(l);
-    if (slope == Infinity) {
-        return (((Math.min(l.p1.y, l.p2.y)-0.5 <= p.y) && (p.y <= Math.max(l.p1.y, l.p2.y)+0.5)) && ((Math.min(l.p1.x, l.p2.x)-0.5 <= p.x) && (p.x <= Math.max(l.p1.x, l.p2.x)+0.5)));
+    if (slope == Infinity || slope == -Infinity) {
+        return (((Math.min(l.p1.y, l.p2.y)-0.5 <= p.y) && (p.y <= Math.max(l.p1.y, l.p2.y)+0.5)) && ((l.p1.x-0.5 <= p.x) && (p.x <= l.p1.x+0.5)));
     }
-    return ((Math.round(p.y) - Math.round(l.p1.y)) == slope*(Math.round(p.x) - Math.round(l.p1.x))) && ((Math.min(l.p1.x, l.p2.x)-0.5 <= p.x) && (p.x <= Math.max(l.p1.x, l.p2.x)+0.5));
+    return ((Math.round(p.y) - Math.round(l.p1.y)) == Math.round(slope)*(Math.round(p.x) - Math.round(l.p1.x))) && ((Math.min(l.p1.x, l.p2.x)-0.5 <= p.x) && (p.x <= Math.max(l.p1.x, l.p2.x)+0.5));
 }
 
 //lineLength: Line -> Number
@@ -287,7 +287,7 @@ function graphEqual(graph1, graph2) {
     graph2 = map(arrangePoints, graph2);
     //graph1.sort(lineLT);
     //graph2.sort(lineLT);
-    //if (graph1.length !== graph2.length) { return false; }
+    if (graph1.length !== graph2.length) { return false; }
     /*for(var i = 0; i < graph1.length; i += 1) {
         if (!(lineEqual(graph1[i], graph2[i]))) { return false; }
     }*/

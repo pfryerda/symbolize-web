@@ -88,26 +88,37 @@ App.populator('game', function (page) {
 	    //-------------------
 
 	    var startPoint = "";
+	    var tmpPoint = "";
+	    var mouseDown = false
 	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent, false);
+	    gameCanvas.addEventListener("mouseup", mouseUpEvent, false);
+	    gameCanvas.addEventListener("mousemove", mouseMoveEvent, false);
 	    document.addEventListener(  "touchstart" , touchHandler  , true);
 	    document.addEventListener(  "touchend"   , touchHandler  , true);
 	    document.addEventListener(  "touchcancel", touchHandler  , true);	    
 	  
-	    //Mouse Interactive Drawing:	   
+	    //Mouse Interactive Drawing:
 	    function mouseDownEvent(event) {
 			startPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
 			console.log("Start Point: = ", startPoint);
-	    	gameCanvas.addEventListener("mouseup", mouseUpEvent, false);
+	    	mouseDown = true;
+	    }
+
+	    function mouseMoveEvent(event) {
+	    	if (!mouseDown || !inEraseMode) return;
+	    	tmpPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
+	    	removeLine(tmpPoint, gameCanvas, context);
 	    }
 
     	function mouseUpEvent(event) {
     		if(startPoint !== "") {
+    			mouseDown = false;
 				endPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
 		    	console.log("End Point: = ", endPoint);
 		    	newLine = new Line(startPoint, endPoint, "User");
 
 		    	if (inDrawMode)  {    addLine(newLine, gameCanvas, context); }
-		    	if (inEraseMode) { removeLine(newLine, gameCanvas, context); }
+		    	//if (inEraseMode) { removeLine(newLine, gameCanvas, context); }
 		    	startPoint = "";
 		    }
 	    }

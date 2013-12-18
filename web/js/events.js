@@ -80,6 +80,7 @@ function addLine(l, c, ctx) {
     }
 }
 
+/*
 //removeLine: Line -> Canvas -> Context -> Void
 function removeLine(line, c, ctx) {
     "use strict";
@@ -111,4 +112,30 @@ function removeLine(line, c, ctx) {
 
         var toast = new Toast(options);
     }
+}*/
+
+//removeLine: Posn Canvas Context -> Void
+function removeLine(p, c, ctx) {
+    "use strict";
+    for (var i = 0; i < currSoln.solution.length; i += 1) {
+        if(onLine(p, currSoln.solution[i])) {
+            if(currSoln.solution[i].owner === "User" || currSoln.linesErased < (currLevel.restriction.erase)) {
+                console.log("erasing line");    
+                if (currSoln.solution[i].owner !== "User") { currSoln.linesErased += 1; }
+                if (currSoln.solution[i].owner !== "App")  { currSoln.linesDrawn -=1; }
+                currSoln.moves.unshift(["erase", makeNew(currSoln.solution[i])]);
+                currSoln.solution.splice(i, 1);
+                drawSolution(currSoln, c, ctx, true);
+                console.log("removed line from solution");
+            } else if (currSoln.linesErased >= (currLevel.restriction.erase) && currSoln.solution[i].owner === "App") {
+                var options = {
+                    text: "Cannot erase any more lines",  // String
+                    duration: 2000 // Integer
+                };
+
+                var toast = new Toast(options);
+            }
+        }
+    }
 }
+

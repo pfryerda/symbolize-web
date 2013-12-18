@@ -163,13 +163,13 @@ function highestY(line1, line2) {
     return new Posn(newPosn.x, newPosn.y);
 }
 
-//counterClock: Posn -> Posn -> Posn -> Bool
+//counterClock: Posn Posn Posn -> Bool
 function counterClock(point1, point2, point3) {
     "use strict";
     return (point3.y - point1.y) * (point2.x - point1.x) > (point2.y - point1.y) * (point3.x - point1.x);
 }
 
-//interset: Line -> Line -> Bool
+//interset: Line Line -> Bool
 function interset(line1, line2) {
     "use strict";
     return ((counterClock(line1.p1, line2.p1, line2.p2) != counterClock(line1.p2, line2.p1, line2.p2)) && 
@@ -178,6 +178,16 @@ function interset(line1, line2) {
             (Math.max(line1.p1.y, line1.p2.y) >= Math.min(line2.p1.y, line2.p2.y))) ||
             (pointEqual(line1.p1, line2.p1)) || (pointEqual(line1.p1, line2.p2)) || 
             (pointEqual(line1.p2, line2.p1)) || (pointEqual(line1.p2, line2.p2));
+}
+
+//onLine: Posn Line -> Bool
+function onLine(p, l) {
+    "use strict";
+    var slope = getSlope(l);
+    if (slope == Infinity) {
+        return (((Math.min(l.p1.y, l.p2.y)-0.5 <= p.y) && (p.y <= Math.max(l.p1.y, l.p2.y)+0.5)) && ((Math.min(l.p1.x, l.p2.x)-0.5 <= p.x) && (p.x <= Math.max(l.p1.x, l.p2.x)+0.5)));
+    }
+    return ((Math.round(p.y) - Math.round(l.p1.y)) == slope*(Math.round(p.x) - Math.round(l.p1.x))) && ((Math.min(l.p1.x, l.p2.x)-0.5 <= p.x) && (p.x <= Math.max(l.p1.x, l.p2.x)+0.5));
 }
 
 //lineLength: Line -> Number

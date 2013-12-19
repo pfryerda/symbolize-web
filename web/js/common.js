@@ -31,7 +31,7 @@ BORDER[3] = new Line(new Posn(SCALING, 0), new Posn(SCALING, SCALING), "App");
 //-------
 
 var DEVMODE = false,      //Force grid and level 0 (Dev level)
-    includeGrid = false,  //Defaults false can be set to true by user
+    includeGrid = true,  //Defaults false can be set to true by user
     snapDraw = false;     //Drawing snaps to nearest whole numbers (good for dev mode)
 
 

@@ -36,7 +36,6 @@ function rotateGraph(c, ctx) {
         console.log("rotating graph 90 degree");
 
         var rFrames = ROTATIONFRAMES - ROTATIONDROPOFF*currSoln.solution.length;
-        console.log(rFrames);
         var j = 1;
         for (var i = 0; i < rFrames; i += 1) {
             (function (x) {
@@ -68,7 +67,6 @@ function flipGraph(c, ctx) {
         console.log("reflecting graph");
 
         var fFrames = FLIPPINGFRAMES - FLIPPINGDROPOFF*currSoln.solution.length;
-        console.log(fFrames);
         var j = 1;
         for (var i = 1; i <= fFrames; i += 1) {
             (function (x) {

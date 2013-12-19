@@ -90,12 +90,14 @@ App.populator('game', function (page) {
 	    var startPoint = "";
 	    var tmpPoint = "";
 	    var mouseDown = false
-	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent, false);
-	    gameCanvas.addEventListener("mouseup", mouseUpEvent, false);
-	    gameCanvas.addEventListener("mousemove", mouseMoveEvent, false);
-	    document.addEventListener(  "touchstart" , touchHandler  , true);
-	    document.addEventListener(  "touchend"   , touchHandler  , true);
-	    document.addEventListener(  "touchcancel", touchHandler  , true);	    
+	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent  , false);
+	    gameCanvas.addEventListener("mouseup"    , mouseUpEvent    , false);
+	    gameCanvas.addEventListener("mousemove"  , mouseMoveEvent  , false);
+	    gameCanvas.addEventListener("dblclick"    , doubleClickEvent, false);
+	    document.addEventListener(  "touchstart" , touchHandler    , true);
+	    document.addEventListener(  "touchend"   , touchHandler    , true);
+	    document.addEventListener(  "touchcancel", touchHandler    , true);	
+	    document.addEventListener(  "dbltap"     , touchHandler    , true);    
 	  
 	    //Mouse Interactive Drawing:
 	    function mouseDownEvent(event) {
@@ -121,6 +123,10 @@ App.populator('game', function (page) {
 		    	//if (inEraseMode) { removeLine(newLine, gameCanvas, context); }
 		    	startPoint = "";
 		    }
+	    }
+
+	    function doubleClickEvent(event) {
+	    	undo(gameCanvas, context);
 	    }
 
 	    //Touch interactive Drawing (simulates mouse):

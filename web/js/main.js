@@ -127,20 +127,7 @@ App.populator('game', function (page) {
 	    }
 
 	    function doubleClickEvent(event) {
-	    	if(inDrawMode) { 
-	    		activateEraseMode();
-		    	if(this.className === "app-button tool eraser") {
-					this.className = "app-button tools-Active eraser";
-					$(page).find('.pencil')[0].className = "app-button tool pencil";
-				}
-	    	}
-	    	else           { 
-	    		activateDrawMode(); 
-				if(this.className === "app-button tool pencil") {
-					this.className = "app-button tools-Active pencil";
-					$(page).find('.eraser')[0].className = "app-button tool eraser";
-				}
-	    	}
+	    	flipGraph(gameCanvas, context);
 	    }
 
 	    //Touch interactive Drawing (simulates mouse):

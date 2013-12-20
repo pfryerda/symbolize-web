@@ -5,16 +5,35 @@
 //Constants
 //---------
 
-var SCALING = 10,       //Define Grid size (10 x 10)
-    XOFFSET = 25,       //Width of document to canvas (from the left)
-    YOFFSET = 68,       //Width of document to canvas (from top)
-    DEVMODE = false,    //Force grid and level 0 (Dev level)
-    GRID = new Array(); //Array of lines making the grid
+var SCALING = 100,          //Define Grid size (100 x 100)
+    XOFFSET = 25,           //Width of document to canvas (from the left)
+    YOFFSET = 68,           //Width of document to canvas (from top)
 
-for(var i = 1; i < 2*SCALING - 1;i += 1) {
-    if (i < SCALING){ GRID[i-1] = new Line(new Posn(i, 0), new Posn(i, SCALING), "App"); }
-    else { GRID[i-1] = new Line(new Posn(0, i - SCALING + 1), new Posn(SCALING, i - SCALING + 1), "App"); }
+    ROTATIONFRAMES = 4750;  //Number of frames in rotation animation (larger equals slower)
+    ROTATIONDROPOFF = 73;   //Number of frames dorp off per extra line in puzzle
+    FLIPPINGFRAMES = 5250;  //Number of frames in flipping animation (larger equals slower)
+    FLIPPINGDROPOFF = 73;   //Number of frames dorp off per extra line in puzzle
+
+    GRID = new Array(),     //Array of lines making the grid (optional)
+    BORDER = new Array();   //Array of lines making the border
+
+for(var i = 10; i < 2*SCALING - 1;i += 10) {
+    if (i < SCALING){ GRID[(i/10)-1] = new Line(new Posn(i, 0), new Posn(i, SCALING), "App"); }
+    else { GRID[(i/10)-1] = new Line(new Posn(0, i - SCALING + 1), new Posn(SCALING, i - SCALING + 1), "App"); }
 }
+
+BORDER[0] = new Line(new Posn(0, 0), new Posn(0, SCALING), "App");
+BORDER[1] = new Line(new Posn(0, 0), new Posn(SCALING, 0), "App");
+BORDER[2] = new Line(new Posn(0, SCALING), new Posn(SCALING, SCALING), "App");
+BORDER[3] = new Line(new Posn(SCALING, 0), new Posn(SCALING, SCALING), "App");
+
+//Options
+//-------
+
+var DEVMODE = false,      //Force grid and level 0 (Dev level)
+    includeGrid = true,  //Defaults false can be set to true by user
+    snapDraw = false;     //Drawing snaps to nearest whole numbers (good for dev mode)
+
 
 
 //Variable Declaration
@@ -25,8 +44,29 @@ var currLevelNum = 1,                                         //Defaults level 1
     currSoln = new UserSolution(currLevel.graph, 0, 0, []),   //Defaults level 1
 
     inDrawMode  = true,                                       //Defaults Draw  Mode enabled
-    inEraseMode = !inDrawMode,                                //Defaults Erase Mode disabled
-    includeGrid = true;                                       //Defaults false can be set to true by user
+    inEraseMode = !inDrawMode;                                //Defaults Erase Mode disabled
+
+
+//Dev functions
+//--------------
+
+//toogleDevMode: Void
+function toogleDevMode() {
+    "use strict";
+    DEVMODE = !DEVMODE;
+}
+
+//toogleSnap: Void
+function toogleSnap() {
+    "use strict";
+    snapDraw = !snapDraw;
+}
+
+//toogleGrid: Void
+function toogleGrid() {
+    "use strict";
+    includeGrid = !includeGrid;
+}
 
 
 //Helper Funcions
@@ -62,7 +102,9 @@ function printGraph() {
 //scalePointscalePoint: Number -> Number -> Number -> Number -> Posn
 function scalePoint(point_x, point_y, scaling, canvaslength){
     "use strict";
-    return new Posn(Math.round((point_x - XOFFSET) * (scaling / canvaslength)), Math.round(( point_y - YOFFSET) * (scaling / canvaslength)));
+    var newPosn = new Posn((point_x - XOFFSET) * (scaling / canvaslength), ( point_y - YOFFSET) * (scaling / canvaslength));
+    if ((snapDraw || DEVMODE) && inDrawMode) { newPosn = new Posn(Math.round(newPosn.x / 10) * 10, Math.round(newPosn.y / 10) * 10); }
+    return newPosn;
 }
 
 //getSlope: Line -> Number
@@ -121,13 +163,13 @@ function highestY(line1, line2) {
     return new Posn(newPosn.x, newPosn.y);
 }
 
-//counterClock: Posn -> Posn -> Posn -> Bool
+//counterClock: Posn Posn Posn -> Bool
 function counterClock(point1, point2, point3) {
     "use strict";
     return (point3.y - point1.y) * (point2.x - point1.x) > (point2.y - point1.y) * (point3.x - point1.x);
 }
 
-//interset: Line -> Line -> Bool
+//interset: Line Line -> Bool
 function interset(line1, line2) {
     "use strict";
     return ((counterClock(line1.p1, line2.p1, line2.p2) != counterClock(line1.p2, line2.p1, line2.p2)) && 
@@ -136,6 +178,16 @@ function interset(line1, line2) {
             (Math.max(line1.p1.y, line1.p2.y) >= Math.min(line2.p1.y, line2.p2.y))) ||
             (pointEqual(line1.p1, line2.p1)) || (pointEqual(line1.p1, line2.p2)) || 
             (pointEqual(line1.p2, line2.p1)) || (pointEqual(line1.p2, line2.p2));
+}
+
+//onLine: Posn Line -> Bool
+function onLine(p, l) {
+    "use strict";
+    var slope = getSlope(l);
+    if (slope == Infinity || slope == -Infinity) {
+        return (((Math.min(l.p1.y, l.p2.y)-0.5 <= p.y) && (p.y <= Math.max(l.p1.y, l.p2.y)+0.5)) && ((l.p1.x-0.5 <= p.x) && (p.x <= l.p1.x+0.5)));
+    }
+    return ((Math.round(p.y) - Math.round(l.p1.y)) == Math.round(slope)*(Math.round(p.x) - Math.round(l.p1.x))) && ((Math.min(l.p1.x, l.p2.x)-0.5 <= p.x) && (p.x <= Math.max(l.p1.x, l.p2.x)+0.5));
 }
 
 //lineLength: Line -> Number
@@ -194,21 +246,22 @@ function makeNew(line) {
 //lineLT: Line Line -> Number
 function lineLT(line1, line2) {
     "use strict";
-    if      (line1.p1.x < line2.p1.x) { return  1; }
-    else if (line1.p1.x > line2.p1.x) { return -1; }
-    else if (line1.p1.y < line2.p1.y) { return  1; }
-    else if (line1.p1.y > line2.p1.y) { return -1; }
-    else if (line1.p2.x < line2.p2.x) { return  1; }
-    else if (line1.p2.x > line2.p2.x) { return -1; }
-    else if (line1.p2.y < line2.p2.y) { return  1; }
-    else if (line1.p2.y > line2.p2.y) { return -1; }
-    else                              { return  0; }
+    if      (Math.round(line1.p1.x / 10) * 10 < Math.round(line2.p1.x / 10) * 10) { return  1; }
+    else if (Math.round(line1.p1.x / 10) * 10 > Math.round(line2.p1.x / 10) * 10) { return -1; }
+    else if (Math.round(line1.p1.y / 10) * 10 < Math.round(line2.p1.y / 10) * 10) { return  1; }
+    else if (Math.round(line1.p1.y / 10) * 10 > Math.round(line2.p1.y / 10) * 10) { return -1; }
+    else if (Math.round(line1.p2.x / 10) * 10 < Math.round(line2.p2.x / 10) * 10) { return  1; }
+    else if (Math.round(line1.p2.x / 10) * 10 > Math.round(line2.p2.x / 10) * 10) { return -1; }
+    else if (Math.round(line1.p2.y / 10) * 10 < Math.round(line2.p2.y / 10) * 10) { return  1; }
+    else if (Math.round(line1.p2.y / 10) * 10 > Math.round(line2.p2.y / 10) * 10) { return -1; }
+    else                                                                          { return  0; }
 }
 
 //pointEqual: Line Line -> Bool
 function pointEqual(point1, point2) {
     "use strict";
-    return ((point1.x === point2.x) && (point1.y === point2.y));
+    return (((point1.x - 14) <= point2.x) && (point2.x <= (point1.x + 14)) && 
+            ((point1.y - 14) <= point2.y) && (point2.y <= (point1.y + 14)));
 }
 
 //lineEqual: Line Line -> Bool
@@ -218,16 +271,28 @@ function lineEqual(line1, line2) {
             ((pointEqual(line1.p1, line2.p2)) && (pointEqual(line1.p2, line2.p1))));
 }
 
+//lineMember: Line Graph -> Bool
+function lineMember(line, graph) {
+    "use strict";
+    for (var i = 0; i < graph.length; i += 1) {
+        if (lineEqual(line, graph[i])) { return true; } 
+    }
+    return false;
+}
+
 //graphEqual: Graph Graph -> Bool
 function graphEqual(graph1, graph2) {
     "use strict";
     graph1 = map(arrangePoints, graph1);
     graph2 = map(arrangePoints, graph2);
-    graph1.sort(lineLT);
-    graph2.sort(lineLT);
+    //graph1.sort(lineLT);
+    //graph2.sort(lineLT);
     if (graph1.length !== graph2.length) { return false; }
-    for(var i = 0; i < graph1.length; i += 1) {
+    /*for(var i = 0; i < graph1.length; i += 1) {
         if (!(lineEqual(graph1[i], graph2[i]))) { return false; }
+    }*/
+    for(var i = 0; i < graph1.length; i += 1) {
+        if (!lineMember(graph1[i], graph2)) { return false; }
     }
     return true;
 }

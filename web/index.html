@@ -3,16 +3,29 @@
 <!-- <html manifest="cache.manifest"> -->
   <head>
     <title>Symbolize</title>
-    <link rel="kik-icon" href="img/symbolizeLogo.png">
-    <meta name="kik-prefer" content="true">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="kik-user-token" content="ag9zfmNhcmRzLW1hbmFnZXJyEQsSBFVzZXIYgICAgICw-AsM">
-    <meta name="description" content="Use hints to discover amazing symbols in Symbolize!">
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/custom.css">
+
+    <!-- Kik Stuff -->
+    <link rel="kik-icon" href="img/symbolizeLogo.png">
+    <!-- <meta name="kik-prefer" content="true"> -->
+    <!-- <meta name="kik-user-token" content="ag9zfmNhcmRzLW1hbmFnZXJyEQsSBFVzZXIYgICAgICw-AsM"> -->
+    <meta name="description" content="Use hints to discover amazing symbols in Symbolize!">
+
+    <!-- Apple Stuff -->
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-icon" href="/img/appleHomepageIcon.png"/>
+    <link rel="apple-touch-startup-image" href="/img/appleHomepageIcon.png">
+
   </head>
 
   <body>
+
+  <div class="loading-spinner"> <img src="img/spinner.gif" height="50px" width="50px"> </div> 
 
     <!-- New Home Page -->
     <div class="app-page" data-page="home">
@@ -374,6 +387,7 @@
     </div>
 
 
+    <script src="js/Tocca.min.js"></script>
     <script src="js/zepto.js"></script>
     <script src="js/jquery-1.10.2.js"></script>
     <script src="http://cdn.kik.com/app/2-DEV/app.min.js"></script>

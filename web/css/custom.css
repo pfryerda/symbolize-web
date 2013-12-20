@@ -100,3 +100,12 @@
 }
 
 .gameCanvas{ z-index: -1;}
+
+.loading-spinner {
+	position: fixed;
+	float: left;
+	height: 33%;
+	width: 33%;
+	left: 50px;
+	top: 110px;
+}

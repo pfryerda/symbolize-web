@@ -40,7 +40,7 @@ App.populator('home', function (page) {
 //----------
 
 App.populator('game', function (page) {
-	console.log("loaded game");
+	console.log("loaded game");	
 	$(page).find('.pencil')[0].className = "app-button tools-Active pencil"; // Default highlighted pencil
 
 	$(page).on('appShow', function () {
@@ -88,38 +88,70 @@ App.populator('game', function (page) {
 	    //-------------------
 
 	    var startPoint = "";
-	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent, false);
-	    document.addEventListener(  "touchstart" , touchHandler  , true);
-	    document.addEventListener(  "touchend"   , touchHandler  , true);
-	    document.addEventListener(  "touchcancel", touchHandler  , true);	    
+	    var tmpPoint = "";
+	    var mouseDown = false
+	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent  , false);
+	    gameCanvas.addEventListener("mouseup"    , mouseUpEvent    , false);
+	    gameCanvas.addEventListener("mousemove"  , mouseMoveEvent  , false);
+	    gameCanvas.addEventListener("dblclick"   , doubleClickEvent, false);
+	    gameCanvas.addEventListener("dbltap"     , doubleClickEvent, false);
+	    document.addEventListener(  "touchstart" , touchHandler    , true);
+	    document.addEventListener(  "touchmove"  , touchHandler    , true);
+	    document.addEventListener(  "touchend"   , touchHandler    , true);
+	    document.addEventListener(  "touchcancel", touchHandler    , true);
 	  
-	    //Mouse Interactive Drawing:	   
+	    //Mouse Interactive Drawing:
 	    function mouseDownEvent(event) {
 			startPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
 			console.log("Start Point: = ", startPoint);
-	    	gameCanvas.addEventListener("mouseup", mouseUpEvent, false);
+	    	mouseDown = true;
+	    }
+
+	    function mouseMoveEvent(event) {
+	    	if (!mouseDown || !inEraseMode) return;
+	    	tmpPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
+	    	removeLine(tmpPoint, gameCanvas, context);
 	    }
 
     	function mouseUpEvent(event) {
     		if(startPoint !== "") {
+    			mouseDown = false;
 				endPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
 		    	console.log("End Point: = ", endPoint);
 		    	newLine = new Line(startPoint, endPoint, "User");
 
 		    	if (inDrawMode)  {    addLine(newLine, gameCanvas, context); }
-		    	if (inEraseMode) { removeLine(newLine, gameCanvas, context); }
+		    	//if (inEraseMode) { removeLine(newLine, gameCanvas, context); }
 		    	startPoint = "";
 		    }
 	    }
 
+	    function doubleClickEvent(event) {
+	    	if(inDrawMode) { 
+	    		activateEraseMode();
+		    	if(this.className === "app-button tool eraser") {
+					this.className = "app-button tools-Active eraser";
+					$(page).find('.pencil')[0].className = "app-button tool pencil";
+				}
+	    	}
+	    	else           { 
+	    		activateDrawMode(); 
+				if(this.className === "app-button tool pencil") {
+					this.className = "app-button tools-Active pencil";
+					$(page).find('.eraser')[0].className = "app-button tool eraser";
+				}
+	    	}
+	    }
+
 	    //Touch interactive Drawing (simulates mouse):
 	    function touchHandler(event) {
-		    var tocuhLst = event.changedTouches,
-		        fst = tocuhLst[0],
+		    var touchLst = event.changedTouches,
+		        fst = touchLst[0],
 		        touchType = "";
 		    switch(event.type) {
 		        case "touchstart": touchType = "mousedown"; break;      
 		        case "touchend"  : touchType = "mouseup"  ; break;
+		        case "touchmove" : touchType = "mousemove"; break;
 		        default: return;
 		    }
 

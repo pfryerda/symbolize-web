@@ -40,7 +40,7 @@ App.populator('home', function (page) {
 //----------
 
 App.populator('game', function (page) {
-	console.log("loaded game");
+	console.log("loaded game");	
 	$(page).find('.pencil')[0].className = "app-button tools-Active pencil"; // Default highlighted pencil
 
 	$(page).on('appShow', function () {
@@ -93,11 +93,12 @@ App.populator('game', function (page) {
 	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent  , false);
 	    gameCanvas.addEventListener("mouseup"    , mouseUpEvent    , false);
 	    gameCanvas.addEventListener("mousemove"  , mouseMoveEvent  , false);
-	    gameCanvas.addEventListener("dblclick"    , doubleClickEvent, false);
+	    gameCanvas.addEventListener("dblclick"   , doubleClickEvent, false);
+	    gameCanvas.addEventListener("dbltap"     , doubleClickEvent, false);
 	    document.addEventListener(  "touchstart" , touchHandler    , true);
+	    document.addEventListener(  "touchmove"  , touchHandler    , true);
 	    document.addEventListener(  "touchend"   , touchHandler    , true);
-	    document.addEventListener(  "touchcancel", touchHandler    , true);	
-	    document.addEventListener(  "dbltap"     , touchHandler    , true);    
+	    document.addEventListener(  "touchcancel", touchHandler    , true);
 	  
 	    //Mouse Interactive Drawing:
 	    function mouseDownEvent(event) {
@@ -126,7 +127,20 @@ App.populator('game', function (page) {
 	    }
 
 	    function doubleClickEvent(event) {
-	    	undo(gameCanvas, context);
+	    	if(inDrawMode) { 
+	    		activateEraseMode();
+		    	if(this.className === "app-button tool eraser") {
+					this.className = "app-button tools-Active eraser";
+					$(page).find('.pencil')[0].className = "app-button tool pencil";
+				}
+	    	}
+	    	else           { 
+	    		activateDrawMode(); 
+				if(this.className === "app-button tool pencil") {
+					this.className = "app-button tools-Active pencil";
+					$(page).find('.eraser')[0].className = "app-button tool eraser";
+				}
+	    	}
 	    }
 
 	    //Touch interactive Drawing (simulates mouse):

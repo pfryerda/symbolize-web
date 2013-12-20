@@ -145,12 +145,13 @@ App.populator('game', function (page) {
 
 	    //Touch interactive Drawing (simulates mouse):
 	    function touchHandler(event) {
-		    var tocuhLst = event.changedTouches,
-		        fst = tocuhLst[0],
+		    var touchLst = event.changedTouches,
+		        fst = touchLst[0],
 		        touchType = "";
 		    switch(event.type) {
 		        case "touchstart": touchType = "mousedown"; break;      
 		        case "touchend"  : touchType = "mouseup"  ; break;
+		        case "touchmove" : touchType = "mousemove"; break;
 		        default: return;
 		    }
 

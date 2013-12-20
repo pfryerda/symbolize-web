@@ -5,7 +5,7 @@
 //-----------------
 
 //Graph = [Line]
-//Move = Line | Number
+//Move = Line || Number
 
 //Level: Graph Graph Restriction String -> Level
 //A level contains the lines for the graph(As they appear at the start), a restriction to number of allowed

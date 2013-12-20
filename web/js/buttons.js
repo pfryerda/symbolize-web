@@ -31,17 +31,28 @@ function rotateGraph(c, ctx) {
         currSoln.moves = [];
         currSoln.linesDrawn = 0;
         currSoln.linesErased = 0;
-        drawSolution(currSoln, c, ctx);
+        drawSolution(currSoln, c, ctx, true);
     } else {
         console.log("rotating graph 90 degree");
 
-        currSoln.solution = map(rotateLine, currSoln.solution);
+        var rFrames = ROTATIONFRAMES - ROTATIONDROPOFF*currSoln.solution.length;
+        var j = 1;
+        for (var i = 0; i < rFrames; i += 1) {
+            (function (x) {
+                setTimeout(function () {
+                    if (j != rFrames) { currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/(2*rFrames), false); }), currSoln.solution); }
+                    else { currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/(2*rFrames), true); }), currSoln.solution); }
+                    drawSolution(currSoln, c, ctx, false);
+                    j += 1;
+                }, 1);
+            })();
+        }
+        drawSolution(currSoln, c, ctx, true);
         currSoln.moves.unshift("rotate");
-
-        drawSolution(currSoln, c, ctx)
         console.log("rotated graph 90 degree");
     }
 }
+
 
 //flipGraph: Canvas -> Context -> Void
 function flipGraph(c, ctx) {
@@ -51,14 +62,27 @@ function flipGraph(c, ctx) {
         currSoln.moves = [];
         currSoln.linesDrawn = 0;
         currSoln.linesErased = 0;
-        drawSolution(currSoln, c, ctx);
+        drawSolution(currSoln, c, ctx, true);
     } else {
         console.log("reflecting graph");
 
-        currSoln.solution = map(flipLine, currSoln.solution);
+        var fFrames = FLIPPINGFRAMES - FLIPPINGDROPOFF*currSoln.solution.length;
+        var j = 1;
+        for (var i = 1; i <= fFrames; i += 1) {
+            (function (x) {
+                setTimeout(function () { 
+                    if (j != (fFrames/2)) {
+                        if (j != fFrames) { currSoln.solution = map((function (l) { return compressLine(l, j, false, fFrames); }), currSoln.solution); }
+                        else { currSoln.solution = map((function (l) { return compressLine(l, j, true, fFrames); }), currSoln.solution); }
+                        drawSolution(currSoln, c, ctx, false);
+                        if (j != fFrames) { currSoln.solution = map((function (l) { return unCompressLine(l, j, fFrames); }), currSoln.solution); }  
+                    }
+                    j += 1;
+                }, 1);
+            })();
+        }
+        drawSolution(currSoln, c, ctx, true);
         currSoln.moves.unshift("flip");
-
-        drawSolution(currSoln, c, ctx);
         console.log("reflected graph");
     }
 }
@@ -96,7 +120,7 @@ function undo(c, ctx) {
                 //throw error
             }
         }
-        drawSolution(currSoln, c, ctx)
+        drawSolution(currSoln, c, ctx, true)
         currSoln.moves.splice(0, 1);
         console.log("undoed");
     }
@@ -157,7 +181,7 @@ function resetGraph(c, ctx) {
     if (result ===  "reset") {
         gameReset(c, ctx);
         if (currLevelNum === 19) { currSoln.solution = map(makeNew, dice[Math.floor(Math.random()*6)])}
-        drawSolution(currSoln, c, ctx);
+        drawSolution(currSoln, c, ctx, true);
         console.log("reseted graph");
     } else {
         console.log("reseted graph canceled");

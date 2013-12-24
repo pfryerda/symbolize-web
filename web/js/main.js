@@ -89,12 +89,14 @@ App.populator('game', function (page) {
 
 	    var startPoint = "";
 	    var tmpPoint = "";
-	    var mouseDown = false
+	    var mouseDown = false;
+	    var rotationBool = false;
+	    var flipBool = false;
 
 	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent, false);
 	    gameCanvas.addEventListener("mouseup"    , mouseUpEvent  , false);
 	    gameCanvas.addEventListener("mousemove"  , mouseMoveEvent, false);
-	    gameCanvas.addEventListener("dblclick"   , doubleHitEvent, false);
+	    //gameCanvas.addEventListener("dblclick"   , doubleHitEvent, false);
 	    Hammer(gameCanvas).on(      "doubletap"  , doubleHitEvent);
 	    Hammer(gameCanvas).on(      "rotate"     , rotateEvent);
 	    Hammer(gameCanvas).on(      "pinch"      , flipEvent);
@@ -144,12 +146,21 @@ App.populator('game', function (page) {
 
 	    //Touch non drawing events
 	    function rotateEvent(event) {
-	    	rotateGraph(gameCanvas, context, -1);
+	    	if (!flipBool)
+	    	{
+	    		rotateBool = true;
+	    		rotateGraph(gameCanvas, context, -1);
+	    	}
 	    	//rotateGraph(gameCanvas, context, event.rotation/Math.abs(event.rotation));
 	    }
 
 	    function flipEvent(event) {
-	    	flipGraph(gameCanvas, context, true);
+	    	if (!rotateBool)
+	    	{
+	    		flipBool = true;
+	    		flipGraph(gameCanvas, context, true);
+	    	}
+	    	
 	    	//if(event.velocityX > event.velocityY) flipGraph(gameCanvas, context, true);
 	    	//else                                  flipGraph(gameCanvas, context, false); 
 	    }

@@ -92,6 +92,13 @@ App.populator('game', function (page) {
 	    var mouseDown = false;
 	    var rotationBool = false;
 
+	    /* var options = {
+	            text: "Luke is awesome",  // String
+	            duration: 2000 // Integer
+        	};
+
+        	var toast = new Toast(options);*/
+
 	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent, false);
 	    gameCanvas.addEventListener("mouseup"    , mouseUpEvent  , false);
 	    gameCanvas.addEventListener("mousemove"  , mouseMoveEvent, false);
@@ -123,8 +130,9 @@ App.populator('game', function (page) {
     		if  (rotationBool) {
     			rotateGraph(gameCanvas, context, -1);
     			rotationBool = false;
+    			startPoint = "";
     		}
-    		if (startPoint !== "") {
+    		else if (startPoint !== "") {
     			mouseDown = false;
 				var endPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
 		    	console.log("End Point: = ", endPoint);
@@ -138,14 +146,20 @@ App.populator('game', function (page) {
 
 	    function doubleHitEvent(event) {
 	    	"use strict";
-	    	flipGraph(gameCanvas, context, true);
+	    	flipGraph(gameCanvas, context);
+	    	var options = {
+	            text: "Luke is awesome",  // String
+	            duration: 2000 // Integer
+        	};
+
+        	var toast = new Toast(options);
 	    }
 
 
 	    //Touch non drawing events
 	    function rotateEvent(event) {
 	    	"use strict";
-	    	rotateBool = true;
+	    	rotationBool = true;
 	    	//rotateGraph(gameCanvas, context, -1);
 	    	//rotateGraph(gameCanvas, context, event.rotation/Math.abs(event.rotation));
 	    }
@@ -157,7 +171,8 @@ App.populator('game', function (page) {
 		    var touchLst = event.changedTouches,
 		        fst = touchLst[0],
 		        touchType = "";
-		    if (touchLst.length == 1) {
+		    
+		    if (true) {//touchLst.length == 1) {
 			    switch(event.type) {
 			        case "touchstart": touchType = "mousedown"; break;      
 			        case "touchend"  : touchType = "mouseup"  ; break;

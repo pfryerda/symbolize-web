@@ -55,8 +55,8 @@ function rotateGraph(c, ctx, dir) {
 }
 
 
-//flipGraph: Canvas Context Boolean -> Void
-function flipGraph(c, ctx, h) {
+//flipGraph: Canvas Context -> Void
+function flipGraph(c, ctx) {
     "use strict";
     if (currLevelNum === (Levels.length - 2)) {
         currSoln.solution = map(makeNew, dice[Math.floor(Math.random()*6)]);
@@ -69,38 +69,21 @@ function flipGraph(c, ctx, h) {
 
         var fFrames = FLIPPINGFRAMES - FLIPPINGDROPOFF*currSoln.solution.length;
         var j = 1;
-        if (h) { 
-            for (var i = 1; i <= fFrames; i += 1) {
-                (function (x) {
-                    setTimeout(function () { 
-                        if (j != (fFrames/2)) {
+        for (var i = 1; i <= fFrames; i += 1) {
+            (function (x) {
+                setTimeout(function () { 
+                    if (j != (fFrames/2)) {
                         if (j != fFrames) { currSoln.solution = map((function (l) { return hCompressLine(  l, j, false, fFrames); }), currSoln.solution); }
                         else {              currSoln.solution = map((function (l) { return hCompressLine(  l, j, true,  fFrames); }), currSoln.solution); }
                         drawSolution(currSoln, c, ctx, false);
                         if (j != fFrames) { currSoln.solution = map((function (l) { return hUnCompressLine(l, j,        fFrames); }), currSoln.solution); }  
-                        }
-                        j += 1;
-                    }, 1);
-                })();
-            }
-        } else {
-            for (var i = 1; i < fFrames; i += 1) {
-                (function (x) {
-                    setTimeout(function () { 
-                        if (j != (fFrames/2)) {
-                        if (j != fFrames) { currSoln.solution = map((function (l) { return vCompressLine(  l, j, false, fFrames); }), currSoln.solution); }
-                        else {              currSoln.solution = map((function (l) { return vCompressLine(  l, j, true,  fFrames); }), currSoln.solution); }
-                        drawSolution(currSoln, c, ctx, false);
-                        if (j != (fFrames-1)) { currSoln.solution = map((function (l) { return vUnCompressLine(l, j,    fFrames); }), currSoln.solution); } 
-                        }
-                        j += 1;
-                    }, 1);
-                })();
-            }
+                    }
+                    j += 1;
+                }, 1);
+            })();
         }
         drawSolution(currSoln, c, ctx, true);
-        if (h) { currSoln.moves.unshift("Hflip"); }
-        else   { currSoln.moves.unshift("Vflip"); }
+        currSoln.moves.unshift("Hflip");
         console.log("reflected graph");
     }
 }

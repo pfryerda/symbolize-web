@@ -91,7 +91,6 @@ App.populator('game', function (page) {
 	    var tmpPoint = "";
 	    var mouseDown = false;
 	    var rotationBool = false;
-	    var flipBool = false;
 
 	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent, false);
 	    gameCanvas.addEventListener("mouseup"    , mouseUpEvent  , false);
@@ -99,7 +98,6 @@ App.populator('game', function (page) {
 	    //gameCanvas.addEventListener("dblclick"   , doubleHitEvent, false);
 	    Hammer(gameCanvas).on(      "doubletap"  , doubleHitEvent);
 	    Hammer(gameCanvas).on(      "rotate"     , rotateEvent);
-	    Hammer(gameCanvas).on(      "pinch"      , flipEvent);
 	    document.addEventListener(  "touchstart" , touchHandler  , true);
 	    document.addEventListener(  "touchmove"  , touchHandler  , true);
 	    document.addEventListener(  "touchend"   , touchHandler  , true);
@@ -107,23 +105,30 @@ App.populator('game', function (page) {
 	  
 	    //Mouse Interactive Drawing:
 	    function mouseDownEvent(event) {
+	    	"use strict";
 			startPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
 			console.log("Start Point: = ", startPoint);
 	    	mouseDown = true;
 	    }
 
 	    function mouseMoveEvent(event) {
+	    	"use strict";
 	    	if (!mouseDown || !inEraseMode) return;
 	    	tmpPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
 	    	removeLine(tmpPoint, gameCanvas, context);
 	    }
 
     	function mouseUpEvent(event) {
-    		if(startPoint !== "") {
+    		"use strict";
+    		if  (rotationBool) {
+    			rotateGraph(gameCanvas, context, -1);
+    			rotationBool = false;
+    		}
+    		if (startPoint !== "") {
     			mouseDown = false;
-				endPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
+				var endPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
 		    	console.log("End Point: = ", endPoint);
-		    	newLine = new Line(startPoint, endPoint, "User");
+		    	var newLine = new Line(startPoint, endPoint, "User");
 
 		    	if (inDrawMode)  {    addLine(newLine, gameCanvas, context); }
 		    	//if (inEraseMode) { removeLine(newLine, gameCanvas, context); }
@@ -132,41 +137,23 @@ App.populator('game', function (page) {
 	    }
 
 	    function doubleHitEvent(event) {
-	    	if (inDrawMode) {
-	    		activateEraseMode();
-				$(page).find('.eraser')[0].className = "app-button tools-Active eraser";
-				$(page).find('.pencil')[0].className = "app-button tool pencil";
-	    	} else {
-	    		activateDrawMode(); 
-				$(page).find('.pencil')[0].className = "app-button tools-Active pencil";
-				$(page).find('.eraser')[0].className = "app-button tool eraser";
-	    	}
+	    	"use strict";
+	    	flipGraph(gameCanvas, context, true);
 	    }
 
 
 	    //Touch non drawing events
 	    function rotateEvent(event) {
-	    	if (!flipBool)
-	    	{
-	    		rotateBool = true;
-	    		rotateGraph(gameCanvas, context, -1);
-	    	}
+	    	"use strict";
+	    	rotateBool = true;
+	    	//rotateGraph(gameCanvas, context, -1);
 	    	//rotateGraph(gameCanvas, context, event.rotation/Math.abs(event.rotation));
 	    }
 
-	    function flipEvent(event) {
-	    	if (!rotateBool)
-	    	{
-	    		flipBool = true;
-	    		flipGraph(gameCanvas, context, true);
-	    	}
-	    	
-	    	//if(event.velocityX > event.velocityY) flipGraph(gameCanvas, context, true);
-	    	//else                                  flipGraph(gameCanvas, context, false); 
-	    }
 
 	    //Touch interactive Drawing (simulates mouse):
 	    function touchHandler(event) {
+	    	"use strict";
 		    var touchLst = event.changedTouches,
 		        fst = touchLst[0],
 		        touchType = "";

@@ -48,14 +48,15 @@ function rotateGraph(c, ctx, dir) {
             })();
         }
         drawSolution(currSoln, c, ctx, true);
-        currSoln.moves.unshift("rotate");
+        if (dir==-1) { currSoln.moves.unshift("rotateR"); }
+        else         { currSoln.moves.unshift("rotateL"); }
         console.log("rotated graph 90 degree");
     }
 }
 
 
-//flipGraph: Canvas -> Context -> Void
-function flipGraph(c, ctx) {
+//flipGraph: Canvas Context Boolean -> Void
+function flipGraph(c, ctx, h) {
     "use strict";
     if (currLevelNum === (Levels.length - 2)) {
         currSoln.solution = map(makeNew, dice[Math.floor(Math.random()*6)]);
@@ -68,21 +69,38 @@ function flipGraph(c, ctx) {
 
         var fFrames = FLIPPINGFRAMES - FLIPPINGDROPOFF*currSoln.solution.length;
         var j = 1;
-        for (var i = 1; i <= fFrames; i += 1) {
-            (function (x) {
-                setTimeout(function () { 
-                    if (j != (fFrames/2)) {
-                        if (j != fFrames) { currSoln.solution = map((function (l) { return compressLine(l, j, false, fFrames); }), currSoln.solution); }
-                        else { currSoln.solution = map((function (l) { return compressLine(l, j, true, fFrames); }), currSoln.solution); }
+        if (h) { 
+            for (var i = 1; i <= fFrames; i += 1) {
+                (function (x) {
+                    setTimeout(function () { 
+                        if (j != (fFrames/2)) {
+                        if (j != fFrames) { currSoln.solution = map((function (l) { return hCompressLine(  l, j, false, fFrames); }), currSoln.solution); }
+                        else {              currSoln.solution = map((function (l) { return hCompressLine(  l, j, true,  fFrames); }), currSoln.solution); }
                         drawSolution(currSoln, c, ctx, false);
-                        if (j != fFrames) { currSoln.solution = map((function (l) { return unCompressLine(l, j, fFrames); }), currSoln.solution); }  
-                    }
-                    j += 1;
-                }, 1);
-            })();
+                        if (j != fFrames) { currSoln.solution = map((function (l) { return hUnCompressLine(l, j,        fFrames); }), currSoln.solution); }  
+                        }
+                        j += 1;
+                    }, 1);
+                })();
+            }
+        } else {
+            for (var i = 1; i < fFrames; i += 1) {
+                (function (x) {
+                    setTimeout(function () { 
+                        if (j != (fFrames/2)) {
+                        if (j != fFrames) { currSoln.solution = map((function (l) { return vCompressLine(  l, j, false, fFrames); }), currSoln.solution); }
+                        else {              currSoln.solution = map((function (l) { return vCompressLine(  l, j, true,  fFrames); }), currSoln.solution); }
+                        drawSolution(currSoln, c, ctx, false);
+                        if (j != (fFrames-1)) { currSoln.solution = map((function (l) { return vUnCompressLine(l, j,    fFrames); }), currSoln.solution); } 
+                        }
+                        j += 1;
+                    }, 1);
+                })();
+            }
         }
         drawSolution(currSoln, c, ctx, true);
-        currSoln.moves.unshift("flip");
+        if (h) { currSoln.moves.unshift("Hflip"); }
+        else   { currSoln.moves.unshift("Vflip"); }
         console.log("reflected graph");
     }
 }
@@ -94,11 +112,17 @@ function undo(c, ctx) {
         lastMove = oldMoves[0];
     if (oldMoves.length !== 0) {
         switch (lastMove) {
-        case "rotate": //Unrotate non flipped
-            currSoln.solution = map(unrotateLine, currSoln.solution);
+        case "rotateR": //Unrotate right
+            currSoln.solution = map(unrotateLineR, currSoln.solution);
             break;
-        case "flip": //Unflip
-            currSoln.solution = map(flipLine, currSoln.solution);
+        case "rotateL": //Unrotate left
+            currSoln.solution = map(unrotateLineL, currSoln.solution);
+            break;
+        case "Hflip": //Unflip Horizontally
+            currSoln.solution = map(hFlipLine, currSoln.solution);
+            break;
+        case "Vflip": //Unflip Vertically
+            currSoln.solution = map(vFlipLine, currSoln.solution);
             break;
         default:
             if(lastMove[0] === "draw") {

@@ -22,7 +22,7 @@ function activateEraseMode() {
 }
 
 //rotateGraph Canvas -> Context -> Void
-function rotateGraph(c, ctx) {
+function rotateGraph(c, ctx, dir) {
     "use strict";
     if (currLevelNum === 19) {
         for(var i = diceRoll; i == diceRoll; i = Math.floor(Math.random()*6)) {}
@@ -40,8 +40,8 @@ function rotateGraph(c, ctx) {
         for (var i = 0; i < rFrames; i += 1) {
             (function (x) {
                 setTimeout(function () {
-                    if (j != rFrames) { currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/(2*rFrames), false); }), currSoln.solution); }
-                    else { currSoln.solution = map((function (l) { return rotateLine(l, -Math.PI/(2*rFrames), true); }), currSoln.solution); }
+                    if (j != rFrames) { currSoln.solution = map((function (l) { return rotateLine(l, (dir*Math.PI)/(2*rFrames), false); }), currSoln.solution); }
+                    else { currSoln.solution = map((function (l) { return rotateLine(l, (dir*Math.PI)/(2*rFrames), true); }), currSoln.solution); }
                     drawSolution(currSoln, c, ctx, false);
                     j += 1;
                 }, 1);

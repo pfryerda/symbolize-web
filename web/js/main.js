@@ -12,10 +12,10 @@ cards.ready(function(){    //Force portrait mode
 //Constants definition and canvas set up
 //----------------------------------------
 
-var WIDTH = window.innerWidth;											 //Document width
-var hintStartLeft = WIDTH/2 - 110;										 //Hint Box position from left
-var CANVASWIDTH = WIDTH - 30;											 //Canvas width
-var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
+var WIDTH = window.innerWidth,										 //Document width
+    hintStartLeft = WIDTH/2 - 110,									 //Hint Box position from left
+    CANVASWIDTH = WIDTH - 30,										 //Canvas width
+    gameCanvas = document.getElementById("gameCanvas"); 		     //Canvas
 
 gameCanvas.width = CANVASWIDTH;
 gameCanvas.height = CANVASWIDTH;
@@ -72,7 +72,7 @@ App.populator('game', function (page) {
 				$(page).find('.pencil')[0].className = "app-button tool pencil";
 			}
 	    });
-	    $(page).find('.rotate'         ).on('click', function () { rotateGraph(gameCanvas, context);   });
+	    $(page).find('.rotate'         ).on('click', function () { rotateGraph(gameCanvas, context, -1);   });
 	    $(page).find('.flip'           ).on('click', function () { flipGraph(gameCanvas, context);     });
 	    $(page).find('.undo'           ).on('click', function () { undo(gameCanvas, context);          });
 		$(page).find('.check'          ).on('click', function () { 
@@ -90,15 +90,18 @@ App.populator('game', function (page) {
 	    var startPoint = "";
 	    var tmpPoint = "";
 	    var mouseDown = false
-	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent  , false);
-	    gameCanvas.addEventListener("mouseup"    , mouseUpEvent    , false);
-	    gameCanvas.addEventListener("mousemove"  , mouseMoveEvent  , false);
-	    gameCanvas.addEventListener("dblclick"   , doubleClickEvent, false);
-	    gameCanvas.addEventListener("dbltap"     , doubleClickEvent, false);
-	    document.addEventListener(  "touchstart" , touchHandler    , true);
-	    document.addEventListener(  "touchmove"  , touchHandler    , true);
-	    document.addEventListener(  "touchend"   , touchHandler    , true);
-	    document.addEventListener(  "touchcancel", touchHandler    , true);
+
+	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent, false);
+	    gameCanvas.addEventListener("mouseup"    , mouseUpEvent  , false);
+	    gameCanvas.addEventListener("mousemove"  , mouseMoveEvent, false);
+	    gameCanvas.addEventListener("dblclick"   , doubleHitEvent, false);
+	    Hammer(gameCanvas).on(      "doubletap"  , doubleHitEvent);
+	    Hammer(gameCanvas).on(      "rotate"     , rotateEvent);
+	    Hammer(gameCanvas).on(      "pinch"      , flipEvent);
+	    document.addEventListener(  "touchstart" , touchHandler  , true);
+	    document.addEventListener(  "touchmove"  , touchHandler  , true);
+	    document.addEventListener(  "touchend"   , touchHandler  , true);
+	    document.addEventListener(  "touchcancel", touchHandler  , true);
 	  
 	    //Mouse Interactive Drawing:
 	    function mouseDownEvent(event) {
@@ -126,8 +129,34 @@ App.populator('game', function (page) {
 		    }
 	    }
 
-	    function doubleClickEvent(event) {
+	    function doubleHitEvent(event) {
+	    	if (inDrawMode) {
+	    		activateEraseMode();
+				$(page).find('.eraser')[0].className = "app-button tools-Active eraser";
+				$(page).find('.pencil')[0].className = "app-button tool pencil";
+	    	} else {
+	    		activateDrawMode(); 
+				$(page).find('.pencil')[0].className = "app-button tools-Active pencil";
+				$(page).find('.eraser')[0].className = "app-button tool eraser";
+	    	}
+	    }
+
+
+	    //Touch non drawing events
+	    function rotateEvent(event) {
+	    	rotateGraph(gameCanvas, context, -1);
+	    	//rotateGraph(gameCanvas, context, event.rotation/Math.abs(event.rotation));
+	    }
+
+	    function flipEvent(event) {
 	    	flipGraph(gameCanvas, context);
+	    	/*
+	    	if(event.velocityX > event.velocityY) {
+	
+	    	} else {
+	
+	    	}
+	    	*/
 	    }
 
 	    //Touch interactive Drawing (simulates mouse):
@@ -135,19 +164,21 @@ App.populator('game', function (page) {
 		    var touchLst = event.changedTouches,
 		        fst = touchLst[0],
 		        touchType = "";
-		    switch(event.type) {
-		        case "touchstart": touchType = "mousedown"; break;      
-		        case "touchend"  : touchType = "mouseup"  ; break;
-		        case "touchmove" : touchType = "mousemove"; break;
-		        default: return;
-		    }
+		    if (touchLst.length == 1) {
+			    switch(event.type) {
+			        case "touchstart": touchType = "mousedown"; break;      
+			        case "touchend"  : touchType = "mouseup"  ; break;
+			        case "touchmove" : touchType = "mousemove"; break;
+			        default: return;
+			    }
 
-		    var mouseSimulatedEvent = document.createEvent("MouseEvent");
-		    mouseSimulatedEvent.initMouseEvent(touchType, true, true, window, 1, fst.screenX, fst.screenY, 
-		                              fst.clientX, fst.clientY, false, false, false, false, 0/*left*/, null);
+			    var mouseSimulatedEvent = document.createEvent("MouseEvent");
+			    mouseSimulatedEvent.initMouseEvent(touchType, true, true, window, 1, fst.screenX, fst.screenY, 
+			                              fst.clientX, fst.clientY, false, false, false, false, 0/*left*/, null);
 
-		    fst.target.dispatchEvent(mouseSimulatedEvent);
-		    event.preventDefault();
+			    fst.target.dispatchEvent(mouseSimulatedEvent);
+			    event.preventDefault();
+			}
 		}
 	    
 	});

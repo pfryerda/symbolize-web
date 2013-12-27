@@ -39,9 +39,10 @@ var DEVMODE = false,      //Force grid and level 0 (Dev level)
 //Variable Declaration
 //-------------------
 
-var currLevelNum = 1,                                         //Defaults level 1
-    currLevel = Levels[1],                                    //Defaults level 1
-    currSoln = new UserSolution(currLevel.graph, 0, 0, []),   //Defaults level 1
+var currWorldNum = 1,                                         //Defaults world 1
+    currLevelNum = 1,                                         //Defaults level 1
+    currLevel = Levels[1][1],                                 //Defaults level 1-1
+    currSoln = new UserSolution(currLevel.graph, 0, 0, []),   //Defaults level 1-1
 
     inDrawMode  = true,                                       //Defaults Draw  Mode enabled
     inEraseMode = !inDrawMode;                                //Defaults Erase Mode disabled

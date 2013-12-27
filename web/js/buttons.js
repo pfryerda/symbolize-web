@@ -150,7 +150,7 @@ function checkSolution(c, ctx) {
     arrangeMoves(currSoln.moves);
     if (solutionEqual(currLevel, currSoln)){
         gameReset(c, ctx);
-        if (currLevelNum === (Levels.length - 2)) {
+        if (currLevelNum === (Levels[1].length - 1)) {
             App.dialog({
             title : "Congratulations",
             text : "You have beaten Symbolize!",

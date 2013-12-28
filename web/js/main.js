@@ -87,10 +87,11 @@ App.populator('game', function (page) {
 	    //Interactive Drawing
 	    //-------------------
 
-	    var startPoint = "";
-	    var tmpPoint = "";
-	    var mouseDown = false;
-	    var rotationBool = false;
+	    var startPoint = "",
+	    	tmpPoint = "",
+	    	mouseDown = false,
+	    	rotationRightBool = false,
+	    	rotationLeftBool = false;
 
 	    /* var options = {
 	            text: "Luke is awesome",  // String
@@ -127,9 +128,14 @@ App.populator('game', function (page) {
 
     	function mouseUpEvent(event) {
     		"use strict";
-    		if  (rotationBool) {
+    		if  (rotationRightBool) {
     			rotateGraph(gameCanvas, context, -1);
-    			rotationBool = false;
+    			rotationRightBool = false;
+    			startPoint = "";
+    		}
+    		else if (rotationLeftBool) {
+    			rotateGraph(gameCanvas, context, 1);
+    			rotationLeftBool = false;
     			startPoint = "";
     		}
     		else if (startPoint !== "") {
@@ -147,21 +153,16 @@ App.populator('game', function (page) {
 	    function doubleHitEvent(event) {
 	    	"use strict";
 	    	flipGraph(gameCanvas, context);
-	    	var options = {
-	            text: "Luke is awesome",  // String
-	            duration: 2000 // Integer
-        	};
-
-        	var toast = new Toast(options);
 	    }
 
 
 	    //Touch non drawing events
 	    function rotateEvent(event) {
 	    	"use strict";
-	    	rotationBool = true;
-	    	//rotateGraph(gameCanvas, context, -1);
-	    	//rotateGraph(gameCanvas, context, event.rotation/Math.abs(event.rotation));
+	    	if (!rotationRightBool && !rotationLeftBool) { 
+	    		if (event.gesture.rotation > 0) rotationRightBool = true;
+	    		else 							rotationLeftBool  = true;
+	    	}
 	    }
 
 
@@ -172,21 +173,19 @@ App.populator('game', function (page) {
 		        fst = touchLst[0],
 		        touchType = "";
 		    
-		    if (true) {//touchLst.length == 1) {
-			    switch(event.type) {
-			        case "touchstart": touchType = "mousedown"; break;      
-			        case "touchend"  : touchType = "mouseup"  ; break;
-			        case "touchmove" : touchType = "mousemove"; break;
-			        default: return;
-			    }
+		    switch(event.type) {
+		        case "touchstart": touchType = "mousedown"; break;      
+		        case "touchend"  : touchType = "mouseup"  ; break;
+		        case "touchmove" : touchType = "mousemove"; break;
+		        default: return;
+		    }
 
-			    var mouseSimulatedEvent = document.createEvent("MouseEvent");
-			    mouseSimulatedEvent.initMouseEvent(touchType, true, true, window, 1, fst.screenX, fst.screenY, 
-			                              fst.clientX, fst.clientY, false, false, false, false, 0/*left*/, null);
+		    var mouseSimulatedEvent = document.createEvent("MouseEvent");
+		    mouseSimulatedEvent.initMouseEvent(touchType, true, true, window, 1, fst.screenX, fst.screenY, 
+		                              fst.clientX, fst.clientY, false, false, false, false, 0/*left*/, null);
 
-			    fst.target.dispatchEvent(mouseSimulatedEvent);
-			    event.preventDefault();
-			}
+		    fst.target.dispatchEvent(mouseSimulatedEvent);
+		    event.preventDefault();
 		}
 	    
 	});

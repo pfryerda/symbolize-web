@@ -100,6 +100,9 @@ App.populator('game', function (page) {
 
         	var toast = new Toast(options);*/
 
+	    document.addEventListener(  "mousedown"  , mouseDownEvent, false);
+	    document.addEventListener(  "mouseup"    , mouseUpEvent  , false);
+	    document.addEventListener(  "mousemove"  , mouseMoveEvent, false);
 	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent, false);
 	    gameCanvas.addEventListener("mouseup"    , mouseUpEvent  , false);
 	    gameCanvas.addEventListener("mousemove"  , mouseMoveEvent, false);
@@ -121,33 +124,31 @@ App.populator('game', function (page) {
 
 	    function mouseMoveEvent(event) {
 	    	"use strict";
-	    	if (!mouseDown || !inEraseMode) return;
+	    	if (!mouseDown || !inEraseMode || rotationLeftBool || rotationRightBool) return;
 	    	tmpPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
 	    	removeLine(tmpPoint, gameCanvas, context);
 	    }
 
     	function mouseUpEvent(event) {
     		"use strict";
+    		mouseDown = false;
     		if  (rotationRightBool) {
     			rotateGraph(gameCanvas, context, -1);
     			rotationRightBool = false;
-    			startPoint = "";
     		}
     		else if (rotationLeftBool) {
     			rotateGraph(gameCanvas, context, 1);
     			rotationLeftBool = false;
-    			startPoint = "";
     		}
     		else if (startPoint !== "") {
-    			mouseDown = false;
 				var endPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
 		    	console.log("End Point: = ", endPoint);
 		    	var newLine = new Line(startPoint, endPoint, "User");
 
 		    	if (inDrawMode)  {    addLine(newLine, gameCanvas, context); }
 		    	//if (inEraseMode) { removeLine(newLine, gameCanvas, context); }
-		    	startPoint = "";
 		    }
+		    startPoint = "";
 	    }
 
 	    function doubleHitEvent(event) {
@@ -159,10 +160,12 @@ App.populator('game', function (page) {
 	    //Touch non drawing events
 	    function rotateEvent(event) {
 	    	"use strict";
-	    	if (!rotationRightBool && !rotationLeftBool) { 
-	    		if (event.gesture.rotation > 0) rotationRightBool = true;
-	    		else 							rotationLeftBool  = true;
-	    	}
+	    	if (event.gesture.touches.length === 2) {
+	    		if (!rotationRightBool && !rotationLeftBool) { 
+	        		if (event.gesture.rotation > 0) rotationRightBool = true;
+	        		else        					rotationLeftBool  = true;
+	       		}
+	      	}
 	    }
 
 

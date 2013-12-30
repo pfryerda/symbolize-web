@@ -100,9 +100,9 @@ App.populator('game', function (page) {
 
         	var toast = new Toast(options);*/
 
-	    document.addEventListener(  "mousedown"  , mouseDownEvent, false);
-	    document.addEventListener(  "mouseup"    , mouseUpEvent  , false);
-	    document.addEventListener(  "mousemove"  , mouseMoveEvent, false);
+	    //document.addEventListener(  "mousedown"  , mouseDownEvent, false);
+	    //document.addEventListener(  "mouseup"    , mouseUpEvent  , false);
+	    //document.addEventListener(  "mousemove"  , mouseMoveEvent, false);
 	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent, false);
 	    gameCanvas.addEventListener("mouseup"    , mouseUpEvent  , false);
 	    gameCanvas.addEventListener("mousemove"  , mouseMoveEvent, false);
@@ -176,11 +176,18 @@ App.populator('game', function (page) {
 		        fst = touchLst[0],
 		        touchType = "";
 		    
-		    switch(event.type) {
-		        case "touchstart": touchType = "mousedown"; break;      
-		        case "touchend"  : touchType = "mouseup"  ; break;
-		        case "touchmove" : touchType = "mousemove"; break;
-		        default: return;
+		    if (touchLst.length === 1) {
+		    	switch(event.type) {
+			        case "touchstart": touchType = "mousedown"; break;      
+			        case "touchend"  : touchType = "mouseup"  ; break;
+			        case "touchmove" : touchType = "mousemove"; break;
+			        default: return;
+		    	}
+		    } else if (touchLst.length === 2) {
+		    	switch(event.type) {     
+			        case "touchend"  : touchType = "mouseup"  ; break;
+			        default: return;
+			    }
 		    }
 
 		    var mouseSimulatedEvent = document.createEvent("MouseEvent");

@@ -58,7 +58,7 @@ function rotateGraph(c, ctx, dir) {
 //flipGraph: Canvas Context -> Void
 function flipGraph(c, ctx) {
     "use strict";
-    if (currLevelNum === (Levels.length - 2)) {
+    if (currLevelNum === 19) {
         currSoln.solution = map(makeNew, dice[Math.floor(Math.random()*6)]);
         currSoln.moves = [];
         currSoln.linesDrawn = 0;

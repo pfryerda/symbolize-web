@@ -9,10 +9,13 @@ var SCALING = 100,          //Define Grid size (100 x 100)
     XOFFSET = 25,           //Width of document to canvas (from the left)
     YOFFSET = 68,           //Width of document to canvas (from top)
 
-    ROTATIONFRAMES = 300//4750;  //Number of frames in rotation animation (larger equals slower)
-    ROTATIONDROPOFF = 4//73;   //Number of frames dorp off per extra line in puzzle
-    FLIPPINGFRAMES = 300//5250;  //Number of frames in flipping animation (larger equals slower)
-    FLIPPINGDROPOFF = 4//73;   //Number of frames dorp off per extra line in puzzle
+    ROTATIONFRAMES = 300,//4750,  //Number of frames in rotation animation (larger equals slower)
+    ROTATIONDROPOFF = 4,//73,   //Number of frames dorp off per extra line in puzzle
+    FLIPPINGFRAMES = 300,//5250,  //Number of frames in flipping animation (larger equals slower)
+    FLIPPINGDROPOFF = 4,//73,   //Number of frames dorp off per extra line in puzzle
+
+    DRAWINGWIGGLEROOM = 14,
+    ERASEWIGGLEROOM = 1.75,
 
     GRID = new Array(),     //Array of lines making the grid (optional)
     BORDER = new Array();   //Array of lines making the border
@@ -186,9 +189,9 @@ function onLine(p, l) {
     "use strict";
     var slope = getSlope(l);
     if (slope == Infinity || slope == -Infinity) {
-        return (((Math.min(l.p1.y, l.p2.y)-0.5 <= p.y) && (p.y <= Math.max(l.p1.y, l.p2.y)+0.5)) && ((l.p1.x-0.5 <= p.x) && (p.x <= l.p1.x+0.5)));
+        return (((Math.min(l.p1.y, l.p2.y)-ERASEWIGGLEROOM <= p.y) && (p.y <= Math.max(l.p1.y, l.p2.y)+ERASEWIGGLEROOM)) && ((l.p1.x-ERASEWIGGLEROOM <= p.x) && (p.x <= l.p1.x+ERASEWIGGLEROOM)));
     }
-    return ((Math.round(p.y) - Math.round(l.p1.y)) == Math.round(slope)*(Math.round(p.x) - Math.round(l.p1.x))) && ((Math.min(l.p1.x, l.p2.x)-0.5 <= p.x) && (p.x <= Math.max(l.p1.x, l.p2.x)+0.5));
+    return ((Math.round(p.y) - Math.round(l.p1.y)) === Math.round(slope)*(Math.round(p.x) - Math.round(l.p1.x))) && ((Math.min(l.p1.x, l.p2.x)-ERASEWIGGLEROOM <= p.x) && (p.x <= Math.max(l.p1.x, l.p2.x)+ERASEWIGGLEROOM));
 }
 
 //lineLength: Line -> Number
@@ -261,8 +264,8 @@ function lineLT(line1, line2) {
 //pointEqual: Line Line -> Bool
 function pointEqual(point1, point2) {
     "use strict";
-    return (((point1.x - 14) <= point2.x) && (point2.x <= (point1.x + 14)) && 
-            ((point1.y - 14) <= point2.y) && (point2.y <= (point1.y + 14)));
+    return (((point1.x - DRAWINGWIGGLEROOM) <= point2.x) && (point2.x <= (point1.x + DRAWINGWIGGLEROOM)) && 
+            ((point1.y - DRAWINGWIGGLEROOM) <= point2.y) && (point2.y <= (point1.y + DRAWINGWIGGLEROOM)));
 }
 
 //lineEqual: Line Line -> Bool

@@ -15,7 +15,7 @@ var SCALING = 100,          //Define Grid size (100 x 100)
     FLIPPINGDROPOFF = 4,//73,   //Number of frames dorp off per extra line in puzzle
 
     DRAWINGWIGGLEROOM = 14,
-    ERASEWIGGLEROOM = 1.75,
+    ERASEWIGGLEROOM = 1.25,
 
     GRID = new Array(),     //Array of lines making the grid (optional)
     BORDER = new Array();   //Array of lines making the border
@@ -191,7 +191,8 @@ function onLine(p, l) {
     if (slope == Infinity || slope == -Infinity) {
         return (((Math.min(l.p1.y, l.p2.y)-ERASEWIGGLEROOM <= p.y) && (p.y <= Math.max(l.p1.y, l.p2.y)+ERASEWIGGLEROOM)) && ((l.p1.x-ERASEWIGGLEROOM <= p.x) && (p.x <= l.p1.x+ERASEWIGGLEROOM)));
     }
-    return ((Math.round(p.y) - Math.round(l.p1.y)) === Math.round(slope)*(Math.round(p.x) - Math.round(l.p1.x))) && ((Math.min(l.p1.x, l.p2.x)-ERASEWIGGLEROOM <= p.x) && (p.x <= Math.max(l.p1.x, l.p2.x)+ERASEWIGGLEROOM));
+    return ((((Math.round(p.y) - Math.round(l.p1.y) - ERASEWIGGLEROOM) <= Math.round(slope)*(Math.round(p.x) - Math.round(l.p1.x))) && (Math.round(slope)*(Math.round(p.x) - Math.round(l.p1.x)) <= (Math.round(p.y) - Math.round(l.p1.y) + ERASEWIGGLEROOM))) && ((Math.min(l.p1.x, l.p2.x)-ERASEWIGGLEROOM <= p.x) && (p.x <= Math.max(l.p1.x, l.p2.x)+ERASEWIGGLEROOM)));
+    //return (((Math.round(p.y) - Math.round(l.p1.y)) === Math.round(slope)*(Math.round(p.x) - Math.round(l.p1.x))) && ((Math.min(l.p1.x, l.p2.x)-ERASEWIGGLEROOM <= p.x) && (p.x <= Math.max(l.p1.x, l.p2.x)+ERASEWIGGLEROOM)));
 }
 
 //lineLength: Line -> Number

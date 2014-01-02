@@ -230,5 +230,20 @@ App.populator('levels', function (page) {
 	});
 });
 
-
-App.load('home'); //Game start up
+(function()
+{
+  	if( window.localStorage )
+  	{
+   		if( !localStorage.getItem( 'firstLoad' ) )
+   		{
+    		localStorage[ 'firstLoad' ] = true;
+    		//document.getElementById("hintText").innerHTML = "This is your first time playing Symbolize.  Would you like to go to the Tutorial?";
+    		//$('.hint' ).click(function() { $('.hintBox').toggle(); });
+     		App.load('tut1'); //Game start up
+   		}  
+    	else {
+      		localStorage.removeItem( 'firstLoad' );
+  			App.load('home'); //Game start up
+  		}
+  	}
+})();

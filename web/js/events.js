@@ -15,13 +15,17 @@ function gameReset(c, ctx) {
 function loadLevel(c, ctx) {
     "use strict";
     gameReset(c, ctx);
-    if (DEVMODE) { currLevelNum = (Levels.length - 1); }
-    currLevel = Levels[currLevelNum];
+    if (DEVMODE) { 
+        currWorldNum = 0;
+        currLevelNum = 2;
+    }
+
+    currLevel = Levels[currWorldNum][currLevelNum];
     currSoln = new UserSolution(map(makeNew, currLevel.graph), 0, 0, []);
 
     if (currLevelNum === 0) { document.getElementById("gameTitle").innerHTML = "Tutorial"; }
-    else if (currLevelNum === (Levels.length - 2)) { document.getElementById("gameTitle").innerHTML = "Final Level"; }
-    else if (currLevelNum === (Levels.length - 1)) { document.getElementById("gameTitle").innerHTML = "Development Level"; }
+    else if (currLevelNum === (Levels[1].length - 1)) { document.getElementById("gameTitle").innerHTML = "Final Level"; }
+    else if (currLevelNum === 2 && currWorldNum === 0) { document.getElementById("gameTitle").innerHTML = "Development Level"; }
     else { document.getElementById("gameTitle").innerHTML = "Level " + currLevelNum; }
 
     var lineDrawWord = "lines", lineEraseWord = "lines";
@@ -36,26 +40,27 @@ function loadLevel(c, ctx) {
     document.getElementById("lineErase").innerHTML = lineEraseWord;
 
     console.log("loaded level", currLevelNum);
-    drawSolution(currSoln, c, ctx);
+    drawSolution(currSoln, c, ctx, true);
 }
 
 //addLine: Line -> Canvas -> Context -> Void
 function addLine(l, c, ctx) {
     "use strict";
-    var j = -1;
+    var scaledl = new Line(new Posn(Math.round(l.p1.x / 10) * 10, Math.round(l.p1.y / 10) * 10), new Posn(Math.round(l.p2.x / 10) * 10, Math.round(l.p2.y / 10) * 10), l.owner),
+        j = -1;
     if (l.p1.x !== l.p2.x || l.p1.y !== l.p2.y) {
         if (currSoln.linesDrawn < (currLevel.restriction.draw)) {
             console.log("adding line to solution");
-            for (var i = 0; i < currSoln.solution.length; i += 1) {
-                if (isScalarMults(l, currSoln.solution[i]) && interset(l, currSoln.solution[i])) { 
+            /*for (var i = 0; i < currSoln.solution.length; i += 1) {
+                if (isScalarMults(scaledl, currSoln.solution[i]) && interset(scaledl, currSoln.solution[i]) && currSoln.solution[i].owner != "User") { 
                     j = i;
-                    if (l.p1.y === l.p2.y && l.p1.y === currSoln.solution[i].p1.y && l.p1.y === currSoln.solution[i].p2.y) {
-                        l = new Line(lowestX(l, currSoln.solution[i]), highestX(l, currSoln.solution[i]), "AppExtended");
+                    if (scaledl.p1.y === scaledl.p2.y && scaledl.p1.y === currSoln.solution[i].p1.y && scaledl.p1.y === currSoln.solution[i].p2.y) {
+                        l = new Line(lowestX(scaledl, currSoln.solution[i]), highestX(scaledl, currSoln.solution[i]), "AppExtended");
                     } else {
-                        l = new Line(lowestY(l, currSoln.solution[i]), highestY(l, currSoln.solution[i]), "AppExtended");
+                        l = new Line(lowestY(scaledl, currSoln.solution[i]), highestY(scaledl, currSoln.solution[i]), "AppExtended");
                     }
                 }
-            }
+            }*/
             if (j > -1) { 
                 currSoln.moves.unshift(["drawSpecial", l, makeNew(currSoln.solution[j])]);
                 if (currSoln.solution[j].owner == "User") { currSoln.linesDrawn -= 1; }
@@ -65,7 +70,7 @@ function addLine(l, c, ctx) {
             }
             currSoln.solution.unshift(l);
             currSoln.linesDrawn += 1;
-            drawSolution(currSoln, c, ctx)
+            drawSolution(currSoln, c, ctx, true)
             console.log("added line to solution");
         } else {
             console.log("Cannot draw more lines");
@@ -79,6 +84,7 @@ function addLine(l, c, ctx) {
     }
 }
 
+/*
 //removeLine: Line -> Canvas -> Context -> Void
 function removeLine(line, c, ctx) {
     "use strict";
@@ -100,7 +106,7 @@ function removeLine(line, c, ctx) {
         if (eraseLine[1].owner !== "User") { currSoln.linesErased += 1; }
         if (eraseLine[1].owner !== "App") { currSoln.linesDrawn -=1; }
         currSoln.moves.unshift(["erase", makeNew(eraseLine[1])]);
-        drawSolution(currSoln, c, ctx);
+        drawSolution(currSoln, c, ctx, true);
         console.log("removed line from solution");
     } else if (currSoln.linesErased >= (currLevel.restriction.erase) && eraseLine[1].owner === "App") {
         var options = {
@@ -110,4 +116,30 @@ function removeLine(line, c, ctx) {
 
         var toast = new Toast(options);
     }
+}*/
+
+//removeLine: Posn Canvas Context -> Void
+function removeLine(p, c, ctx) {
+    "use strict";
+    for (var i = 0; i < currSoln.solution.length; i += 1) {
+        if(onLine(p, currSoln.solution[i])) {
+            if(currSoln.solution[i].owner === "User" || currSoln.linesErased < (currLevel.restriction.erase)) {
+                console.log("erasing line");    
+                if (currSoln.solution[i].owner !== "User") { currSoln.linesErased += 1; }
+                if (currSoln.solution[i].owner !== "App")  { currSoln.linesDrawn -=1; }
+                currSoln.moves.unshift(["erase", makeNew(currSoln.solution[i])]);
+                currSoln.solution.splice(i, 1);
+                drawSolution(currSoln, c, ctx, true);
+                console.log("removed line from solution");
+            } else if (currSoln.linesErased >= (currLevel.restriction.erase) && currSoln.solution[i].owner === "App") {
+                var options = {
+                    text: "Cannot erase any more lines",  // String
+                    duration: 2000 // Integer
+                };
+
+                var toast = new Toast(options);
+            }
+        }
+    }
 }
+

@@ -12,10 +12,10 @@ cards.ready(function(){    //Force portrait mode
 //Constants definition and canvas set up
 //----------------------------------------
 
-var WIDTH = window.innerWidth;											 //Document width
-var hintStartLeft = WIDTH/2 - 110;										 //Hint Box position from left
-var CANVASWIDTH = WIDTH - 30;											 //Canvas width
-var gameCanvas = document.getElementById("gameCanvas"); 		         //Canvas
+var WIDTH = window.innerWidth,										 //Document width
+    hintStartLeft = WIDTH/2 - 110,									 //Hint Box position from left
+    CANVASWIDTH = WIDTH - 30,										 //Canvas width
+    gameCanvas = document.getElementById("gameCanvas"); 		     //Canvas
 
 gameCanvas.width = CANVASWIDTH;
 gameCanvas.height = CANVASWIDTH;
@@ -40,7 +40,7 @@ App.populator('home', function (page) {
 //----------
 
 App.populator('game', function (page) {
-	console.log("loaded game");
+	console.log("loaded game");	
 	$(page).find('.pencil')[0].className = "app-button tools-Active pencil"; // Default highlighted pencil
 
 	$(page).on('appShow', function () {
@@ -72,11 +72,11 @@ App.populator('game', function (page) {
 				$(page).find('.pencil')[0].className = "app-button tool pencil";
 			}
 	    });
-	    $(page).find('.rotate'         ).on('click', function () { rotateGraph(gameCanvas, context);   });
-	    $(page).find('.flip'           ).on('click', function () { flipGraph(gameCanvas, context);     });
-	    $(page).find('.undo'           ).on('click', function () { undo(gameCanvas, context);          });
+	    $(page).find('.rotate'         ).on('click', function () { rotateGraph(gameCanvas, context, -1);  });
+	    $(page).find('.flip'           ).on('click', function () { flipGraph(gameCanvas, context, true);  });
+	    $(page).find('.undo'           ).on('click', function () { undo(gameCanvas, context);             });
 		$(page).find('.check'          ).on('click', function () { 
-			if (checkSolution(gameCanvas, context)) { setTimeout(function() {$('.hintBox').toggle();},150); } 
+			if (checkSolution(gameCanvas, context)) { setTimeout(function() {$('.hintBox').toggle();}, 150); } 
 		});
 	    $(page).find('.reset'          ).on('click', function () { resetGraph(gameCanvas, context);    });
 	    $(page).find('.app-button.left').on('click', function () { activateDrawMode();                 });
@@ -87,40 +87,107 @@ App.populator('game', function (page) {
 	    //Interactive Drawing
 	    //-------------------
 
-	    var startPoint = "";
+	    var startPoint = "",
+	    	tmpPoint = "",
+	    	mouseDown = false,
+	    	rotationRightBool = false,
+	    	rotationLeftBool = false;
+
+	    /* var options = {
+	            text: "Luke is awesome",  // String
+	            duration: 2000 // Integer
+        	};
+
+        	var toast = new Toast(options);*/
+
+	    //document.addEventListener(  "mousedown"  , mouseDownEvent, false);
+	    //document.addEventListener(  "mouseup"    , mouseUpEvent  , false);
+	    //document.addEventListener(  "mousemove"  , mouseMoveEvent, false);
 	    gameCanvas.addEventListener("mousedown"  , mouseDownEvent, false);
+	    gameCanvas.addEventListener("mouseup"    , mouseUpEvent  , false);
+	    gameCanvas.addEventListener("mousemove"  , mouseMoveEvent, false);
+	    //gameCanvas.addEventListener("dblclick"   , doubleHitEvent, false);
+	    Hammer(gameCanvas).on(      "doubletap"  , doubleHitEvent);
+	    Hammer(gameCanvas).on(      "rotate"     , rotateEvent);
 	    document.addEventListener(  "touchstart" , touchHandler  , true);
+	    document.addEventListener(  "touchmove"  , touchHandler  , true);
 	    document.addEventListener(  "touchend"   , touchHandler  , true);
-	    document.addEventListener(  "touchcancel", touchHandler  , true);	    
+	    document.addEventListener(  "touchcancel", touchHandler  , true);
 	  
-	    //Mouse Interactive Drawing:	   
+	    //Mouse Interactive Drawing:
 	    function mouseDownEvent(event) {
+	    	"use strict";
 			startPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
 			console.log("Start Point: = ", startPoint);
-	    	gameCanvas.addEventListener("mouseup", mouseUpEvent, false);
+	    	mouseDown = true;
+	    }
+
+	    function mouseMoveEvent(event) {
+	    	"use strict";
+	    	if (!mouseDown || !inEraseMode || rotationLeftBool || rotationRightBool) return;
+	    	tmpPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
+	    	removeLine(tmpPoint, gameCanvas, context);
 	    }
 
     	function mouseUpEvent(event) {
-    		if(startPoint !== "") {
-				endPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
+    		"use strict";
+    		mouseDown = false;
+    		if  (rotationRightBool) {
+    			rotateGraph(gameCanvas, context, -1);
+    			rotationRightBool = false;
+    		}
+    		else if (rotationLeftBool) {
+    			rotateGraph(gameCanvas, context, 1);
+    			rotationLeftBool = false;
+    		}
+    		else if (startPoint !== "") {
+				var endPoint = scalePoint(event.pageX, event.pageY, SCALING, CANVASWIDTH);
 		    	console.log("End Point: = ", endPoint);
-		    	newLine = new Line(startPoint, endPoint, "User");
+		    	var newLine = new Line(startPoint, endPoint, "User");
 
 		    	if (inDrawMode)  {    addLine(newLine, gameCanvas, context); }
-		    	if (inEraseMode) { removeLine(newLine, gameCanvas, context); }
-		    	startPoint = "";
+		    	//if (inEraseMode) { removeLine(newLine, gameCanvas, context); }
 		    }
+		    startPoint = "";
 	    }
+
+	    function doubleHitEvent(event) {
+	    	"use strict";
+	    	flipGraph(gameCanvas, context);
+	    }
+
+
+	    //Touch non drawing events
+	    function rotateEvent(event) {
+	    	"use strict";
+	    	if (event.gesture.touches.length === 2) {
+	    		if (!rotationRightBool && !rotationLeftBool) { 
+	        		if (event.gesture.rotation > 0) rotationRightBool = true;
+	        		else        					rotationLeftBool  = true;
+	       		}
+	      	}
+	    }
+
 
 	    //Touch interactive Drawing (simulates mouse):
 	    function touchHandler(event) {
-		    var tocuhLst = event.changedTouches,
-		        fst = tocuhLst[0],
+	    	"use strict";
+		    var touchLst = event.changedTouches,
+		        fst = touchLst[0],
 		        touchType = "";
-		    switch(event.type) {
-		        case "touchstart": touchType = "mousedown"; break;      
-		        case "touchend"  : touchType = "mouseup"  ; break;
-		        default: return;
+		    
+		    if (touchLst.length === 1) {
+		    	switch(event.type) {
+			        case "touchstart": touchType = "mousedown"; break;      
+			        case "touchend"  : touchType = "mouseup"  ; break;
+			        case "touchmove" : touchType = "mousemove"; break;
+			        default: return;
+		    	}
+		    } else if (touchLst.length === 2) {
+		    	switch(event.type) {     
+			        case "touchend"  : touchType = "mouseup"  ; break;
+			        default: return;
+			    }
 		    }
 
 		    var mouseSimulatedEvent = document.createEvent("MouseEvent");

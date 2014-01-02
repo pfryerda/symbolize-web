@@ -22,7 +22,7 @@ function activateEraseMode() {
 }
 
 //rotateGraph Canvas -> Context -> Void
-function rotateGraph(c, ctx) {
+function rotateGraph(c, ctx, dir) {
     "use strict";
     if (currLevelNum === 19) {
         for(var i = diceRoll; i == diceRoll; i = Math.floor(Math.random()*6)) {}
@@ -31,34 +31,59 @@ function rotateGraph(c, ctx) {
         currSoln.moves = [];
         currSoln.linesDrawn = 0;
         currSoln.linesErased = 0;
-        drawSolution(currSoln, c, ctx);
+        drawSolution(currSoln, c, ctx, true);
     } else {
         console.log("rotating graph 90 degree");
 
-        currSoln.solution = map(rotateLine, currSoln.solution);
-        currSoln.moves.unshift("rotate");
-
-        drawSolution(currSoln, c, ctx)
+        var rFrames = ROTATIONFRAMES - ROTATIONDROPOFF*currSoln.solution.length;
+        var j = 1;
+        for (var i = 0; i < rFrames; i += 1) {
+            (function (x) {
+                setTimeout(function () {
+                    if (j != rFrames) { currSoln.solution = map((function (l) { return rotateLine(l, (dir*Math.PI)/(2*rFrames), false); }), currSoln.solution); }
+                    else { currSoln.solution = map((function (l) { return rotateLine(l, (dir*Math.PI)/(2*rFrames), true); }), currSoln.solution); }
+                    drawSolution(currSoln, c, ctx, false);
+                    j += 1;
+                }, 1);
+            })();
+        }
+        drawSolution(currSoln, c, ctx, true);
+        if (dir==-1) { currSoln.moves.unshift("rotateR"); }
+        else         { currSoln.moves.unshift("rotateL"); }
         console.log("rotated graph 90 degree");
     }
 }
 
-//flipGraph: Canvas -> Context -> Void
+
+//flipGraph: Canvas Context -> Void
 function flipGraph(c, ctx) {
     "use strict";
-    if (currLevelNum === (Levels.length - 2)) {
+    if (currLevelNum === 19) {
         currSoln.solution = map(makeNew, dice[Math.floor(Math.random()*6)]);
         currSoln.moves = [];
         currSoln.linesDrawn = 0;
         currSoln.linesErased = 0;
-        drawSolution(currSoln, c, ctx);
+        drawSolution(currSoln, c, ctx, true);
     } else {
         console.log("reflecting graph");
 
-        currSoln.solution = map(flipLine, currSoln.solution);
-        currSoln.moves.unshift("flip");
-
-        drawSolution(currSoln, c, ctx);
+        var fFrames = FLIPPINGFRAMES - FLIPPINGDROPOFF*currSoln.solution.length;
+        var j = 1;
+        for (var i = 1; i <= fFrames; i += 1) {
+            (function (x) {
+                setTimeout(function () { 
+                    if (j != (fFrames/2)) {
+                        if (j != fFrames) { currSoln.solution = map((function (l) { return hCompressLine(  l, j, false, fFrames); }), currSoln.solution); }
+                        else {              currSoln.solution = map((function (l) { return hCompressLine(  l, j, true,  fFrames); }), currSoln.solution); }
+                        drawSolution(currSoln, c, ctx, false);
+                        if (j != fFrames) { currSoln.solution = map((function (l) { return hUnCompressLine(l, j,        fFrames); }), currSoln.solution); }  
+                    }
+                    j += 1;
+                }, 1);
+            })();
+        }
+        drawSolution(currSoln, c, ctx, true);
+        currSoln.moves.unshift("Hflip");
         console.log("reflected graph");
     }
 }
@@ -70,11 +95,17 @@ function undo(c, ctx) {
         lastMove = oldMoves[0];
     if (oldMoves.length !== 0) {
         switch (lastMove) {
-        case "rotate": //Unrotate non flipped
-            currSoln.solution = map(unrotateLine, currSoln.solution);
+        case "rotateR": //Unrotate right
+            currSoln.solution = map(unrotateLineR, currSoln.solution);
             break;
-        case "flip": //Unflip
-            currSoln.solution = map(flipLine, currSoln.solution);
+        case "rotateL": //Unrotate left
+            currSoln.solution = map(unrotateLineL, currSoln.solution);
+            break;
+        case "Hflip": //Unflip Horizontally
+            currSoln.solution = map(hFlipLine, currSoln.solution);
+            break;
+        case "Vflip": //Unflip Vertically
+            currSoln.solution = map(vFlipLine, currSoln.solution);
             break;
         default:
             if(lastMove[0] === "draw") {
@@ -96,7 +127,7 @@ function undo(c, ctx) {
                 //throw error
             }
         }
-        drawSolution(currSoln, c, ctx)
+        drawSolution(currSoln, c, ctx, true)
         currSoln.moves.splice(0, 1);
         console.log("undoed");
     }
@@ -119,7 +150,7 @@ function checkSolution(c, ctx) {
     arrangeMoves(currSoln.moves);
     if (solutionEqual(currLevel, currSoln)){
         gameReset(c, ctx);
-        if (currLevelNum === (Levels.length - 2)) {
+        if (currLevelNum === (Levels[1].length - 1)) {
             App.dialog({
             title : "Congratulations",
             text : "You have beaten Symbolize!",
@@ -157,7 +188,7 @@ function resetGraph(c, ctx) {
     if (result ===  "reset") {
         gameReset(c, ctx);
         if (currLevelNum === 19) { currSoln.solution = map(makeNew, dice[Math.floor(Math.random()*6)])}
-        drawSolution(currSoln, c, ctx);
+        drawSolution(currSoln, c, ctx, true);
         console.log("reseted graph");
     } else {
         console.log("reseted graph canceled");

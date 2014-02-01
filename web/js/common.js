@@ -9,10 +9,7 @@ var SCALING = 100,          //Define Grid size (100 x 100)
     XOFFSET = 25,           //Width of document to canvas (from the left)
     YOFFSET = 68,           //Width of document to canvas (from top)
 
-    ROTATIONFRAMES = 300,//4750,  //Number of frames in rotation animation (larger equals slower)
-    ROTATIONDROPOFF = 4,//73,   //Number of frames dorp off per extra line in puzzle
-    FLIPPINGFRAMES = 300,//5250,  //Number of frames in flipping animation (larger equals slower)
-    FLIPPINGDROPOFF = 4,//73,   //Number of frames dorp off per extra line in puzzle
+    numFrames,
 
     DRAWINGWIGGLEROOM = 14,
     ERASEWIGGLEROOM = 1.25,

@@ -170,3 +170,44 @@ function drawSolution(userSoln, can, ctx, msg) {
     ctx.restore();                                              //Resets the coords for the next draw
     if (msg) { console.log("finished canvas drawing"); }
 }
+
+
+// calcSpeedL: Number Number -> Number
+// Calculates time required to render a frame
+var calcSpeed = function(del, speed) {
+    return (speed * del) * (60 / 1000);
+}
+
+// testFrameRate: Canvas Context Boolean ->  Void
+// Creates numFrames which is the frame rate based on the rendering speeds of each device
+function testFrameRate (can, ctx, msg) {
+    var speed = 0;
+    for (var i = 0; i < 200; ++i) {
+        var then = new Date().getTime();
+        var l1 = new Line(new Posn(30, 20), new Posn(50, 20), "App");
+
+        drawLine(l1, true, ctx);
+
+        var now = new Date().getTime(),
+            delta = now - then;
+        speed += calcSpeed(delta, 5);
+        clearCanvas(can, false);
+    }
+
+    //numFrames = parseInt(String(1000 / (3*speed + 1)).split('.')[0]);
+    numFrames = parseInt(String(2050 / (3*speed + 1/7)).split('.')[0]);
+
+    if (msg) {
+        var options = {
+            //text: "speed = " + speed,
+            text: "numFrames = " + numFrames + " speed = " + speed,  // String
+            duration: 2000 // Integer
+        };
+
+        var toast = new Toast(options);
+
+        console.log("now = " + now);
+        console.log("delta = " + delta);
+        console.log("speed = " + speed);
+    }
+}

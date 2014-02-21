@@ -22,6 +22,8 @@ gameCanvas.height = CANVASWIDTH;
 document.getElementById('gameCanvas').width = CANVASWIDTH;
 document.getElementById('hintbox').style.left = hintStartLeft + "px";
 
+testFrameRate (gameCanvas, gameCanvas.getContext("2d"), true);
+
 $('.hintBox').toggle();				//Shows the hintBox when the level loads
 
 

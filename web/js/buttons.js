@@ -34,16 +34,21 @@ function rotateGraph(c, ctx, dir) {
         drawSolution(currSoln, c, ctx, true);
     } else {
         console.log("rotating graph 90 degree");
-
-        var rFrames = ROTATIONFRAMES - ROTATIONDROPOFF*currSoln.solution.length;
         var j = 1;
-        for (var i = 0; i < rFrames; i += 1) {
+        for (var i = 0; i < numFrames; ++i) {
             (function (x) {
                 setTimeout(function () {
-                    if (j != rFrames) { currSoln.solution = map((function (l) { return rotateLine(l, (dir*Math.PI)/(2*rFrames), false); }), currSoln.solution); }
-                    else { currSoln.solution = map((function (l) { return rotateLine(l, (dir*Math.PI)/(2*rFrames), true); }), currSoln.solution); }
+                    if (j != rFrames) {
+                        currSoln.solution = map((function (l) {
+                            return rotateLine(l, (dir*Math.PI)/(2*rFrames), false);
+                        }), currSoln.solution);
+                    } else {
+                        currSoln.solution = map((function (l) {
+                            return rotateLine(l, (dir*Math.PI)/(2*rFrames), true);
+                        }), currSoln.solution);
+                    }
                     drawSolution(currSoln, c, ctx, false);
-                    j += 1;
+                    ++j;
                 }, 1);
             })();
         }
@@ -67,18 +72,32 @@ function flipGraph(c, ctx) {
     } else {
         console.log("reflecting graph");
 
-        var fFrames = FLIPPINGFRAMES - FLIPPINGDROPOFF*currSoln.solution.length;
         var j = 1;
-        for (var i = 1; i <= fFrames; i += 1) {
+        for (var i = 0; i < numFrames; ++i) {
             (function (x) {
                 setTimeout(function () { 
                     if (j != (fFrames/2)) {
-                        if (j != fFrames) { currSoln.solution = map((function (l) { return hCompressLine(  l, j, false, fFrames); }), currSoln.solution); }
-                        else {              currSoln.solution = map((function (l) { return hCompressLine(  l, j, true,  fFrames); }), currSoln.solution); }
+                        if (j != fFrames) { 
+                            currSoln.solution = map((function (l) {
+                                return hCompressLine(  l, j, false, fFrames);
+                            }), currSoln.solution);
+                        } else {
+                            currSoln.solution = map((function (l) {
+                                return hCompressLine(  l, j, true,  fFrames);
+                            }), currSoln.solution);
+                        }
                         drawSolution(currSoln, c, ctx, false);
-                        if (j != fFrames) { currSoln.solution = map((function (l) { return hUnCompressLine(l, j,        fFrames); }), currSoln.solution); }  
+                        if (j != fFrames) {
+                            currSoln.solution = map((function (l) {
+                                return hUnCompressLine(l, j, fFrames);
+                            }), currSoln.solution);
+<<<<<<< Updated upstream
+                        }
+=======
+                        }  
+>>>>>>> Stashed changes
                     }
-                    j += 1;
+                    ++j;
                 }, 1);
             })();
         }
@@ -90,7 +109,7 @@ function flipGraph(c, ctx) {
 
 //undo: Canvas -> Context -> Void
 function undo(c, ctx) {
-    "use strict"
+    "use strict";
     var oldMoves = currSoln.moves,
         lastMove = oldMoves[0];
     if (oldMoves.length !== 0) {
